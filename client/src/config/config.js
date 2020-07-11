@@ -1,9 +1,13 @@
+import PreloaderScene from "../scenes/PreloaderScene"
+import TitleScene from "../scenes/TitleScene"
 
 export default {
     type: Phaser.AUTO,
     parent: "AlpacaShootout",
-    width: 1280,
-    height: 800,
+    width: 800,
+    height: 1280,
     scene: [
+        PreloaderScene,
+        TitleScene
     ]
 }

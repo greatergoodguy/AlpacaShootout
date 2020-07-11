@@ -4,7 +4,8 @@ import config from './config/config'
 class AlpacaShootout extends Phaser.Game {
   constructor () {
     super(config);
-    //this.scene.start('Preloader');
+    
+    this.scene.start('Preloader');
   }
 }
 
