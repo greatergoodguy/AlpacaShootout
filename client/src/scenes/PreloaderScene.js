@@ -14,15 +14,15 @@ export default class PreloaderScene extends Phaser.Scene {
         var element = document.createElement('style')
         document.head.appendChild(element)
         var sheet = element.sheet
-        var styles = '@font-face { font-family: "troika"; src: url("src/assets/fonts/ttf/troika.otf") format("opentype"); }\n'
+        var styles = '@font-face { font-family: "troika"; src: url("client/src/assets/fonts/ttf/troika.otf") format("opentype"); }\n'
         sheet.insertRule(styles, 0)
-        styles = '@font-face { font-family: "Caroni"; src: url("src/assets/fonts/ttf/caroni.otf") format("opentype"); }\n'
+        styles = '@font-face { font-family: "Caroni"; src: url("client/src/assets/fonts/ttf/caroni.otf") format("opentype"); }\n'
         sheet.insertRule(styles, 0)
-        styles = '@font-face { font-family: "Piedra-Regular"; src: url("src/assets/fonts/ttf/Piedra-Regular.ttf") format("opentype"); }\n'
+        styles = '@font-face { font-family: "Piedra-Regular"; src: url("client/src/assets/fonts/ttf/Piedra-Regular.ttf") format("opentype"); }\n'
         sheet.insertRule(styles, 0)
-        styles = '@font-face { font-family: "Assistant-SemiBold"; src: url("src/assets/fonts/ttf/Assistant-SemiBold.ttf") format("opentype"); }\n'
+        styles = '@font-face { font-family: "Assistant-SemiBold"; src: url("client/src/assets/fonts/ttf/Assistant-SemiBold.ttf") format("opentype"); }\n'
         sheet.insertRule(styles, 0)
-        styles = '@font-face { font-family: "RobotoSlab-Regular"; src: url("src/assets/fonts/ttf/RobotoSlab-Regular.ttf") format("opentype"); }\n'
+        styles = '@font-face { font-family: "RobotoSlab-Regular"; src: url("client/src/assets/fonts/ttf/RobotoSlab-Regular.ttf") format("opentype"); }\n'
         sheet.insertRule(styles, 0)
     }
 
@@ -43,11 +43,12 @@ export default class PreloaderScene extends Phaser.Scene {
 
     preload() {
         this.displayLoader()
-        // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js')
+        this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js')
 
         this.load.image('buttonLong_brown', 'client/src/assets/ui/buttonLong_brown.png')
         this.load.image('buttonLong_brown_pressed', 'client/src/assets/ui/buttonLong_brown_pressed.png')
         this.load.image('InvisiblePixel', 'client/src/assets/ui/InvisiblePixel.png')
+        this.load.image('whitePixel', 'client/src/assets/ui/whitePixel.png')
         this.load.image('whiteSquare', 'client/src/assets/ui/whiteSquare.png')
 
         this.load.bitmapFont('khodijah', 'client/src/assets/fonts/khodijah.png', 'client/src/assets/fonts/khodijah.fnt')
@@ -58,13 +59,13 @@ export default class PreloaderScene extends Phaser.Scene {
     }
 
     create() {
-        // WebFont.load({
-        //     custom: {
-        //         families: [ 'troika', 'Caroni', 'Piedra-Regular', 'Assistant-SemiBold', 'RobotoSlab-Regular' ]
-        //     },
-        //     active: function ()
-        //     {}
-        // })
+        WebFont.load({
+            custom: {
+                families: [ 'troika', 'Caroni', 'Piedra-Regular', 'Assistant-SemiBold', 'RobotoSlab-Regular' ]
+            },
+            active: function ()
+            {}
+        })
     }
 
     update() {}
