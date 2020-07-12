@@ -1,38 +1,38 @@
 import 'phaser';
 
-export default class UIButton extends Phaser.GameObjects.Container {
+export default class ImageButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text, onButtonClick) {
     super(scene)
     this.scene = scene
     this.onButtonClick = onButtonClick
 
-    this.button = this.scene.add.sprite(0, 0, 'buttonLong_brown').setScale(1.6, 1.1).setInteractive()
-    this.text = this.scene.add.text(0, 0, text, { fontFamily: 'RobotoSlab-Regular', fontSize: '32px', fill: '#fff' })
-    Phaser.Display.Align.In.Center(this.text, this.button)
+    this.button = this.scene.add.sprite(0, 0, 'buttonLong_brown').setScale(0.5, 1.1).setInteractive()
+    this.image = this.scene.add.image(0, 0, 'eye')
+    Phaser.Display.Align.In.Center(this.image, this.button)
 
     this.add(this.button)
-    this.add(this.text)
+    this.add(this.image)
 
     this.button.on('pointerdown', function () {
       this.button.setTint(0xDCDCDC)
       this.button.setTexture('buttonLong_brown_pressed')
-    }.bind(this));
+    }.bind(this))
 
     this.button.on('pointerup', function () {
       this.button.setTint()
       this.button.setTexture('buttonLong_brown')
       this.onButtonClick()
-    }.bind(this));
+    }.bind(this))
 
     this.button.on('pointerover', function () {
       this.button.setTint(0xDCDCDC)
       this.button.setTexture('buttonLong_brown')
-    }.bind(this));
+    }.bind(this))
 
     this.button.on('pointerout', function () {
       this.button.setTint()
       this.button.setTexture('buttonLong_brown')
-    }.bind(this));
+    }.bind(this))
 
     this.x = x
     this.y = y

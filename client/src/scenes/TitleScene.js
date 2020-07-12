@@ -27,7 +27,8 @@ export default class TitleScene extends Phaser.Scene {
             // self.cameras.main.once('camerafadeoutcomplete', function (camera) {
             //     self.scene.start('Lobby')
             // })
-        });
+            this.scene.start('Lobby')
+        }.bind(this));
 
         this.creditsButton = new UIButton(this, config.width/2, 500, 'Credits', function() {
             this.scene.start('Credits')

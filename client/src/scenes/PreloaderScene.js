@@ -50,6 +50,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('InvisiblePixel', 'client/src/assets/ui/InvisiblePixel.png')
         this.load.image('whitePixel', 'client/src/assets/ui/whitePixel.png')
         this.load.image('whiteSquare', 'client/src/assets/ui/whiteSquare.png')
+        this.load.image('eye', 'client/src/assets/ui/eye.png')
 
         this.load.bitmapFont('khodijah', 'client/src/assets/fonts/khodijah.png', 'client/src/assets/fonts/khodijah.fnt')
 

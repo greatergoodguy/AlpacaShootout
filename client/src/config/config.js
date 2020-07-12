@@ -1,6 +1,7 @@
 import PreloaderScene from '../scenes/PreloaderScene'
 import TitleScene from '../scenes/TitleScene'
 import CreditsScene from '../scenes/CreditsScene'
+import LobbyScene from '../scenes/LobbyScene'
 
 
 export default {
@@ -11,6 +12,7 @@ export default {
     scene: [
         PreloaderScene,
         TitleScene,
-        CreditsScene
+        CreditsScene,
+        LobbyScene
     ]
 }
