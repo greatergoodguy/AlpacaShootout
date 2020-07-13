@@ -1,6 +1,6 @@
 import 'phaser';
 
-export default class UIButton extends Phaser.GameObjects.Container {
+export default class TextButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, text, onButtonClick) {
     super(scene)
     this.scene = scene

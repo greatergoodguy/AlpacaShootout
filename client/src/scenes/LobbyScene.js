@@ -1,6 +1,6 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
-import UIButton from '../helper/UIButton'
+import TextButton from '../helper/TextButton'
 import ImageButton from '../helper/ImageButton'
 
 export default class LobbyScene extends Phaser.Scene {
@@ -25,7 +25,7 @@ export default class LobbyScene extends Phaser.Scene {
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Lobby', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
-        this.backButton = new UIButton(this, config.width/2, 600, 'Back', function() {
+        this.backButton = new TextButton(this, config.width/2, 600, 'Back', function() {
             this.scene.start('Title')
         }.bind(this))
 
@@ -47,29 +47,17 @@ export default class LobbyScene extends Phaser.Scene {
             var gameData = serverDataAsList[i]
 
             this.gameDatas[gameData.id] = gameData
-            this.lobbyButtons[gameData.id] = new UIButton(this, config.width/2, 300 + i*70, '1: Join Game (0/2)', function() {
+            this.lobbyButtons[gameData.id] = new TextButton(this, config.width/2, 300 + i*70, '1: Join Game (0/2)', function() {
                 socket.removeAllListeners()
                 self.scene.start('Room', self.gameDatas[this.data.id])
-                self.clearButtonData()
             })
-            this.lobbyButtons[gameData.id].data = { 'id': gameData.id }
+            this.lobbyButtons[gameData.id].setData({ 'id': gameData.id })
 
             this.spectatorButtons[gameData.id] = new ImageButton(this, config.width/2 + 210, 300 + i*70, function() {
                 socket.removeAllListeners()
                 self.scene.start('Room', self.gameDatas[this.data.id])
-                self.clearButtonData()
             }.bind(this))
-            this.spectatorButtons[gameData.id].data = { 'id': gameData.id }
-        }
-    }
-
-    clearButtonData() {
-        var button
-        for(button of Object.values(this.lobbyButtons)) {
-            button.data = null
-        }
-        for(button of Object.values(this.spectatorButtons)) {
-            button.data = null
+            this.spectatorButtons[gameData.id].setData({ 'id': gameData.id })
         }
     }
 }

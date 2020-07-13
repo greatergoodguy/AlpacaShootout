@@ -38,6 +38,7 @@ export default class PreloaderScene extends Phaser.Scene {
             this.cameras.main.fadeOut(FADE_DURATION)
             this.cameras.main.once('camerafadeoutcomplete', function (camera) {
                 self.scene.start('Title')
+                //self.scene.start('Room')
             })
         }.bind(this))
     }
@@ -46,8 +47,14 @@ export default class PreloaderScene extends Phaser.Scene {
         this.displayLoader()
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js')
 
+        this.load.image('jaka_standby', 'client/src/assets/alpaca/jaka_standby.png')
+        this.load.image('pompaca_standby', 'client/src/assets/alpaca/pompaca_standby.png')
+        this.load.image('punka_standby', 'client/src/assets/alpaca/punka_standby.png')
+
         this.load.image('buttonLong_brown', 'client/src/assets/ui/buttonLong_brown.png')
         this.load.image('buttonLong_brown_pressed', 'client/src/assets/ui/buttonLong_brown_pressed.png')
+        this.load.image('arrowBrown_left', 'client/src/assets/ui/arrowBrown_left.png')
+        this.load.image('arrowBrown_right', 'client/src/assets/ui/arrowBrown_right.png')
         this.load.image('InvisiblePixel', 'client/src/assets/ui/InvisiblePixel.png')
         this.load.image('whitePixel', 'client/src/assets/ui/whitePixel.png')
         this.load.image('whiteSquare', 'client/src/assets/ui/whiteSquare.png')

@@ -1,6 +1,6 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
-import UIButton from '../helper/UIButton'
+import TextButton from '../helper/TextButton'
 
 export default class TitleScene extends Phaser.Scene {
     constructor() {
@@ -22,7 +22,7 @@ export default class TitleScene extends Phaser.Scene {
         this.titleBitmapText2 = this.add.bitmapText(config.width/2, 140, 'khodijah', 'Shootout', TITLE_FONT_SIZE)
         this.titleBitmapText2.setOrigin(0.5, 0)
 
-        this.startButton = new UIButton(this, config.width/2, 400, 'Start Game', function() {
+        this.startButton = new TextButton(this, config.width/2, 400, 'Start Game', function() {
             // clickSound.play()
             // self.cameras.main.fadeOut(FADE_DURATION)
             // invisiblePixel.setInteractive()
@@ -32,7 +32,7 @@ export default class TitleScene extends Phaser.Scene {
             this.scene.start('Lobby')
         }.bind(this));
 
-        this.creditsButton = new UIButton(this, config.width/2, 500, 'Credits', function() {
+        this.creditsButton = new TextButton(this, config.width/2, 500, 'Credits', function() {
             this.scene.start('Credits')
         }.bind(this));
     }
