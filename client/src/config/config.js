@@ -2,7 +2,7 @@ import PreloaderScene from '../scenes/PreloaderScene'
 import TitleScene from '../scenes/TitleScene'
 import CreditsScene from '../scenes/CreditsScene'
 import LobbyScene from '../scenes/LobbyScene'
-
+import RoomScene from '../scenes/RoomScene'
 
 export default {
     type: Phaser.AUTO,
@@ -13,6 +13,7 @@ export default {
         PreloaderScene,
         TitleScene,
         CreditsScene,
-        LobbyScene
+        LobbyScene,
+        RoomScene
     ]
 }

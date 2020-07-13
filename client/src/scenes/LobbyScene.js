@@ -11,6 +11,13 @@ export default class LobbyScene extends Phaser.Scene {
     }
 
     preload() {
+    }
+
+    create() {
+        this.gameDatas = {}
+        this.lobbyButtons = {}
+        this.spectatorButtons = {}
+
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
         this.background.setTint(0xF1FAEE)
@@ -18,24 +25,51 @@ export default class LobbyScene extends Phaser.Scene {
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Lobby', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
-        this.room1Button = new UIButton(this, config.width/2, 400, 'Room 1 (0/2)', function() {
-        }.bind(this))
-
-
-        this.room1WatchButton = new ImageButton(this, config.width/2 + 210, 400, 'Room 1 (0/2)', function() {
-        }.bind(this))
-
-        this.backButton = new UIButton(this, config.width/2, 500, 'Back', function() {
+        this.backButton = new UIButton(this, config.width/2, 600, 'Back', function() {
             this.scene.start('Title')
         }.bind(this))
-    }
 
-    create() {
-        console.log(this.room1Button.x)
-        console.log(this.room1Button.width)
-        console.log(this.room1Button.scaleX)
+        this.game.socket.emit("enter lobby")
+        this.game.socket.on("add slots", this.addSlots.bind(this))
     }
 
     update() {
+    }
+
+    addSlots(serverData) {
+        console.log('LobbyScene.addSlots()')
+        console.log(serverData)
+        let serverDataAsList = Object.values(serverData)
+        let socket = this.game.socket
+        let self = this
+
+        for(var i = 0; i < serverDataAsList.length; i++) {
+            var gameData = serverDataAsList[i]
+
+            this.gameDatas[gameData.id] = gameData
+            this.lobbyButtons[gameData.id] = new UIButton(this, config.width/2, 300 + i*70, '1: Join Game (0/2)', function() {
+                socket.removeAllListeners()
+                self.scene.start('Room', self.gameDatas[this.data.id])
+                self.clearButtonData()
+            })
+            this.lobbyButtons[gameData.id].data = { 'id': gameData.id }
+
+            this.spectatorButtons[gameData.id] = new ImageButton(this, config.width/2 + 210, 300 + i*70, function() {
+                socket.removeAllListeners()
+                self.scene.start('Room', self.gameDatas[this.data.id])
+                self.clearButtonData()
+            }.bind(this))
+            this.spectatorButtons[gameData.id].data = { 'id': gameData.id }
+        }
+    }
+
+    clearButtonData() {
+        var button
+        for(button of Object.values(this.lobbyButtons)) {
+            button.data = null
+        }
+        for(button of Object.values(this.spectatorButtons)) {
+            button.data = null
+        }
     }
 }

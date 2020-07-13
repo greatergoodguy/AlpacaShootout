@@ -9,7 +9,9 @@ export default class TitleScene extends Phaser.Scene {
         })
     }
 
-    preload() {
+    preload() {}
+
+    create() {
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
         this.background.setTint(0xF1FAEE)
@@ -34,8 +36,6 @@ export default class TitleScene extends Phaser.Scene {
             this.scene.start('Credits')
         }.bind(this));
     }
-
-    create() {}
 
     update() {}
 }

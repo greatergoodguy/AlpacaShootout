@@ -1,5 +1,6 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
+import io from 'socket.io-client'
 
 export default class PreloaderScene extends Phaser.Scene {
     constructor() {
@@ -56,7 +57,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.load.audio("click", 'client/src/assets/sounds/click.ogg')
 
-        // //this.game.socket = io('http://localhost:3000')
+        this.game.socket = io('http://localhost:3000')
     }
 
     create() {
