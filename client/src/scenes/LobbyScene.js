@@ -1,7 +1,7 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import TextButton from '../helper/TextButton'
-import ImageButton from '../helper/ImageButton'
+import IconButton from '../helper/IconButton'
 
 export default class LobbyScene extends Phaser.Scene {
     constructor() {
@@ -49,15 +49,15 @@ export default class LobbyScene extends Phaser.Scene {
             this.gameDatas[gameData.id] = gameData
             this.lobbyButtons[gameData.id] = new TextButton(this, config.width/2, 300 + i*70, '1: Join Game (0/2)', function() {
                 socket.removeAllListeners()
-                self.scene.start('Room', self.gameDatas[this.data.id])
+                self.scene.start('Room', self.gameDatas[this.getData('id')])
             })
-            this.lobbyButtons[gameData.id].setData({ 'id': gameData.id })
+            this.lobbyButtons[gameData.id].setData('id', gameData.id)
 
-            this.spectatorButtons[gameData.id] = new ImageButton(this, config.width/2 + 210, 300 + i*70, function() {
+            this.spectatorButtons[gameData.id] = new IconButton(this, config.width/2 + 210, 300 + i*70, function() {
                 socket.removeAllListeners()
-                self.scene.start('Room', self.gameDatas[this.data.id])
-            }.bind(this))
-            this.spectatorButtons[gameData.id].setData({ 'id': gameData.id })
+                self.scene.start('Room', self.gameDatas[this.getData('id')])
+            })
+            this.spectatorButtons[gameData.id].setData('id', gameData.id)
         }
     }
 }

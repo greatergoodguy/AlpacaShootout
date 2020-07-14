@@ -9,6 +9,11 @@ export default class RoomScene extends Phaser.Scene {
         })
     }
 
+    init(gameData) {
+        this.gameData = gameData
+        console.log(this.gameData)
+	}
+
     preload() {}
 
     create() {

@@ -1,6 +1,6 @@
 import 'phaser';
 
-export default class ImageButton extends Phaser.GameObjects.Container {
+export default class IconButton extends Phaser.GameObjects.Container {
   constructor(scene, x, y, onButtonClick) {
     super(scene)
     this.scene = scene
