@@ -61,8 +61,29 @@ export default class RoomScene extends Phaser.Scene {
         this.selectionUI[playerIndex].rightArrow.setScale(1.5)
 
         this.selectionUI[playerIndex].readyButton = new TextButton(this, centerX, 600, 'Ready', function() {
+            if(!this.selectionUI[playerIndex].isReady) {
+                this.selectionUI[playerIndex].readyText.setText('Ready')
+                this.selectionUI[playerIndex].readyText.setColor('#138808')
+                this.selectionUI[playerIndex].leftArrow.visible = false
+                this.selectionUI[playerIndex].rightArrow.visible = false
+            } else {
+                this.selectionUI[playerIndex].readyText.setText('Not Ready')
+                this.selectionUI[playerIndex].readyText.setColor('#c90b0b')
+                this.selectionUI[playerIndex].leftArrow.visible = true
+                this.selectionUI[playerIndex].rightArrow.visible = true
+            }
+            this.selectionUI[playerIndex].isReady = !this.selectionUI[playerIndex].isReady
         }.bind(this))
         this.selectionUI[playerIndex].readyButton.setBackgroundImageScale(0.65, 1)
         this.selectionUI[playerIndex].readyButton.setScale(0.8)
+
+        this.selectionUI[playerIndex].readySquare = this.add.sprite(centerX, 550, 'whiteSquare').setScale(2, 0.5)
+        this.selectionUI[playerIndex].readySquare.setTint(0xc1bca0)
+        this.selectionUI[playerIndex].readySquare.alpha = 0.5
+        this.selectionUI[playerIndex].readyText = this.add.text(centerX, 550, 'Not Ready', { fontSize: '24px', fill: '#000' })
+        this.selectionUI[playerIndex].readyText.setFontFamily('RobotoSlab-Regular')
+        this.selectionUI[playerIndex].readyText.setColor('#c90b0b')
+        this.selectionUI[playerIndex].readyText.setOrigin(0.5, 0.5)
+        this.selectionUI[playerIndex].isReady = false
     }
 }
