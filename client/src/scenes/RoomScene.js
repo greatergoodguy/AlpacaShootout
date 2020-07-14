@@ -1,6 +1,7 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import TextButton from '../helper/TextButton'
+import ImageButton from '../helper/ImageButton'
 
 export default class RoomScene extends Phaser.Scene {
     constructor() {
@@ -17,6 +18,8 @@ export default class RoomScene extends Phaser.Scene {
     preload() {}
 
     create() {
+        this.alpacaTextures = ['jaka_standby', 'punka_standby', 'pompaca_standby']
+
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
         this.background.setTint(0xF1FAEE)
@@ -26,25 +29,40 @@ export default class RoomScene extends Phaser.Scene {
 
         this.backButton = new TextButton(this, config.width/2, 800, 'Back', function() {
             this.scene.start('Lobby')
-        }.bind(this));
+        }.bind(this))
 
         this.selectionUI = [{}, {}]
 
-        this.selectionUI[0].alpaca = this.add.image(config.width/4, 400, 'jaka_standby')
-        this.selectionUI[0].alpaca.setScale(0.5)
-        this.selectionUI[0].leftArrow = this.add.image(config.width/4 - 60, 600, 'arrowBrown_left')
-        this.selectionUI[0].leftArrow.setScale(2)
-        this.selectionUI[0].rightArrow = this.add.image(config.width/4 + 60, 600, 'arrowBrown_right')
-        this.selectionUI[0].rightArrow.setScale(2)
-
-        this.selectionUI[1].alpaca = this.add.image(3*config.width/4, 400, 'punka_standby')
-        this.selectionUI[1].alpaca.setScale(0.5)
-        this.selectionUI[1].leftArrow = this.add.image(3*config.width/4 - 60, 600, 'arrowBrown_left')
-        this.selectionUI[1].leftArrow.setScale(2)
-        this.selectionUI[1].rightArrow = this.add.image(3*config.width/4 + 60, 600, 'arrowBrown_right')
-        this.selectionUI[1].rightArrow.setScale(2)
+        this.initSelectionUI(0, config.width/4)
+        this.initSelectionUI(1, 3*config.width/4)
     }
 
-    update() {
+    update() {}
+
+    initSelectionUI(playerIndex, centerX) {
+        this.selectionUI[playerIndex].index = 0
+        this.selectionUI[playerIndex].alpaca = this.add.image(centerX, 400, 'jaka_standby')
+        this.selectionUI[playerIndex].alpaca.setScale(0.5)
+        this.selectionUI[playerIndex].leftArrow = new ImageButton(this, centerX - 80, 600, 'arrowBrown_left', function() {
+            this.selectionUI[playerIndex].index = (this.selectionUI[playerIndex].index - 1).mod(this.alpacaTextures.length)
+            this.selectionUI[playerIndex].alpaca.setTexture(this.alpacaTextures[this.selectionUI[playerIndex].index])
+
+            console.log(this.selectionUI[playerIndex].index)
+            console.log(this.alpacaTextures[this.selectionUI[playerIndex].index])
+        }.bind(this))
+        this.selectionUI[playerIndex].leftArrow.setScale(1.5)
+        this.selectionUI[playerIndex].rightArrow = new ImageButton(this, centerX + 80, 600, 'arrowBrown_right', function() {
+            this.selectionUI[playerIndex].index = (this.selectionUI[playerIndex].index + 1).mod(this.alpacaTextures.length)
+            this.selectionUI[playerIndex].alpaca.setTexture(this.alpacaTextures[this.selectionUI[playerIndex].index])
+
+            console.log(this.selectionUI[playerIndex].index)
+            console.log(this.alpacaTextures[this.selectionUI[playerIndex].index])
+        }.bind(this))
+        this.selectionUI[playerIndex].rightArrow.setScale(1.5)
+
+        this.selectionUI[playerIndex].readyButton = new TextButton(this, centerX, 600, 'Ready', function() {
+        }.bind(this))
+        this.selectionUI[playerIndex].readyButton.setBackgroundImageScale(0.65, 1)
+        this.selectionUI[playerIndex].readyButton.setScale(0.8)
     }
 }

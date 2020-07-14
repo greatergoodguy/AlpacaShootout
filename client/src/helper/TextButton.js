@@ -39,4 +39,8 @@ export default class TextButton extends Phaser.GameObjects.Container {
 
     this.scene.add.existing(this)
   }
+
+  setBackgroundImageScale(scaleX, scaleY) {
+    this.button.setScale(scaleX, scaleY)
+  }
 }
