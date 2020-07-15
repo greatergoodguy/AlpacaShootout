@@ -15,13 +15,17 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.alpaca.setScale(0.5)
     this.leftArrow = new ImageButton(this.scene, 0 - 80, 600, 'arrowBrown_left', function() {
         this.index = (this.index - 1).mod(this.alpacaTextures.length)
-        this.alpaca.setTexture(this.alpacaTextures[this.index])
+        let newTexture = this.alpacaTextures[this.index]
+        this.alpaca.setTexture(newTexture)
+        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.id, playerId: this.scene.game.socket.id, newTexture: newTexture})
     }.bind(this))
     this.add(this.leftArrow)
     this.leftArrow.setScale(1.5)
     this.rightArrow = new ImageButton(this.scene, 0 + 80, 600, 'arrowBrown_right', function() {
         this.index = (this.index + 1).mod(this.alpacaTextures.length)
-        this.alpaca.setTexture(this.alpacaTextures[this.index])
+        let newTexture = this.alpacaTextures[this.index]
+        this.alpaca.setTexture(newTexture)
+        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.id, playerId: this.scene.game.socket.id, newTexture: newTexture})
     }.bind(this))
     this.add(this.rightArrow)
     this.rightArrow.setScale(1.5)
@@ -37,7 +41,6 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.isReady = false
 
     this.readyButton = new TextButton(this.scene, 0, 600, 'Ready', function() {
-        this.ready()
     }.bind(this))
     this.add(this.readyButton)
     this.readyButton.setBackgroundImageScale(0.65, 1)
@@ -62,6 +65,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
         this.rightArrow.visible = true
     }
     this.isReady = !this.isReady
+    this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.id, playerId: this.scene.game.socket.id, isReady: this.isReady})
   }
 
   clear() {
@@ -91,14 +95,19 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   showOnlinePlayer(playerData) {
     this.show()
     this.index = 0
-    this.alpaca.setTexture('jaka_standby')
+    this.alpaca.setTexture(playerData.texture)
     this.leftArrow.setVisible(false)
     this.rightArrow.setVisible(false)
     this.readySquare.setVisible(true)
     this.readyText.setVisible(true)
-    this.isReady = false
-    this.readyText.setText('Not Ready')
-    this.readyText.setColor('#c90b0b')
+    this.isReady = playerData.isReady
+    if(!this.isReady) {
+      this.readyText.setText('Not Ready')
+      this.readyText.setColor('#c90b0b')
+    } else {
+      this.readyText.setText('Ready')
+      this.readyText.setColor('#138808')
+    }
 
     this.readyButton.setText('Ready')
     this.readyButton.setVisible(false)
@@ -106,7 +115,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     }.bind(this))
   }
 
-  showCurrentPlayer(playerData) {
+  showCurrentPlayer() {
     this.show()
     this.index = 0
     this.alpaca.setTexture('jaka_standby')
@@ -121,6 +130,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setText('Ready')
     this.readyButton.setVisible(true)
     this.readyButton.setOnButtonClick(function() {
+      this.ready()
     }.bind(this))
   }
 

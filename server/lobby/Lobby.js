@@ -49,6 +49,15 @@ var Lobby = {
 	onLeaveRoom: function(data) {
 		leaveRoom.call(this)
 	},
+	onUpdatePlayer: function(data) {
+		console.log('Lobby.onUpdatePlayer()')
+		console.log(data)
+		var room = rooms[data.roomId]
+		if(room) {
+			room.updatePlayer(data)
+			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
+		}
+	}
 }
 
 function broadcastSlotStateUpdate(roomId, room) {

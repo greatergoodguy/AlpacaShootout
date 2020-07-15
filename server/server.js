@@ -21,6 +21,7 @@ io.on('connection', function(socket) {
     socket.on('enter lobby', Lobby.onEnterLobby)
     socket.on('enter room', Lobby.onEnterRoom)
     socket.on('leave room', Lobby.onLeaveRoom)
+    socket.on('update player', Lobby.onUpdatePlayer)
     socket.on('disconnect', onClientDisconnect)
 })
 

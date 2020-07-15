@@ -31,13 +31,23 @@ Room.prototype = {
 	},
 
 	addPlayer: function(id) {
-		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), character: 'jaka_standby', ready: false}
+		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), texture: 'jaka_standby', isReady: false}
 	},
 
 	addSpectator: function(id) {
 	},
 
 	removeSpectator: function(id) {
+	},
+
+	updatePlayer: function(data) {
+		console.log('Room.updatePlayer()')
+		if('newTexture' in data) {
+			this.players[data.playerId].texture = data.newTexture
+		}
+		if('isReady' in data) {
+			this.players[data.playerId].isReady = data.isReady
+		}
 	},
 
 	claimFirstAvailablePlayerSlot: function() {

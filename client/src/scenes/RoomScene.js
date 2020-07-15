@@ -56,6 +56,7 @@ export default class RoomScene extends Phaser.Scene {
         this.game.socket.on("show room", this.populateRoom.bind(this))
         this.game.socket.on("player joined", this.playerJoined.bind(this))
         this.game.socket.on("player left", this.playerLeft.bind(this))
+        this.game.socket.on("update player", this.updatePlayer.bind(this))
     }
 
     update() {}
@@ -66,13 +67,14 @@ export default class RoomScene extends Phaser.Scene {
         let userId = this.game.socket.id
 
         Object.entries(data.players).forEach((entry) => {
+            console.log(entry[1])
             let playerlabel = entry[1].label
             let playerSelectorView = this.playerSelectorViews[playerlabel]
             if(userId == entry[0]) {
                 playerSelectorView.showCurrentPlayer()
             }
             else {
-                playerSelectorView.showOnlinePlayer(data)
+                playerSelectorView.showOnlinePlayer(entry[1])
             }
         })
     }
@@ -91,6 +93,14 @@ export default class RoomScene extends Phaser.Scene {
         let playerlabel = data.label
         let playerSelectorView = this.playerSelectorViews[playerlabel]
         playerSelectorView.hide()
+    }
+
+    updatePlayer(data) {
+        console.log('RoomScene.updatePlayer()')
+        console.log(data)
+        let playerlabel = data.label
+        let playerSelectorView = this.playerSelectorViews[playerlabel]
+        playerSelectorView.showOnlinePlayer(data)
     }
 
     spectatorJoined(data) {
