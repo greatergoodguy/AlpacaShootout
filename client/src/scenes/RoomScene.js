@@ -20,7 +20,7 @@ export default class RoomScene extends Phaser.Scene {
     preload() {}
 
     create() {
-        //this.socket.emit('enter room', {roomId: this.gameData.id})
+        this.game.socket.emit('enter room', {roomId: this.gameData.id})
 
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
@@ -37,14 +37,69 @@ export default class RoomScene extends Phaser.Scene {
         }.bind(this))
 
         this.backButton = new TextButton(this, config.width/2, 900, 'Back', function() {
+            this.game.socket.emit("leave room")
+            this.game.socket.removeAllListeners()
             this.scene.start('Lobby')
         }.bind(this))
 
-        this.player1SelectorView = new PlayerSelectorView(this, config.width/4, 0)
-        this.player2SelectorView = new PlayerSelectorView(this, 3*config.width/4, 0)
+        this.playerSelectorViews = {}
+
+        this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4, 0)
+        this.playerSelectorViews['P1'].hide()
+        this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4, 0)
+        this.playerSelectorViews['P2'].hide()
         this.spectatorListView = new SpectatorListView(this)
         this.spectatorListView.setVisible(false)
+        this.spectateButton.setVisible(false)
+        this.spectatorListButton.setVisible(false)
+
+        this.game.socket.on("show room", this.populateRoom.bind(this))
+        this.game.socket.on("player joined", this.playerJoined.bind(this))
+        this.game.socket.on("player left", this.playerLeft.bind(this))
     }
 
     update() {}
+
+    populateRoom(data) {
+        console.log('RoomScene.populateRoom()')
+        console.log(data)
+        let userId = this.game.socket.id
+
+        Object.entries(data.players).forEach((entry) => {
+            let playerlabel = entry[1].label
+            let playerSelectorView = this.playerSelectorViews[playerlabel]
+            if(userId == entry[0]) {
+                playerSelectorView.showCurrentPlayer()
+            }
+            else {
+                playerSelectorView.showOnlinePlayer(data)
+            }
+        })
+    }
+
+    playerJoined(data) {
+        console.log('RoomScene.playerJoined()')
+        console.log(data)
+        let playerlabel = data.label
+        let playerSelectorView = this.playerSelectorViews[playerlabel]
+        playerSelectorView.showOnlinePlayer(data)
+    }
+
+    playerLeft(data) {
+        console.log('RoomScene.playerLeft()')
+        console.log(data)
+        let playerlabel = data.label
+        let playerSelectorView = this.playerSelectorViews[playerlabel]
+        playerSelectorView.hide()
+    }
+
+    spectatorJoined(data) {
+        console.log('RoomScene.spectatorJoined()')
+        console.log(data)
+    }
+
+    spectatorLeft(data) {
+        console.log('RoomScene.spectatorLeft()')
+        console.log(data)
+    }
 }

@@ -82,19 +82,49 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   }
 
   fill() {
+  }
+
+  show() {
+    this.setVisible(true)
+  }
+
+  showOnlinePlayer(playerData) {
+    this.show()
     this.index = 0
     this.alpaca.setTexture('jaka_standby')
-    this.leftArrow.visible = true
-    this.rightArrow.visible = true
-    this.readySquare.visible = true
-    this.readyText.visible = true
+    this.leftArrow.setVisible(false)
+    this.rightArrow.setVisible(false)
+    this.readySquare.setVisible(true)
+    this.readyText.setVisible(true)
     this.isReady = false
     this.readyText.setText('Not Ready')
     this.readyText.setColor('#c90b0b')
 
     this.readyButton.setText('Ready')
+    this.readyButton.setVisible(false)
     this.readyButton.setOnButtonClick(function() {
-        this.ready()
     }.bind(this))
-}
+  }
+
+  showCurrentPlayer(playerData) {
+    this.show()
+    this.index = 0
+    this.alpaca.setTexture('jaka_standby')
+    this.leftArrow.setVisible(true)
+    this.rightArrow.setVisible(true)
+    this.readySquare.setVisible(true)
+    this.readyText.setVisible(true)
+    this.isReady = false
+    this.readyText.setText('Not Ready')
+    this.readyText.setColor('#c90b0b')
+
+    this.readyButton.setText('Ready')
+    this.readyButton.setVisible(true)
+    this.readyButton.setOnButtonClick(function() {
+    }.bind(this))
+  }
+
+  hide() {
+    this.setVisible(false)
+  }
 }

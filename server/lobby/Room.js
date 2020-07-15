@@ -4,7 +4,7 @@ var playerLabelIndices = {
 	"P2": 1
 }
 
-var LobbySlot = function(id, roomNumber) {
+var Room = function(id, roomNumber) {
     this.players = {}
     this.spectators = {}
     this.id = id
@@ -14,7 +14,7 @@ var LobbySlot = function(id, roomNumber) {
 	this.playerSlots = [{label: "P1", available: true}, {label: "P2", available: true}]
 }
 
-LobbySlot.prototype = {
+Room.prototype = {
 	getPlayerIds: function() {
 		return Object.keys(this.players)
 	},
@@ -31,7 +31,13 @@ LobbySlot.prototype = {
 	},
 
 	addPlayer: function(id) {
-		this.players[id] = {label: this.claimFirstAvailablePlayerSlot(), ready: false}
+		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), character: 'jaka_standby', ready: false}
+	},
+
+	addSpectator: function(id) {
+	},
+
+	removeSpectator: function(id) {
 	},
 
 	claimFirstAvailablePlayerSlot: function() {
@@ -45,4 +51,4 @@ LobbySlot.prototype = {
 	}
 };
 
-module.exports = LobbySlot
+module.exports = Room
