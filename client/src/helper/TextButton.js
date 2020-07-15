@@ -43,4 +43,13 @@ export default class TextButton extends Phaser.GameObjects.Container {
   setBackgroundImageScale(scaleX, scaleY) {
     this.button.setScale(scaleX, scaleY)
   }
+
+  setText(newText) {
+    this.text.setText(newText)
+    Phaser.Display.Align.In.Center(this.text, this.button)
+  }
+
+  setOnButtonClick(newOnButtonClick) {
+    this.onButtonClick = newOnButtonClick
+  }
 }
