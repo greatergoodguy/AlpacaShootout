@@ -37,9 +37,9 @@ var Lobby = {
 		if(room) {
 			this.leave(lobbyId)
 			this.join(data.roomId)
-			if(data.userType == 'player') {
+			if(data.userType == 'player' && !room.hasMaxPlayers()) {
 				room.addPlayer(this.id)
-			} else if(data.userType == 'spectator') {
+			} else {
 				room.addSpectator(this.id)
 			}
 

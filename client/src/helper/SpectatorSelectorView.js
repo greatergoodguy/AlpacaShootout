@@ -34,14 +34,19 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   }
 
   showUserAsSpectator(spectatorData) {
+    if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
     this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = true
+    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].setTint(0x585858)
   }
 
   showOnlineSpectator(spectatorData) {
+    if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
     this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = true
+    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].setTint()
   }
 
   removeOnlineSpectator(spectatorData) {
+    if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
     this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = false
   }
 }
