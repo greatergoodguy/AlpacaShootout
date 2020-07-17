@@ -28,4 +28,10 @@ io.on('connection', function(socket) {
 function onClientDisconnect() {
     console.log('A user disconnected: ' + this.id)
     playerIds = playerIds.filter(playerIds => playerIds !== this.id)
+    if (this.roomId == null) {
+		return;
+    }
+
+    var rooms = Lobby.getRooms()
+    Lobby.onLeaveRoom.call(this)
 }

@@ -12,7 +12,7 @@ var Lobby = {
 			rooms[id] = new Room(id, i + 1);
 		}
 	},
-	getLobbySlots: function() {
+	getRooms: function() {
 		return rooms;
     },
     getLobbyId: function() {
@@ -37,12 +37,23 @@ var Lobby = {
 		if(room) {
 			this.leave(lobbyId)
 			this.join(data.roomId)
-			room.addPlayer(this.id)
+			if(data.userType == 'player') {
+				room.addPlayer(this.id)
+			} else if(data.userType == 'spectator') {
+				room.addSpectator(this.id)
+			}
 
 			this.roomId = data.roomId
 		
 			this.emit("show room", room)
-			this.broadcast.to(data.roomId).emit("player joined", room.players[this.id])
+	
+			if(data.userType == 'player') {
+				this.broadcast.to(data.roomId).emit("player joined", room.players[this.id])
+			} else if(data.userType == 'spectator') {
+				this.broadcast.to(data.roomId).emit("spectator joined", room.spectators[this.id])
+			}
+
+
 			broadcastSlotStateUpdate(data.roomId, room)
 		}
 	},
@@ -71,10 +82,18 @@ function leaveRoom() {
 
 	this.leave(this.roomId)
 	if(room) {
-		console.log('remove player from room')
-		let playerData = room.players[this.id]
-		room.removePlayer(this.id)
-		io.in(this.roomId).emit("player left", playerData)
+		if(room.isPlayer(this.id)) {
+			console.log('remove player from room')
+			let playerData = room.players[this.id]
+			room.removePlayer(this.id)
+			io.in(this.roomId).emit("player left", playerData)
+		}
+		if(room.isSpectator(this.id)) {
+			console.log('remove spectator from room')
+			let spectatorData = room.spectators[this.id]
+			room.removeSpectator(this.id)
+			io.in(this.roomId).emit("spectator left", spectatorData)
+		}
 		io.in(lobbyId).emit("update slot", {roomId: this.roomId, room: room})
 	}
 }

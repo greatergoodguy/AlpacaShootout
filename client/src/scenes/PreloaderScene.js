@@ -52,6 +52,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('punka_standby', 'client/src/assets/alpaca/punka_standby.png')
         this.load.image('punka_standby', 'client/src/assets/alpaca/punka_standby.png')
         this.load.image('empty_slot', 'client/src/assets/alpaca/empty_slot.png')
+        this.load.image('spectator', 'client/src/assets/alpaca/spectator.png')
 
         this.load.image('buttonLong_brown', 'client/src/assets/ui/buttonLong_brown.png')
         this.load.image('buttonLong_brown_pressed', 'client/src/assets/ui/buttonLong_brown_pressed.png')

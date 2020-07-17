@@ -115,7 +115,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     }.bind(this))
   }
 
-  showCurrentPlayer() {
+  showUserAsCurrentPlayer() {
     this.show()
     this.index = 0
     this.alpaca.setTexture('jaka_standby')

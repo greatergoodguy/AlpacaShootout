@@ -4,6 +4,7 @@ import TextButton from '../helper/TextButton'
 import ImageButton from '../helper/ImageButton'
 import PlayerSelectorView from '../helper/PlayerSelectorView'
 import SpectatorListView from '../helper/SpectatorListView'
+import SpectatorSelectorView from '../helper/SpectatorSelectorView'
 
 export default class RoomScene extends Phaser.Scene {
     constructor() {
@@ -20,7 +21,7 @@ export default class RoomScene extends Phaser.Scene {
     preload() {}
 
     create() {
-        this.game.socket.emit('enter room', {roomId: this.gameData.id})
+        this.game.socket.emit('enter room', {roomId: this.gameData.roomId, userType: this.gameData.userType})
 
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
@@ -53,10 +54,16 @@ export default class RoomScene extends Phaser.Scene {
         this.spectateButton.setVisible(false)
         this.spectatorListButton.setVisible(false)
 
+        this.spectatorSelectorView = new SpectatorSelectorView(this, config.width/2, config.height/2 + 250)
+
         this.game.socket.on("show room", this.populateRoom.bind(this))
         this.game.socket.on("player joined", this.playerJoined.bind(this))
         this.game.socket.on("player left", this.playerLeft.bind(this))
         this.game.socket.on("update player", this.updatePlayer.bind(this))
+
+        this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
+        this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
+        this.game.socket.on("update spectator", this.updateSpectator.bind(this))
     }
 
     update() {}
@@ -71,10 +78,20 @@ export default class RoomScene extends Phaser.Scene {
             let playerlabel = entry[1].label
             let playerSelectorView = this.playerSelectorViews[playerlabel]
             if(userId == entry[0]) {
-                playerSelectorView.showCurrentPlayer()
+                playerSelectorView.showUserAsCurrentPlayer()
             }
             else {
                 playerSelectorView.showOnlinePlayer(entry[1])
+            }
+        })
+
+        Object.entries(data.spectators).forEach((entry) => {
+            console.log(entry[1])
+            if(userId == entry[0]) {
+                this.spectatorSelectorView.showUserAsSpectator(entry[1])
+            }
+            else {
+                this.spectatorSelectorView.showOnlineSpectator(entry[1])
             }
         })
     }
@@ -106,10 +123,17 @@ export default class RoomScene extends Phaser.Scene {
     spectatorJoined(data) {
         console.log('RoomScene.spectatorJoined()')
         console.log(data)
+        this.spectatorSelectorView.showOnlineSpectator(data)
     }
 
     spectatorLeft(data) {
         console.log('RoomScene.spectatorLeft()')
+        console.log(data)
+        this.spectatorSelectorView.removeOnlineSpectator(data)
+    }
+
+    updateSpectator(data) {
+        console.log('RoomScene.updateSpectator()')
         console.log(data)
     }
 }

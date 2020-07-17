@@ -49,13 +49,13 @@ export default class LobbyScene extends Phaser.Scene {
             this.gameDatas[gameData.id] = gameData
             this.lobbyButtons[gameData.id] = new TextButton(this, config.width/2, 300 + i*70, '1: Join Game (0/2)', function() {
                 socket.removeAllListeners()
-                self.scene.start('Room', self.gameDatas[this.getData('id')])
+                self.scene.start('Room', {roomId: this.getData('id'), userType: 'player'})
             })
             this.lobbyButtons[gameData.id].setData('id', gameData.id)
 
             this.spectatorButtons[gameData.id] = new IconButton(this, config.width/2 + 210, 300 + i*70, function() {
                 socket.removeAllListeners()
-                self.scene.start('Room', self.gameDatas[this.getData('id')])
+                self.scene.start('Room', {roomId: this.getData('id'), userType: 'spectator'})
             })
             this.spectatorButtons[gameData.id].setData('id', gameData.id)
         }
