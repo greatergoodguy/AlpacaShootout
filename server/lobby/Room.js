@@ -24,15 +24,14 @@ var Room = function(id, roomNumber) {
 	this.gameStart = false
 	this.playerSlots = [{label: "P1", available: true}, {label: "P2", available: true}]
 	this.spectatorSlots = [
-		{label: "S1", available: true}
-		// , 
-		// {label: "S2", available: true},
-		// {label: "S3", available: true}, 
-		// {label: "S4", available: true}, 
-		// {label: "S5", available: true}, 
-		// {label: "S6", available: true}, 
-		// {label: "S7", available: true}, 
-		// {label: "S8", available: true}
+		{label: "S1", available: true}, 
+		{label: "S2", available: true},
+		{label: "S3", available: true}, 
+		{label: "S4", available: true}, 
+		{label: "S5", available: true}, 
+		{label: "S6", available: true}, 
+		{label: "S7", available: true}, 
+		{label: "S8", available: true}
 	]
 }
 

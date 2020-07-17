@@ -64,6 +64,8 @@ export default class RoomScene extends Phaser.Scene {
         this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
         this.game.socket.on("update spectator", this.updateSpectator.bind(this))
+
+        this.game.socket.on('disconnect', this.leaveRoom.bind(this))
     }
 
     update() {}
@@ -94,6 +96,31 @@ export default class RoomScene extends Phaser.Scene {
                 this.spectatorSelectorView.showOnlineSpectator(entry[1])
             }
         })
+
+        if(!this.playerSelectorViews['P1'].isOccupied && userId in data.players) {
+            this.playerSelectorViews['P1'].showEmpty()
+        }
+        if(!this.playerSelectorViews['P2'].isOccupied && userId in data.players) {
+            this.playerSelectorViews['P2'].showEmpty()
+        }
+        if(!this.playerSelectorViews['P1'].isOccupied && userId in data.spectators) {
+            this.playerSelectorViews['P1'].showEmptyAndJoinable()
+        }
+        if(!this.playerSelectorViews['P2'].isOccupied && userId in data.spectators) {
+            this.playerSelectorViews['P2'].showEmptyAndJoinable()
+        }
+
+        if(userId in data.players) {
+            this.isPlayer = true
+        } else {
+            this.isPlayer = false
+        }
+
+        if(userId in data.spectators) {
+            this.isSpectator = true
+        } else {
+            this.isSpectator = false
+        }
     }
 
     playerJoined(data) {
@@ -107,9 +134,17 @@ export default class RoomScene extends Phaser.Scene {
     playerLeft(data) {
         console.log('RoomScene.playerLeft()')
         console.log(data)
+        let userId = this.game.socket.id
         let playerlabel = data.label
         let playerSelectorView = this.playerSelectorViews[playerlabel]
-        playerSelectorView.hide()
+    
+        if(this.isPlayer) {
+            playerSelectorView.showEmpty()
+        }
+        else if(this.isSpectator) {
+            playerSelectorView.showEmptyAndJoinable()
+        }
+
     }
 
     updatePlayer(data) {
@@ -135,5 +170,11 @@ export default class RoomScene extends Phaser.Scene {
     updateSpectator(data) {
         console.log('RoomScene.updateSpectator()')
         console.log(data)
+    }
+
+    leaveRoom() {
+        this.game.socket.emit("leave room")
+        this.game.socket.removeAllListeners()
+        this.scene.start('Title')
     }
 }

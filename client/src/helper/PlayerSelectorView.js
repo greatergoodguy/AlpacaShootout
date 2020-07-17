@@ -39,6 +39,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyText.setColor('#c90b0b')
     this.readyText.setOrigin(0.5, 0.5)
     this.isReady = false
+    this.isOccupied = false
 
     this.readyButton = new TextButton(this.scene, 0, 600, 'Ready', function() {
     }.bind(this))
@@ -76,24 +77,21 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readySquare.visible = false
     this.readyText.visible = false
     this.isReady = false
+    this.isOccupied = false
     this.readyText.setText('Not Ready')
     this.readyText.setColor('#c90b0b')
 
     this.readyButton.setText('Join')
     this.readyButton.setOnButtonClick(function() {
-        this.fill()
+
     }.bind(this))
   }
 
   fill() {
   }
 
-  show() {
-    this.setVisible(true)
-  }
-
   showOnlinePlayer(playerData) {
-    this.show()
+    this.setVisible(true)
     this.index = 0
     this.alpaca.setTexture(playerData.texture)
     this.leftArrow.setVisible(false)
@@ -101,6 +99,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readySquare.setVisible(true)
     this.readyText.setVisible(true)
     this.isReady = playerData.isReady
+    this.isOccupied = true
     if(!this.isReady) {
       this.readyText.setText('Not Ready')
       this.readyText.setColor('#c90b0b')
@@ -116,7 +115,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   }
 
   showUserAsCurrentPlayer() {
-    this.show()
+    this.setVisible(true)
     this.index = 0
     this.alpaca.setTexture('jaka_standby')
     this.leftArrow.setVisible(true)
@@ -124,6 +123,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readySquare.setVisible(true)
     this.readyText.setVisible(true)
     this.isReady = false
+    this.isOccupied = true
     this.readyText.setText('Not Ready')
     this.readyText.setColor('#c90b0b')
 
@@ -131,6 +131,29 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setVisible(true)
     this.readyButton.setOnButtonClick(function() {
       this.ready()
+    }.bind(this))
+  }
+
+  showEmpty() {
+    this.setVisible(true)
+    this.alpaca.setTexture('empty_slot')
+    this.leftArrow.visible = false
+    this.rightArrow.visible = false
+    this.readySquare.visible = false
+    this.readyText.visible = false
+    this.isReady = false
+    this.isOccupied = false
+    this.readyText.setText('Not Ready')
+    this.readyText.setColor('#c90b0b')
+    this.readyButton.setVisible(false)
+  }
+
+  showEmptyAndJoinable() {
+    this.showEmpty()
+    this.readyButton.setVisible(true)
+    this.readyButton.setText('Join')
+    this.readyButton.setOnButtonClick(function() {
+
     }.bind(this))
   }
 
