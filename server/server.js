@@ -22,6 +22,7 @@ io.on('connection', function(socket) {
     socket.on('enter room', Lobby.onEnterRoom)
     socket.on('leave room', Lobby.onLeaveRoom)
     socket.on('update player', Lobby.onUpdatePlayer)
+    socket.on('join player slot', Lobby.onJoinPlayerSlot)
     socket.on('disconnect', onClientDisconnect)
 })
 

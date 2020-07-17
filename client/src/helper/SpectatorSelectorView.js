@@ -45,7 +45,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].setTint()
   }
 
-  removeOnlineSpectator(spectatorData) {
+  removeSpectator(spectatorData) {
     if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
     this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = false
   }

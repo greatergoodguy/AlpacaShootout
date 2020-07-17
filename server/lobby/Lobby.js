@@ -68,6 +68,22 @@ var Lobby = {
 			room.updatePlayer(data)
 			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
 		}
+	},
+	onJoinPlayerSlot: function(data) {
+		console.log('Lobby.onJoinPlayerSlot()')
+		console.log(data)
+
+		var room = rooms[data.roomId]
+		if(room.isSpectator(this.id)) {
+			console.log('remove spectator from room')
+			let spectatorData = room.spectators[this.id]
+			room.removeSpectator(this.id)
+			io.in(this.roomId).emit("spectator left", spectatorData)
+		}
+
+		console.log('add player to room')
+		room.addPlayerToSlot(this.id, data.label)
+		io.in(this.roomId).emit("player joined", room.players[this.id])
 	}
 }
 

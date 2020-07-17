@@ -3,9 +3,10 @@ import TextButton from './TextButton'
 import ImageButton from './ImageButton'
 
 export default class PlayerSelectorView extends Phaser.GameObjects.Container {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, label) {
     super(scene)
     this.scene = scene
+    this.label = label
 
     this.alpacaTextures = ['jaka_standby', 'punka_standby', 'pompaca_standby']
 
@@ -17,7 +18,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
         this.index = (this.index - 1).mod(this.alpacaTextures.length)
         let newTexture = this.alpacaTextures[this.index]
         this.alpaca.setTexture(newTexture)
-        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.id, playerId: this.scene.game.socket.id, newTexture: newTexture})
+        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
     }.bind(this))
     this.add(this.leftArrow)
     this.leftArrow.setScale(1.5)
@@ -25,7 +26,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
         this.index = (this.index + 1).mod(this.alpacaTextures.length)
         let newTexture = this.alpacaTextures[this.index]
         this.alpaca.setTexture(newTexture)
-        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.id, playerId: this.scene.game.socket.id, newTexture: newTexture})
+        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
     }.bind(this))
     this.add(this.rightArrow)
     this.rightArrow.setScale(1.5)
@@ -66,7 +67,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
         this.rightArrow.visible = true
     }
     this.isReady = !this.isReady
-    this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.id, playerId: this.scene.game.socket.id, isReady: this.isReady})
+    this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, isReady: this.isReady})
   }
 
   clear() {
@@ -153,11 +154,16 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setVisible(true)
     this.readyButton.setText('Join')
     this.readyButton.setOnButtonClick(function() {
-
+      this.scene.game.socket.emit('join player slot', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, label: this.label})
+      this.scene.hideJoinAndSpectateButtons()
     }.bind(this))
   }
 
   hide() {
     this.setVisible(false)
+  }
+
+  hideReadyButton() {
+    this.readyButton.setVisible(false)
   }
 }

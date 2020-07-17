@@ -64,10 +64,6 @@ Room.prototype = {
 		return this.getNumSpectators() == this.spectatorSlots.length
 	},
 
-	hasMaxSpectators: function() {
-
-	},
-
 	removePlayer: function(id) {
 		if(id in this.players) {
 			this.playerSlots[playerLabelIndices[this.players[id].label]].available = true
@@ -77,6 +73,13 @@ Room.prototype = {
 
 	addPlayer: function(id) {
 		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), texture: 'jaka_standby', isReady: false}
+	},
+
+	addPlayerToSlot: function(id, label) {
+		if(this.playerSlots[playerLabelIndices[label]].available) {
+			this.playerSlots[playerLabelIndices[label]].available = false
+			this.players[id] = {id: id, label: label, texture: 'jaka_standby', isReady: false}
+		}
 	},
 
 	addSpectator: function(id) {

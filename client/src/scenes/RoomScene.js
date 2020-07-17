@@ -45,9 +45,9 @@ export default class RoomScene extends Phaser.Scene {
 
         this.playerSelectorViews = {}
 
-        this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4, 0)
+        this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4, 0, 'P1')
         this.playerSelectorViews['P1'].hide()
-        this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4, 0)
+        this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4, 0, 'P2')
         this.playerSelectorViews['P2'].hide()
         this.spectatorListView = new SpectatorListView(this)
         this.spectatorListView.setVisible(false)
@@ -128,7 +128,14 @@ export default class RoomScene extends Phaser.Scene {
         console.log(data)
         let playerlabel = data.label
         let playerSelectorView = this.playerSelectorViews[playerlabel]
-        playerSelectorView.showOnlinePlayer(data)
+
+        let userId = this.game.socket.id
+        if(userId == data.id) {
+            playerSelectorView.showUserAsCurrentPlayer()
+        }
+        else {
+            playerSelectorView.showOnlinePlayer(data)
+        }
     }
 
     playerLeft(data) {
@@ -164,7 +171,7 @@ export default class RoomScene extends Phaser.Scene {
     spectatorLeft(data) {
         console.log('RoomScene.spectatorLeft()')
         console.log(data)
-        this.spectatorSelectorView.removeOnlineSpectator(data)
+        this.spectatorSelectorView.removeSpectator(data)
     }
 
     updateSpectator(data) {
@@ -176,5 +183,10 @@ export default class RoomScene extends Phaser.Scene {
         this.game.socket.emit("leave room")
         this.game.socket.removeAllListeners()
         this.scene.start('Title')
+    }
+
+    hideJoinAndSpectateButtons() {
+        this.playerSelectorViews['P1'].hideReadyButton()
+        this.playerSelectorViews['P2'].hideReadyButton()
     }
 }
