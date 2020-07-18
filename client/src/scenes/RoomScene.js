@@ -115,12 +115,6 @@ export default class RoomScene extends Phaser.Scene {
         } else {
             this.isPlayer = false
         }
-
-        if(userId in data.spectators) {
-            this.isSpectator = true
-        } else {
-            this.isSpectator = false
-        }
     }
 
     playerJoined(data) {
@@ -131,6 +125,7 @@ export default class RoomScene extends Phaser.Scene {
 
         let userId = this.game.socket.id
         if(userId == data.id) {
+            this.isPlayer = true
             playerSelectorView.showUserAsCurrentPlayer()
         }
         else {
@@ -148,7 +143,7 @@ export default class RoomScene extends Phaser.Scene {
         if(this.isPlayer) {
             playerSelectorView.showEmpty()
         }
-        else if(this.isSpectator) {
+        else {
             playerSelectorView.showEmptyAndJoinable()
         }
 
