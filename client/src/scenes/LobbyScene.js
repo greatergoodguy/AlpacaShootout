@@ -31,10 +31,11 @@ export default class LobbyScene extends Phaser.Scene {
 
         this.game.socket.emit("enter lobby")
         this.game.socket.on("add slots", this.addSlots.bind(this))
+        this.game.socket.on("update slot", this.updateRoom.bind(this));
+        this.game.socket.on('disconnect', this.leaveLobby.bind(this))
     }
 
-    update() {
-    }
+    update() {}
 
     addSlots(serverData) {
         console.log('LobbyScene.addSlots()')
@@ -52,6 +53,8 @@ export default class LobbyScene extends Phaser.Scene {
                 self.scene.start('Room', {roomId: this.getData('id'), userType: 'player'})
             })
             this.lobbyButtons[gameData.id].setData('id', gameData.id)
+            this.setLobbyButton(this.lobbyButtons[gameData.id], gameData)
+
 
             this.spectatorButtons[gameData.id] = new IconButton(this, config.width/2 + 210, 300 + i*70, function() {
                 socket.removeAllListeners()
@@ -59,5 +62,35 @@ export default class LobbyScene extends Phaser.Scene {
             })
             this.spectatorButtons[gameData.id].setData('id', gameData.id)
         }
+    }
+
+    setLobbyButton(lobbyButton, gameData) {
+        console.log('LobbyScene.setLobbyButton()')
+        console.log(gameData)
+
+        var roomNumber = gameData.roomNumber
+        var numberOfPlayers = Object.keys(gameData.players).length
+
+        if(numberOfPlayers >= 2) {
+            lobbyButton.setText('Full\t\t(' + numberOfPlayers + '/2)')   
+            lobbyButton.setDisabled()
+            lobbyButton.disableInteractive()
+        } else {
+            lobbyButton.setText('Room ' + roomNumber + '\t\t(' + numberOfPlayers + '/2)')   
+            lobbyButton.setEnabled()
+            lobbyButton.setInteractive()
+        }
+    }
+
+    updateRoom(roomData) {
+        console.log('LobbyScene.updateRoom()')
+        console.log(roomData)
+        this.setLobbyButton(this.lobbyButtons[roomData.roomId], roomData.room)
+    }
+
+    leaveLobby() {
+        let socket = this.game.socket
+        socket.removeAllListeners()
+        this.scene.start('Title')
     }
 }

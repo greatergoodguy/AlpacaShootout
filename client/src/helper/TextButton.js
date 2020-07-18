@@ -52,4 +52,22 @@ export default class TextButton extends Phaser.GameObjects.Container {
   setOnButtonClick(newOnButtonClick) {
     this.onButtonClick = newOnButtonClick
   }
+
+  setInteractive() {
+    this.button.setInteractive()
+  }
+
+  disableInteractive() {
+    this.button.disableInteractive()
+  }
+
+  setDisabled() {
+    this.button.setTint(0x808080)
+    this.button.setTexture('buttonLong_brown_pressed')
+  }
+
+  setEnabled() {
+    this.button.setTint()
+    this.button.setTexture('buttonLong_brown')
+  }
 }

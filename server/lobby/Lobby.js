@@ -3,7 +3,7 @@ const Room = require('./Room')
 
 var rooms = {}
 var lobbyId = -1
-var numRooms = 1
+var numRooms = 4
 
 var Lobby = {
 	initialize: function() {
@@ -86,6 +86,7 @@ var Lobby = {
 		console.log('add player to room')
 		room.addPlayerToSlot(this.id, data.label)
 		io.in(this.roomId).emit("player joined", room.players[this.id])
+		broadcastSlotStateUpdate(data.roomId, room)
 	},
 	onJoinSpectators: function(data) {
 		console.log('Lobby.onJoinSpectators()')
@@ -104,6 +105,7 @@ var Lobby = {
 		console.log('add spectator to room')
 		room.addSpectator(this.id)
 		io.in(this.roomId).emit("spectator joined", room.spectators[this.id])
+		broadcastSlotStateUpdate(data.roomId, room)
 	}
 }
 
