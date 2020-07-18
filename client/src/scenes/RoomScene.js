@@ -27,7 +27,7 @@ export default class RoomScene extends Phaser.Scene {
         this.background.setOrigin(0, 0)
         this.background.setTint(0xF1FAEE)
 
-        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Room 1', TITLE_FONT_SIZE)
+        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Room', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.spectateButton = new TextButton(this, config.width/2, 740, 'Spectate', function() {
