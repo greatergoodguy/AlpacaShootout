@@ -31,8 +31,11 @@ export default class RoomScene extends Phaser.Scene {
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.spectateButton = new TextButton(this, config.width/2, 740, 'Spectate', function() {
-            this.player1SelectorView.clear()
+            this.game.socket.emit('join spectators', { roomId: this.gameData.roomId, playerId: this.game.socket.id})
+            this.spectateButton.setVisible(false)
         }.bind(this))
+        this.spectateButton.setBackgroundImageScale(0.75, 1)
+        this.spectateButton.setScale(0.8)
         this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
             this.spectatorListView.setVisible(true)
         }.bind(this))
@@ -112,6 +115,7 @@ export default class RoomScene extends Phaser.Scene {
 
         if(userId in data.players) {
             this.isPlayer = true
+            this.spectateButton.setVisible(true)
         } else {
             this.isPlayer = false
         }
@@ -127,6 +131,7 @@ export default class RoomScene extends Phaser.Scene {
         if(userId == data.id) {
             this.isPlayer = true
             playerSelectorView.showUserAsCurrentPlayer()
+            this.spectateButton.setVisible(true)
         }
         else {
             playerSelectorView.showOnlinePlayer(data)
@@ -139,7 +144,11 @@ export default class RoomScene extends Phaser.Scene {
         let userId = this.game.socket.id
         let playerlabel = data.label
         let playerSelectorView = this.playerSelectorViews[playerlabel]
-    
+
+        if(userId == data.id) {
+            this.isPlayer = false
+        }
+
         if(this.isPlayer) {
             playerSelectorView.showEmpty()
         }
@@ -160,7 +169,16 @@ export default class RoomScene extends Phaser.Scene {
     spectatorJoined(data) {
         console.log('RoomScene.spectatorJoined()')
         console.log(data)
-        this.spectatorSelectorView.showOnlineSpectator(data)
+
+        let userId = this.game.socket.id
+        if(userId == data.id) {
+            this.spectatorSelectorView.showUserAsSpectator(data)
+            this.playerSelectorViews['P1'].showEmptyAndJoinableIfNotOccupied()
+            this.playerSelectorViews['P2'].showEmptyAndJoinableIfNotOccupied()
+        } 
+        else {
+            this.spectatorSelectorView.showOnlineSpectator(data)
+        }
     }
 
     spectatorLeft(data) {
@@ -181,7 +199,8 @@ export default class RoomScene extends Phaser.Scene {
     }
 
     hideJoinAndSpectateButtons() {
-        this.playerSelectorViews['P1'].hideReadyButton()
-        this.playerSelectorViews['P2'].hideReadyButton()
+        this.playerSelectorViews['P1'].hideJoinButton()
+        this.playerSelectorViews['P2'].hideJoinButton()
+        this.spectateButton.setVisible(false)
     }
 }

@@ -70,27 +70,6 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, isReady: this.isReady})
   }
 
-  clear() {
-    this.index = 0
-    this.alpaca.setTexture('empty_slot')
-    this.leftArrow.visible = false
-    this.rightArrow.visible = false
-    this.readySquare.visible = false
-    this.readyText.visible = false
-    this.isReady = false
-    this.isOccupied = false
-    this.readyText.setText('Not Ready')
-    this.readyText.setColor('#c90b0b')
-
-    this.readyButton.setText('Join')
-    this.readyButton.setOnButtonClick(function() {
-
-    }.bind(this))
-  }
-
-  fill() {
-  }
-
   showOnlinePlayer(playerData) {
     this.setVisible(true)
     this.index = 0
@@ -165,5 +144,15 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
 
   hideReadyButton() {
     this.readyButton.setVisible(false)
+  }
+
+  hideJoinButton() {
+    this.readyButton.setVisible(false)
+  }
+
+  showEmptyAndJoinableIfNotOccupied() {
+    if(!this.isOccupied) {
+      this.showEmptyAndJoinable()
+    }
   }
 }
