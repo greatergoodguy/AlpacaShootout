@@ -1,6 +1,7 @@
 import 'phaser'
 import TextButton from './TextButton'
 import ImageButton from './ImageButton'
+import CharacterInfoView from './CharacterInfoView'
 
 export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   constructor(scene, x, y, label) {
@@ -10,6 +11,24 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
 
     this.alpacaTextures = ['jaka_standby', 'punka_standby', 'pompaca_standby']
 
+    this.alpacaStats = {
+      jaka_standby: {
+        heart: 3,
+        ammo: 3,
+        shield: 3
+      },
+      punka_standby: {
+        heart: 2,
+        ammo: 5,
+        shield: 1
+      },
+      pompaca_standby: {
+        heart: 1,
+        ammo: 1,
+        shield: 1
+      }
+    }
+
     this.index = 0
     this.alpaca = this.scene.add.image(0, 400, 'jaka_standby')
     this.add(this.alpaca)
@@ -18,6 +37,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
         this.index = (this.index - 1).mod(this.alpacaTextures.length)
         let newTexture = this.alpacaTextures[this.index]
         this.alpaca.setTexture(newTexture)
+        this.characterInfoView.updateUI(this.alpacaStats[newTexture])
         this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
     }.bind(this))
     this.add(this.leftArrow)
@@ -26,6 +46,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
         this.index = (this.index + 1).mod(this.alpacaTextures.length)
         let newTexture = this.alpacaTextures[this.index]
         this.alpaca.setTexture(newTexture)
+        this.characterInfoView.updateUI(this.alpacaStats[newTexture])
         this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
     }.bind(this))
     this.add(this.rightArrow)
@@ -47,6 +68,9 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.add(this.readyButton)
     this.readyButton.setBackgroundImageScale(0.65, 1)
     this.readyButton.setScale(0.8)
+
+    this.characterInfoView = new CharacterInfoView(this.scene, 0, 200)
+    this.add(this.characterInfoView)
 
     this.x = x
     this.y = y
@@ -92,6 +116,9 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setVisible(false)
     this.readyButton.setOnButtonClick(function() {
     }.bind(this))
+
+    this.characterInfoView.setVisible(true)
+    this.characterInfoView.updateUI(this.alpacaStats[playerData.texture])
   }
 
   showUserAsCurrentPlayer() {
@@ -112,6 +139,9 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setOnButtonClick(function() {
       this.ready()
     }.bind(this))
+
+    this.characterInfoView.setVisible(true)
+    this.characterInfoView.updateUI(this.alpacaStats['jaka_standby'])
   }
 
   showEmpty() {
@@ -126,6 +156,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyText.setText('Not Ready')
     this.readyText.setColor('#c90b0b')
     this.readyButton.setVisible(false)
+    this.characterInfoView.setVisible(false)
   }
 
   showEmptyAndJoinable() {

@@ -62,6 +62,9 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('whitePixel', 'client/src/assets/ui/whitePixel.png')
         this.load.image('whiteSquare', 'client/src/assets/ui/whiteSquare.png')
         this.load.image('eye', 'client/src/assets/ui/eye.png')
+        this.load.image('heart', 'client/src/assets/ui/heart.png')
+        this.load.image('ammo', 'client/src/assets/ui/bulletSilverSilver_outline.png')
+        this.load.image('shield', 'client/src/assets/ui/barrelRed_up.png')
 
         this.load.bitmapFont('khodijah', 'client/src/assets/fonts/khodijah.png', 'client/src/assets/fonts/khodijah.fnt')
 
