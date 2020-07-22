@@ -2,7 +2,7 @@ import 'phaser'
 import TextButton from './TextButton'
 import ImageButton from './ImageButton'
 
-export default class PlayerSelectorView extends Phaser.GameObjects.Container {
+export default class SpectatorSelectorView extends Phaser.GameObjects.Container {
   constructor(scene, x, y) {
     super(scene)
     this.scene = scene

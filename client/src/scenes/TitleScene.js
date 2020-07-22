@@ -23,12 +23,6 @@ export default class TitleScene extends Phaser.Scene {
         this.titleBitmapText2.setOrigin(0.5, 0)
 
         this.startButton = new TextButton(this, config.width/2, 400, 'Start Game', function() {
-            // clickSound.play()
-            // self.cameras.main.fadeOut(FADE_DURATION)
-            // invisiblePixel.setInteractive()
-            // self.cameras.main.once('camerafadeoutcomplete', function (camera) {
-            //     self.scene.start('Lobby')
-            // })
             this.scene.start('Lobby')
         }.bind(this));
 
