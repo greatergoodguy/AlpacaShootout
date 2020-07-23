@@ -10,25 +10,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.scene = scene
     this.label = label
 
-    this.alpacaKeys = ['jaka', 'punka', 'pompaca']
-
-    this.alpacaStats = {
-      jaka_standby: {
-        heart: 3,
-        ammo: 3,
-        shield: 3
-      },
-      punka_standby: {
-        heart: 2,
-        ammo: 5,
-        shield: 1
-      },
-      pompaca_standby: {
-        heart: 1,
-        ammo: 1,
-        shield: 1
-      }
-    }
+    this.alpacaKeys = ['jaka', 'punka', 'pompaca', 'suri']
 
     this.index = 0
     this.alpaca = this.scene.add.image(0, 400, 'jaka_standby')
@@ -74,10 +56,10 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   }
 
   updateAlpaca() {
-    let newKey = this.alpacaKeys[this.index]
-    this.alpaca.setTexture(alpacas[newKey].standby)
-    this.characterInfoView.updateUI(alpacas[newKey].stats)
-    this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
+    this.alpacaKey = this.alpacaKeys[this.index]
+    this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
+    this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
+    this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, alpacaKey: this.alpacaKey})
   }
 
   ready() {
@@ -99,7 +81,8 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   showOnlinePlayer(playerData) {
     this.setVisible(true)
     this.index = 0
-    this.alpaca.setTexture(playerData.texture)
+    this.alpacaKey = playerData.alpacaKey
+    this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
     this.leftArrow.setVisible(false)
     this.rightArrow.setVisible(false)
     this.readySquare.setVisible(true)
@@ -120,13 +103,14 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     }.bind(this))
 
     this.characterInfoView.setVisible(true)
-    this.characterInfoView.updateUI(this.alpacaStats[playerData.texture])
+    this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
   }
 
   showUserAsCurrentPlayer() {
     this.setVisible(true)
     this.index = 0
-    this.alpaca.setTexture('jaka_standby')
+    this.alpacaKey = this.alpacaKeys[this.index]
+    this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
     this.leftArrow.setVisible(true)
     this.rightArrow.setVisible(true)
     this.readySquare.setVisible(true)
@@ -143,7 +127,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     }.bind(this))
 
     this.characterInfoView.setVisible(true)
-    this.characterInfoView.updateUI(this.alpacaStats['jaka_standby'])
+    this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
   }
 
   showEmpty() {

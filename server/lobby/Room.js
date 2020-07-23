@@ -72,13 +72,13 @@ Room.prototype = {
 	},
 
 	addPlayer: function(id) {
-		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), texture: 'jaka_standby', isReady: false}
+		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), alpacaKey: 'jaka', isReady: false}
 	},
 
 	addPlayerToSlot: function(id, label) {
 		if(this.playerSlots[playerLabelIndices[label]].available) {
 			this.playerSlots[playerLabelIndices[label]].available = false
-			this.players[id] = {id: id, label: label, texture: 'jaka_standby', isReady: false}
+			this.players[id] = {id: id, label: label, alpacaKey: 'jaka', isReady: false}
 		}
 	},
 
@@ -95,8 +95,8 @@ Room.prototype = {
 
 	updatePlayer: function(data) {
 		console.log('Room.updatePlayer()')
-		if('newTexture' in data) {
-			this.players[data.playerId].texture = data.newTexture
+		if('alpacaKey' in data) {
+			this.players[data.playerId].alpacaKey = data.alpacaKey
 		}
 		if('isReady' in data) {
 			this.players[data.playerId].isReady = data.isReady

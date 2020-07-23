@@ -33,6 +33,7 @@ export default class GameScene extends Phaser.Scene {
         this.player2 = new Player(this, 3*config.width/4, 300, 'punka')
 
         this.spectator = new Spectator(this, config.width/2, 700)
+        this.spectator.hide()
     }
 
     update() {

@@ -34,5 +34,16 @@ export const alpacas = {
             ammo: 1,
             shield: 1
         }
+    },
+    suri: {
+        standby: 'suri_standby',
+        shoot: 'suri_shoot',
+        reload: 'suri_reload',
+        shield: 'suri_shield',
+        stats: {
+            heart: 1,
+            ammo: 1,
+            shield: 1
+        }
     }
 }

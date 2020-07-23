@@ -47,6 +47,10 @@ export default class PreloaderScene extends Phaser.Scene {
         this.displayLoader()
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js')
 
+        this.load.image('suri_standby', 'client/src/assets/alpaca/suri_standby.png')
+        this.load.image('suri_shield', 'client/src/assets/alpaca/suri_shield.png')
+        this.load.image('suri_shoot', 'client/src/assets/alpaca/suri_shoot.png')
+
         this.load.image('jaka_standby', 'client/src/assets/alpaca/jaka_standby.png')
         this.load.image('pompaca_standby', 'client/src/assets/alpaca/pompaca_standby.png')
         this.load.image('punka_standby', 'client/src/assets/alpaca/punka_standby.png')
