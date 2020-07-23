@@ -67,7 +67,14 @@ var Lobby = {
 		if(room) {
 			room.updatePlayer(data)
 			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
-		}
+
+			console.log('room.hasMaxPlayers(): ' + room.hasMaxPlayers())
+			console.log('room.areAllPlayersReady(): ' + room.areAllPlayersReady())
+
+			if(room.hasMaxPlayers() && room.areAllPlayersReady()) {
+				io.in(data.roomId).emit("start game", room);
+			}
+ 		}
 	},
 	onJoinPlayerSlot: function(data) {
 		console.log('Lobby.onJoinPlayerSlot()')

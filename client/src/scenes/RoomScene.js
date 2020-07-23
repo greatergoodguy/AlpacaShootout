@@ -68,6 +68,8 @@ export default class RoomScene extends Phaser.Scene {
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
         this.game.socket.on("update spectator", this.updateSpectator.bind(this))
 
+        this.game.socket.on("start game", this.startGame.bind(this))
+
         this.game.socket.on('disconnect', this.leaveRoom.bind(this))
     }
 
@@ -193,6 +195,7 @@ export default class RoomScene extends Phaser.Scene {
     }
 
     leaveRoom() {
+        console.log('RoomScene.leaveRoom()')
         this.game.socket.emit("leave room")
         this.game.socket.removeAllListeners()
         this.scene.start('Title')
@@ -202,5 +205,13 @@ export default class RoomScene extends Phaser.Scene {
         this.playerSelectorViews['P1'].hideJoinButton()
         this.playerSelectorViews['P2'].hideJoinButton()
         this.spectateButton.setVisible(false)
+    }
+
+    startGame(roomData) {
+        console.log('RoomScene.startGame()')
+        console.log(roomData)
+
+        this.game.socket.removeAllListeners()
+        this.scene.start('Game')
     }
 }

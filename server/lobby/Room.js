@@ -103,6 +103,12 @@ Room.prototype = {
 		}
 	},
 
+	areAllPlayersReady: function() {
+		return Object.values(this.players).reduce((result, player) => {
+			return result && player.isReady
+		}, true)
+	},
+
 	claimFirstAvailablePlayerSlot: function() {
 		for(var i = 0; i < this.playerSlots.length; i++) {
 			var playerSlot = this.playerSlots[i]
