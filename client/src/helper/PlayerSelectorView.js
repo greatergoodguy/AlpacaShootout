@@ -1,4 +1,5 @@
 import 'phaser'
+import { alpacas }  from '../config/const'
 import TextButton from './TextButton'
 import ImageButton from './ImageButton'
 import CharacterInfoView from './CharacterInfoView'
@@ -9,7 +10,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.scene = scene
     this.label = label
 
-    this.alpacaTextures = ['jaka_standby', 'punka_standby', 'pompaca_standby']
+    this.alpacaKeys = ['jaka', 'punka', 'pompaca']
 
     this.alpacaStats = {
       jaka_standby: {
@@ -34,20 +35,14 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.add(this.alpaca)
     this.alpaca.setScale(0.5)
     this.leftArrow = new ImageButton(this.scene, 0 - 80, 600, 'arrowBrown_left', function() {
-        this.index = (this.index - 1).mod(this.alpacaTextures.length)
-        let newTexture = this.alpacaTextures[this.index]
-        this.alpaca.setTexture(newTexture)
-        this.characterInfoView.updateUI(this.alpacaStats[newTexture])
-        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
+        this.index = (this.index - 1).mod(this.alpacaKeys.length)
+        this.updateAlpaca()
     }.bind(this))
     this.add(this.leftArrow)
     this.leftArrow.setScale(1.5)
     this.rightArrow = new ImageButton(this.scene, 0 + 80, 600, 'arrowBrown_right', function() {
-        this.index = (this.index + 1).mod(this.alpacaTextures.length)
-        let newTexture = this.alpacaTextures[this.index]
-        this.alpaca.setTexture(newTexture)
-        this.characterInfoView.updateUI(this.alpacaStats[newTexture])
-        this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
+        this.index = (this.index + 1).mod(this.alpacaKeys.length)
+        this.updateAlpaca()
     }.bind(this))
     this.add(this.rightArrow)
     this.rightArrow.setScale(1.5)
@@ -76,6 +71,13 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.y = y
 
     this.scene.add.existing(this)
+  }
+
+  updateAlpaca() {
+    let newKey = this.alpacaKeys[this.index]
+    this.alpaca.setTexture(alpacas[newKey].standby)
+    this.characterInfoView.updateUI(alpacas[newKey].stats)
+    this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, newTexture: newTexture})
   }
 
   ready() {

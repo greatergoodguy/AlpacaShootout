@@ -19,9 +19,20 @@ export const alpacas = {
         reload: 'reload',
         shield: 'shield',
         stats: {
-            heart: 3,
-            ammo: 3,
-            shield: 3
+            heart: 2,
+            ammo: 5,
+            shield: 1
+        }
+    },
+    pompaca: {
+        standby: 'pompaca_standby',
+        shoot: 'shoot',
+        reload: 'reload',
+        shield: 'shield',
+        stats: {
+            heart: 1,
+            ammo: 1,
+            shield: 1
         }
     }
 }
