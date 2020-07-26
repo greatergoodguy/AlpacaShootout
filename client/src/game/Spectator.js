@@ -7,7 +7,7 @@ export default class Spectator extends Phaser.GameObjects.Container {
 
         this.image = this.scene.add.image(0, 0, 'spectator')
         this.image.setScale(0.4)
-        this.add(image)
+        this.add(this.image)
 
 
         this.scene.add.existing(this)
