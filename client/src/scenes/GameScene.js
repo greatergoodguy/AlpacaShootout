@@ -43,16 +43,19 @@ export default class GameScene extends Phaser.Scene {
         this.spectator.hide()
 
         this.game.socket.on("show game", this.populateGame.bind(this))
-        this.game.socket.on("player left", this.playerLeft.bind(this))
+        this.game.socket.on("player left", this.leaveGame.bind(this))
     }
 
     update() {}
 
     populateGame(data) {
-        console.log('RoomScene.populateGame()')
+        console.log('GameScene.populateGame()')
         console.log(data)
         let userId = this.game.socket.id
-
+        
+        if(data.players < data.playerSlots.length) {
+            this.leaveGame()
+        }
 
         Object.entries(data.players).forEach((entry) => {
             console.log(entry[1])
@@ -68,10 +71,8 @@ export default class GameScene extends Phaser.Scene {
         })
     }
 
-    playerLeft(data) {
-        console.log('GameScene.playerLeft()')
-        console.log(data)
-
+    leaveGame() {
+        console.log('GameScene.leaveGame()')
         this.game.socket.emit("leave room")
         this.game.socket.removeAllListeners()
         this.scene.start('Title')

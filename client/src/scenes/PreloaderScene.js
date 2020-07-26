@@ -50,6 +50,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('suri_standby', 'client/src/assets/alpaca/suri_standby.png')
         this.load.image('suri_shield', 'client/src/assets/alpaca/suri_shield.png')
         this.load.image('suri_shoot', 'client/src/assets/alpaca/suri_shoot.png')
+        this.load.image('suri_reload', 'client/src/assets/alpaca/suri_reload.png')
+        this.load.image('suri_hurt', 'client/src/assets/alpaca/suri_hurt.png')
 
         this.load.image('jaka_standby', 'client/src/assets/alpaca/jaka_standby.png')
         this.load.image('pompaca_standby', 'client/src/assets/alpaca/pompaca_standby.png')

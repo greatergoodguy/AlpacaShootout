@@ -10,7 +10,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.scene = scene
     this.label = label
 
-    this.alpacaKeys = ['jaka', 'punka', 'pompaca', 'suri']
+    this.alpacaKeys = ['suri', 'jaka', 'punka', 'pompaca']
 
     this.index = 0
     this.alpaca = this.scene.add.image(0, 400, 'jaka_standby')

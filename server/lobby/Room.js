@@ -76,7 +76,7 @@ Room.prototype = {
 	},
 
 	addPlayer: function(id) {
-		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), alpacaKey: 'jaka', isReady: false}
+		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), alpacaKey: 'suri', isReady: false}
 	},
 
 	addPlayerToSlot: function(id, label) {
