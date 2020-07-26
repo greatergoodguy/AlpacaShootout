@@ -38,8 +38,10 @@ var Lobby = {
 			this.leave(lobbyId)
 			this.join(data.roomId)
 			if(data.userType == 'player' && !room.hasMaxPlayers()) {
+				data.userType = 'player'
 				room.addPlayer(this.id)
 			} else {
+				data.userType = 'spectator'
 				room.addSpectator(this.id)
 			}
 
