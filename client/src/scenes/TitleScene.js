@@ -1,6 +1,9 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import TextButton from '../helper/TextButton'
+import { getParameterByName } from '../toolbox/Toolbox'
+
+var firstTimeInScene = true
 
 export default class TitleScene extends Phaser.Scene {
     constructor() {
@@ -29,7 +32,22 @@ export default class TitleScene extends Phaser.Scene {
         this.creditsButton = new TextButton(this, config.width/2, 500, 'Credits', function() {
             this.scene.start('Credits')
         }.bind(this));
+
+        if(firstTimeInScene) {
+            firstTimeInScene = false
+            this.navigateBasedOnQueryParams()
+        }
     }
 
     update() {}
+
+    navigateBasedOnQueryParams() {
+        let titleParam = getParameterByName('title')
+        console.log(titleParam)
+        if(titleParam === 'start') {
+            this.scene.start('Lobby')
+        } else if(titleParam === 'credits') {
+            this.scene.start('Credits')
+        }
+    }
 }

@@ -2,6 +2,9 @@ import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import TextButton from '../helper/TextButton'
 import IconButton from '../helper/IconButton'
+import { getParameterByName } from '../toolbox/Toolbox'
+
+var firstTimeInScene = true
 
 export default class LobbyScene extends Phaser.Scene {
     constructor() {
@@ -62,6 +65,12 @@ export default class LobbyScene extends Phaser.Scene {
             })
             this.spectatorButtons[gameData.id].setData('id', gameData.id)
         }
+
+        if(firstTimeInScene) {
+            firstTimeInScene = false
+            this.navigateBasedOnQueryParams()
+        }
+
     }
 
     setLobbyButton(lobbyButton, gameData) {
@@ -92,5 +101,15 @@ export default class LobbyScene extends Phaser.Scene {
         let socket = this.game.socket
         socket.removeAllListeners()
         this.scene.start('Title')
+    }
+
+    navigateBasedOnQueryParams() {
+        let titleParam = getParameterByName('lobby')
+        console.log(titleParam)
+        if(titleParam === 'room1') {
+            this.game.socket.removeAllListeners()
+            let roomId = Object.keys(this.lobbyButtons)[0]
+            this.scene.start('Room', {roomId: roomId, userType: 'player'})
+        }
     }
 }

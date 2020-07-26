@@ -11,6 +11,11 @@ export default class GameScene extends Phaser.Scene {
         })
     }
 
+    init(roomData) {
+        this.roomData = roomData
+        console.log(this.roomData)
+	}
+
     preload() {}
 
     create() {
@@ -28,14 +33,16 @@ export default class GameScene extends Phaser.Scene {
         this.shieldButton = new TextButton(this, config.width/2, 750, 'Shield', function() {
         }.bind(this))
 
-        this.player1 = new Player(this, config.width/4, 300, 'jaka')
+        let player1Data = Object.values(this.roomData.players).find(player => player.label == 'P1')
+        this.player1 = new Player(this, config.width/4, 300, player1Data.alpacaKey)
         this.player1.faceRight()
-        this.player2 = new Player(this, 3*config.width/4, 300, 'punka')
+
+        let player2Data = Object.values(this.roomData.players).find(player => player.label == 'P2')
+        this.player2 = new Player(this, 3*config.width/4, 300, player2Data.alpacaKey)
 
         this.spectator = new Spectator(this, config.width/2, 700)
         this.spectator.hide()
     }
 
-    update() {
-    }
+    update() {}
 }

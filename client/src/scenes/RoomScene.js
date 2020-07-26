@@ -5,6 +5,9 @@ import ImageButton from '../helper/ImageButton'
 import PlayerSelectorView from '../helper/PlayerSelectorView'
 import SpectatorListView from '../helper/SpectatorListView'
 import SpectatorSelectorView from '../helper/SpectatorSelectorView'
+import { getParameterByName } from '../toolbox/Toolbox'
+
+var firstTimeInScene = true
 
 export default class RoomScene extends Phaser.Scene {
     constructor() {
@@ -121,6 +124,11 @@ export default class RoomScene extends Phaser.Scene {
         } else {
             this.isPlayer = false
         }
+
+        if(firstTimeInScene) {
+            firstTimeInScene = false
+            this.navigateBasedOnQueryParams(data)
+        }
     }
 
     playerJoined(data) {
@@ -212,6 +220,23 @@ export default class RoomScene extends Phaser.Scene {
         console.log(roomData)
 
         this.game.socket.removeAllListeners()
-        this.scene.start('Game')
+        this.scene.start('Game', roomData)
+    }
+
+    navigateBasedOnQueryParams(data) {
+        let titleParam = getParameterByName('room')
+        console.log(titleParam)
+        if(titleParam === 'ready') {
+            let userId = this.game.socket.id
+
+            Object.entries(data.players).forEach((entry) => {
+                console.log(entry[1])
+                let playerlabel = entry[1].label
+                let playerSelectorView = this.playerSelectorViews[playerlabel]
+                if(userId == entry[0]) {
+                    playerSelectorView.ready()
+                }
+            })
+        }
     }
 }
