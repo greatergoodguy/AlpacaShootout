@@ -53,8 +53,9 @@ export default class GameScene extends Phaser.Scene {
         console.log(data)
         let userId = this.game.socket.id
         
-        if(data.players < data.playerSlots.length) {
+        if(Object.entries(data.players).length < data.playerSlots.length) {
             this.leaveGame()
+            return
         }
 
         Object.entries(data.players).forEach((entry) => {
