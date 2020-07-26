@@ -83,11 +83,9 @@ export default class LobbyScene extends Phaser.Scene {
         if(numberOfPlayers >= 2) {
             lobbyButton.setText('Full\t\t(' + numberOfPlayers + '/2)')   
             lobbyButton.setDisabled()
-            lobbyButton.disableInteractive()
         } else {
             lobbyButton.setText('Room ' + roomNumber + '\t\t(' + numberOfPlayers + '/2)')   
             lobbyButton.setEnabled()
-            lobbyButton.setInteractive()
         }
     }
 

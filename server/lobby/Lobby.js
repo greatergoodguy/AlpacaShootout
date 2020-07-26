@@ -72,6 +72,7 @@ var Lobby = {
 			console.log('room.areAllPlayersReady(): ' + room.areAllPlayersReady())
 
 			if(room.hasMaxPlayers() && room.areAllPlayersReady()) {
+				room.setState("in progress")
 				io.in(data.roomId).emit("start game", room);
 			}
  		}
@@ -113,6 +114,16 @@ var Lobby = {
 		room.addSpectator(this.id)
 		io.in(this.roomId).emit("spectator joined", room.spectators[this.id])
 		broadcastSlotStateUpdate(data.roomId, room)
+	},
+
+	onEnterGame: function(data) {
+		console.log('Lobby.onEnterGame()')
+		console.log(data)
+
+		var room = rooms[data.roomId]
+		if(room) {
+			this.emit("show game", room)
+		}
 	}
 }
 

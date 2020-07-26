@@ -30,6 +30,9 @@ export default class TextButton extends Phaser.GameObjects.Container {
     }.bind(this));
 
     this.button.on('pointerout', function () {
+      if(!this.button.input.enabled) {
+        return
+      }
       this.button.setTint()
       this.button.setTexture('buttonLong_brown')
     }.bind(this));
@@ -53,21 +56,15 @@ export default class TextButton extends Phaser.GameObjects.Container {
     this.onButtonClick = newOnButtonClick
   }
 
-  setInteractive() {
-    this.button.setInteractive()
-  }
-
-  disableInteractive() {
-    this.button.disableInteractive()
-  }
-
   setDisabled() {
     this.button.setTint(0x808080)
     this.button.setTexture('buttonLong_brown_pressed')
+    this.button.disableInteractive()
   }
 
   setEnabled() {
     this.button.setTint()
     this.button.setTexture('buttonLong_brown')
+    this.button.setInteractive()
   }
 }

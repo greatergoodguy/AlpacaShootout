@@ -1,4 +1,5 @@
 import { alpacas }  from '../config/const'
+import TextButton from '../helper/TextButton'
 
 export default class Player extends Phaser.GameObjects.Container {
     constructor(scene, x, y, alpaca) {
@@ -15,6 +16,28 @@ export default class Player extends Phaser.GameObjects.Container {
         this.alpacaSprite.setScale(0.5, 0.5)
         this.add(this.alpacaSprite)
 
+
+        this.shootButton = new TextButton(this.scene, 0, 200, 'Shoot', function() {
+            console.log('Shoot')
+            this.disableButtons()
+        }.bind(this))
+        this.shootButton.setBackgroundImageScale(0.9, 0.9)
+        this.add(this.shootButton)
+
+        this.reloadButton = new TextButton(this.scene, 0, 260, 'Reload', function() {
+            console.log('Reload')
+            this.disableButtons()
+        }.bind(this))
+        this.reloadButton.setBackgroundImageScale(0.9, 0.9)
+        this.add(this.reloadButton)
+
+        this.shieldButton = new TextButton(this.scene, 0, 320, 'Shield', function() {
+            console.log('Shield')
+            this.disableButtons()
+        }.bind(this))
+        this.shieldButton.setBackgroundImageScale(0.9, 0.9)
+        this.add(this.shieldButton)
+
         this.scene.add.existing(this)
     }
 
@@ -25,4 +48,37 @@ export default class Player extends Phaser.GameObjects.Container {
     faceRight() {
         this.alpacaSprite.setScale(-0.5, 0.5)
     }
+
+    showCharacter() {
+        this.alpacaSprite.setVisible(true)
+    }
+
+    hideCharacter() {
+        this.alpacaSprite.setVisible(false)
+    }
+
+    showButtons() {
+        this.shootButton.setVisible(true)
+        this.reloadButton.setVisible(true)
+        this.shieldButton.setVisible(true)
+    }
+
+    hideButtons() {
+        this.shootButton.setVisible(false)
+        this.reloadButton.setVisible(false)
+        this.shieldButton.setVisible(false)
+    }
+
+    disableButtons() {
+        this.shootButton.setDisabled()
+        this.reloadButton.setDisabled()
+        this.shieldButton.setDisabled()
+    }
+
+    enableButtons() {
+        this.shootButton.setEnabled()
+        this.reloadButton.setEnabled()
+        this.shieldButton.setEnabled()
+    }
+
 }

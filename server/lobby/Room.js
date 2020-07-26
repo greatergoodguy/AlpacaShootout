@@ -71,6 +71,10 @@ Room.prototype = {
 		}
 	},
 
+	setState: function(newState) {
+		this.state = newState
+	},
+
 	addPlayer: function(id) {
 		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), alpacaKey: 'jaka', isReady: false}
 	},

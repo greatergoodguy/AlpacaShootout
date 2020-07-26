@@ -80,6 +80,7 @@ export default class RoomScene extends Phaser.Scene {
 
     populateRoom(data) {
         console.log('RoomScene.populateRoom()')
+        
         console.log(data)
         let userId = this.game.socket.id
 

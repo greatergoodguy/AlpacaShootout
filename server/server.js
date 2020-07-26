@@ -25,6 +25,8 @@ io.on('connection', function(socket) {
     socket.on('join player slot', Lobby.onJoinPlayerSlot)
     socket.on('join spectators', Lobby.onJoinSpectators)
     socket.on('disconnect', onClientDisconnect)
+
+    socket.on('enter game', Lobby.onEnterGame)
 })
 
 function onClientDisconnect() {
