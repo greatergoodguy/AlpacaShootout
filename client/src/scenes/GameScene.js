@@ -44,6 +44,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))
+        this.game.socket.on('disconnect', this.leaveGame.bind(this))
     }
 
     update() {}
