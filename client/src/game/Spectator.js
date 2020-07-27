@@ -1,7 +1,8 @@
 export default class Spectator extends Phaser.GameObjects.Container {
-    constructor(scene, x, y) {
+    constructor(scene, container, x, y) {
         super(scene)
         this.scene = scene
+        this.container = container
         this.x = x
         this.y = y
 
@@ -19,5 +20,9 @@ export default class Spectator extends Phaser.GameObjects.Container {
 
     hide() {
         this.image.setVisible(false)
+    }
+
+    setTint(tint) {
+        this.image.setTint(tint)
     }
 }

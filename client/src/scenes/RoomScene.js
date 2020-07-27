@@ -84,6 +84,11 @@ export default class RoomScene extends Phaser.Scene {
         console.log(data)
         let userId = this.game.socket.id
 
+        if(data.state === "in progress") {
+            this.startGame(data)
+            return
+        }
+
         Object.entries(data.players).forEach((entry) => {
             console.log(entry[1])
             let playerlabel = entry[1].label

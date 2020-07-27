@@ -3,6 +3,7 @@ import config from '../config/config'
 import TextButton from '../helper/TextButton'
 import Player from '../game/Player'
 import Spectator from '../game/Spectator'
+import Audience from '../game/Audience'
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
@@ -42,8 +43,13 @@ export default class GameScene extends Phaser.Scene {
         this.spectator = new Spectator(this, config.width/2, 700)
         this.spectator.hide()
 
+        this.audience = new Audience(this, config.width/2, config.height/2 + 250)
+
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))
+
+        this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
+        this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
         this.game.socket.on('disconnect', this.leaveGame.bind(this))
     }
 
@@ -71,6 +77,35 @@ export default class GameScene extends Phaser.Scene {
                 player.showCharacter()
             }
         })
+
+        Object.entries(data.spectators).forEach((entry) => {
+            console.log(entry[1])
+            if(userId == entry[0]) {
+                this.audience.showUserAsSpectator(entry[1])
+            }
+            else {
+                this.audience.showOnlineSpectator(entry[1])
+            }
+        })
+    }
+
+    spectatorJoined(data) {
+        console.log('GameScene.spectatorJoined()')
+        console.log(data)
+
+        let userId = this.game.socket.id
+        if(userId == data.id) {
+            this.audience.showUserAsSpectator(data)
+        } 
+        else {
+            this.audience.showOnlineSpectator(data)
+        }
+    }
+
+    spectatorLeft(data) {
+        console.log('GameScene.spectatorLeft()')
+        console.log(data)
+        this.audience.removeSpectator(data)
     }
 
     leaveGame() {
