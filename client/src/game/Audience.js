@@ -48,7 +48,7 @@ export default class Audience extends Phaser.GameObjects.Container {
 
         this.spectators = {}
         Object.entries(spectatorMap).forEach((entry) => {
-            let spectator = new Spectator(this.scene, this, entry[1].xPos, 0)
+            let spectator = new Spectator(this.scene, entry[1].xPos, 0)
             spectator.hide()
             this.spectators[entry[0]] = spectator
             this.add(spectator)

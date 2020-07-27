@@ -1,5 +1,6 @@
 import { alpacas }  from '../config/const'
 import TextButton from '../helper/TextButton'
+import CharacterInfoBox from './CharacterInfoBox'
 
 export default class Player extends Phaser.GameObjects.Container {
     constructor(scene, x, y, alpaca) {
@@ -16,6 +17,9 @@ export default class Player extends Phaser.GameObjects.Container {
         this.alpacaSprite.setScale(0.5, 0.5)
         this.add(this.alpacaSprite)
 
+        this.characterInfoBox = new CharacterInfoBox(this.scene, 0, -200)
+        this.characterInfoBox.updateUI(alpacas[this.alpaca].stats)
+        this.add(this.characterInfoBox)
 
         this.shootButton = new TextButton(this.scene, 0, 200, 'Shoot', function() {
             console.log('Shoot')

@@ -144,6 +144,7 @@ function leaveRoom() {
 			console.log('remove player from room')
 			let playerData = room.players[this.id]
 			room.removePlayer(this.id)
+			room.setState("joinable")
 			io.in(this.roomId).emit("player left", playerData)
 		}
 		if(room.isSpectator(this.id)) {

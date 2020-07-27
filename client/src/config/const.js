@@ -41,9 +41,9 @@ export const alpacas = {
         reload: 'suri_reload',
         shield: 'suri_shield',
         stats: {
-            heart: 1,
-            ammo: 1,
-            shield: 1
+            heart: 2,
+            ammo: 2,
+            shield: 2
         }
     }
 }

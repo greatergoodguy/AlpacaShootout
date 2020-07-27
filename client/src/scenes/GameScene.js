@@ -20,6 +20,11 @@ export default class GameScene extends Phaser.Scene {
     preload() {}
 
     create() {
+        if(Object.entries(this.roomData.players).length < this.roomData.playerSlots.length) {
+            this.leaveGame()
+            return
+        }
+
         this.game.socket.emit('enter game', {roomId: this.roomData.id})
 
         this.background = this.add.image(config.width/2, config.height/2, 'BG_pillars').setScale(0.5, 0.5)

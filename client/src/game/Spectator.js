@@ -1,8 +1,7 @@
 export default class Spectator extends Phaser.GameObjects.Container {
-    constructor(scene, container, x, y) {
+    constructor(scene, x, y) {
         super(scene)
         this.scene = scene
-        this.container = container
         this.x = x
         this.y = y
 
