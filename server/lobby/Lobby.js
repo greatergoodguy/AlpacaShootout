@@ -1,15 +1,22 @@
 const uuid = require('uuid')
 const Room = require('./Room')
+const Game = require('./Game')
+const GameLogic = require('./GameLogic')
 
 var rooms = {}
 var lobbyId = -1
 var numRooms = 4
+
+var games = {}
+var gameLogics = {}
 
 var Lobby = {
 	initialize: function() {
 		for(var i = 0; i < numRooms; i++) {
 			let id = uuid.v4()
 			rooms[id] = new Room(id, i + 1);
+			games[id] = new Game(id)
+			gameLogics[id] = new GameLogic(id)
 		}
 	},
 	getRooms: function() {
@@ -66,6 +73,9 @@ var Lobby = {
 		console.log('Lobby.onUpdatePlayer()')
 		console.log(data)
 		var room = rooms[data.roomId]
+		var gameLogic = gameLogics[data.roomId]
+		var game = games[data.roomId]
+
 		if(room) {
 			room.updatePlayer(data)
 			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
@@ -75,6 +85,8 @@ var Lobby = {
 
 			if(room.hasMaxPlayers() && room.areAllPlayersReady()) {
 				room.setState("in progress")
+				gameLogic.start(room)
+				game.start(room)
 				room.turn = {}
 				io.in(data.roomId).emit("start game", room);
 			}
@@ -124,8 +136,9 @@ var Lobby = {
 		console.log(data)
 
 		var room = rooms[data.roomId]
+		var game = games[data.roomId]
 		if(room) {
-			this.emit("show game", room)
+			this.emit("show game", room, game)
 		}
 	},
 
@@ -134,6 +147,8 @@ var Lobby = {
 		console.log(data)
 
 		var room = rooms[data.roomId]
+		var gameLogic = gameLogics[data.roomId]
+		var game = games[data.roomId]
 		if(!room) { return }
 
 		if(room.isPlayer(this.id)) {
@@ -142,20 +157,15 @@ var Lobby = {
 				return
 			}
 
-			player.isActionReady = true
-			player.action = data.action
+			gameLogic.updateAction(this.id, data.action)
+			game.update(gameLogic)
 
-			room.turn[this.id] = {
-				id: this.id,
-				action: data.action
-			}
+			this.broadcast.to(data.roomId).emit("update player in game", game.players[this.id])
 
-			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
+			console.log(game)
 
-			console.log(room.turn)
-
-			if(Object.keys(room.turn).length == 2) {
-				io.in(this.roomId).emit("show actions", room)
+			if(game.showActions) {
+				io.in(this.roomId).emit("show actions", room, game)
 			}
 		}
 	}

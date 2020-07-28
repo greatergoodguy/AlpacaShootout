@@ -52,7 +52,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))
-        this.game.socket.on("update player", this.updatePlayer.bind(this))
+        this.game.socket.on("update player in game", this.updatePlayer.bind(this))
 
         this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
@@ -74,17 +74,18 @@ export default class GameScene extends Phaser.Scene {
         
     }
 
-    populateGame(data) {
+    populateGame(roomData, gameData) {
         console.log('GameScene.populateGame()')
-        console.log(data)
+        console.log(roomData)
+        console.log(gameData)
         let userId = this.game.socket.id
         
-        if(Object.entries(data.players).length < data.playerSlots.length) {
+        if(Object.entries(roomData.players).length < roomData.playerSlots.length) {
             this.leaveGame()
             return
         }
 
-        Object.entries(data.players).forEach((entry) => {
+        Object.entries(roomData.players).forEach((entry) => {
             console.log(entry[1])
             let playerlabel = entry[1].label
             let player = this.players[playerlabel]
@@ -99,13 +100,23 @@ export default class GameScene extends Phaser.Scene {
             }
         })
 
-        Object.entries(data.spectators).forEach((entry) => {
+        Object.entries(roomData.spectators).forEach((entry) => {
             console.log(entry[1])
             if(userId == entry[0]) {
                 this.audience.showUserAsSpectator(entry[1])
             }
             else {
                 this.audience.showOnlineSpectator(entry[1])
+            }
+        })
+
+
+
+        Object.entries(gameData.players).forEach((entry) => {
+            let playerlabel = entry[1].label
+            let player = this.players[playerlabel]
+            if(entry[1].isActionReady) {
+                player.setTextBoxReady()
             }
         })
     }
@@ -136,17 +147,17 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Title')
     }
 
-    showActions(data) {
+    showActions(roomData, gameData) {
         console.log('GameScene.showActions()')
-        console.log(data)
+        console.log(roomData)
+        console.log(gameData)
 
 
-        Object.entries(data.players).forEach((entry) => {
+        Object.entries(gameData.players).forEach((entry) => {
             console.log(entry[1])
             let playerlabel = entry[1].label
             let player = this.players[playerlabel]
 
-            console.log(entry[1].action)
             player.updateTexture(entry[1].action)
         })
     }
