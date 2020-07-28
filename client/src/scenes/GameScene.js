@@ -52,6 +52,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))
+        this.game.socket.on("update player", this.updatePlayer.bind(this))
 
         this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
@@ -59,6 +60,17 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update() {}
+
+    updatePlayer(data) {
+        console.log('Game.updatePlayer()')
+        console.log(data)
+        let playerlabel = data.label
+        let player = this.players[playerlabel]
+        if(data.isActionReady) {
+            player.setTextBoxReady()
+        }
+        
+    }
 
     populateGame(data) {
         console.log('GameScene.populateGame()')
@@ -75,11 +87,13 @@ export default class GameScene extends Phaser.Scene {
             let playerlabel = entry[1].label
             let player = this.players[playerlabel]
             if(userId == entry[0]) {
-                player.showCharacter()
                 player.showButtons()
             }
-            else {
-                player.showCharacter()
+
+            player.showCharacter()
+
+            if(entry[1].isActionReady) {
+                player.setTextBoxReady()
             }
         })
 

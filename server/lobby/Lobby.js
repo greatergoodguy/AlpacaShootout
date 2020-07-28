@@ -75,6 +75,7 @@ var Lobby = {
 
 			if(room.hasMaxPlayers() && room.areAllPlayersReady()) {
 				room.setState("in progress")
+				room.turn = {}
 				io.in(data.roomId).emit("start game", room);
 			}
  		}
@@ -125,6 +126,30 @@ var Lobby = {
 		var room = rooms[data.roomId]
 		if(room) {
 			this.emit("show game", room)
+		}
+	},
+
+	onActionPlayed: function(data) {
+		console.log('Lobby.onActionPlayed()')
+		console.log(data)
+
+		var room = rooms[data.roomId]
+		if(!room) { return }
+
+		if(room.isPlayer(this.id)) {
+			let player = room.players[this.id]
+			if(player.isActionReady) {
+				return
+			}
+
+			player.isActionReady = true
+
+			room.turn[this.id] = {
+				id: this.id,
+				action: this.action
+			}
+
+			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
 		}
 	}
 }

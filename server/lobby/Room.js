@@ -22,6 +22,7 @@ var Room = function(id, roomNumber) {
     this.roomNumber = roomNumber
 	this.state = "joinable"
 	this.gameStart = false
+	this.turn = {}
 	this.playerSlots = [{label: "P1", available: true}, {label: "P2", available: true}]
 	this.spectatorSlots = [
 		{label: "S1", available: true}, 
@@ -76,13 +77,25 @@ Room.prototype = {
 	},
 
 	addPlayer: function(id) {
-		this.players[id] = {id: id, label: this.claimFirstAvailablePlayerSlot(), alpacaKey: 'suri', isReady: false}
+		this.players[id] = {
+			id: id, 
+			label: this.claimFirstAvailablePlayerSlot(), 
+			alpacaKey: 'suri', 
+			isReady: false,
+			isActionReady: false
+		}
 	},
 
 	addPlayerToSlot: function(id, label) {
 		if(this.playerSlots[playerLabelIndices[label]].available) {
 			this.playerSlots[playerLabelIndices[label]].available = false
-			this.players[id] = {id: id, label: label, alpacaKey: 'jaka', isReady: false}
+			this.players[id] = {
+				id: id, 
+				label: label, 
+				alpacaKey: 'jaka', 
+				isReady: false,
+				isActionReady: false
+			}
 		}
 	},
 

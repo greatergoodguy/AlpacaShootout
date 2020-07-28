@@ -27,6 +27,7 @@ io.on('connection', function(socket) {
     socket.on('disconnect', onClientDisconnect)
 
     socket.on('enter game', Lobby.onEnterGame)
+    socket.on('action played', Lobby.onActionPlayed)
 })
 
 function onClientDisconnect() {
