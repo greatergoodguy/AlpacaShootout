@@ -143,13 +143,20 @@ var Lobby = {
 			}
 
 			player.isActionReady = true
+			player.action = data.action
 
 			room.turn[this.id] = {
 				id: this.id,
-				action: this.action
+				action: data.action
 			}
 
 			this.broadcast.to(data.roomId).emit("update player", room.players[this.id])
+
+			console.log(room.turn)
+
+			if(Object.keys(room.turn).length == 2) {
+				io.in(this.roomId).emit("show actions", room)
+			}
 		}
 	}
 }
@@ -170,6 +177,7 @@ function leaveRoom() {
 			let playerData = room.players[this.id]
 			room.removePlayer(this.id)
 			room.setState("joinable")
+			room.turn = {}
 			io.in(this.roomId).emit("player left", playerData)
 		}
 		if(room.isSpectator(this.id)) {

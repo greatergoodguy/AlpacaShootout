@@ -82,7 +82,8 @@ Room.prototype = {
 			label: this.claimFirstAvailablePlayerSlot(), 
 			alpacaKey: 'suri', 
 			isReady: false,
-			isActionReady: false
+			isActionReady: false,
+			action: 'none'
 		}
 	},
 
@@ -94,7 +95,8 @@ Room.prototype = {
 				label: label, 
 				alpacaKey: 'jaka', 
 				isReady: false,
-				isActionReady: false
+				isActionReady: false,
+				action: 'none'
 			}
 		}
 	},

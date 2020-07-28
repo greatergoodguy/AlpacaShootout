@@ -4,9 +4,9 @@ export const TITLE_FONT_SIZE = 110
 export const alpacas = {
     jaka: {
         standby: 'jaka_standby',
-        shoot: 'shoot',
-        reload: 'reload',
-        shield: 'shield',
+        shoot: 'suri_shoot',
+        reload: 'suri_reload',
+        shield: 'suri_shield',
         stats: {
             heart: 3,
             ammo: 3,
@@ -15,9 +15,9 @@ export const alpacas = {
     },
     punka: {
         standby: 'punka_standby',
-        shoot: 'shoot',
-        reload: 'reload',
-        shield: 'shield',
+        shoot: 'suri_shoot',
+        reload: 'suri_reload',
+        shield: 'suri_shield',
         stats: {
             heart: 2,
             ammo: 5,
@@ -26,9 +26,9 @@ export const alpacas = {
     },
     pompaca: {
         standby: 'pompaca_standby',
-        shoot: 'shoot',
-        reload: 'reload',
-        shield: 'shield',
+        shoot: 'suri_shoot',
+        reload: 'suri_reload',
+        shield: 'suri_shield',
         stats: {
             heart: 1,
             ammo: 1,

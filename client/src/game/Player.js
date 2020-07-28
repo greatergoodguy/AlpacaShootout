@@ -38,6 +38,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.reloadButton = new TextButton(this.scene, 0, 260, 'Reload', function() {
             console.log('Reload')
             this.setTextBoxReady()
+            this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Reload'})
             //this.alpacaSprite.setTexture('suri_reload')
             this.disableButtons()
         }.bind(this))
@@ -47,6 +48,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.shieldButton = new TextButton(this.scene, 0, 320, 'Shield', function() {
             console.log('Shield')
             this.setTextBoxReady()
+            this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shield'})
             //this.alpacaSprite.setTexture('suri_shield')
             this.disableButtons()
         }.bind(this))
@@ -99,6 +101,21 @@ export default class Player extends Phaser.GameObjects.Container {
         this.shootButton.setEnabled()
         this.reloadButton.setEnabled()
         this.shieldButton.setEnabled()
+    }
+
+    updateTexture(action) {
+        console.log('Player.updateTexture()')
+        console.log(action)
+
+        if(action === "Shoot") {
+            this.alpacaSprite.setTexture(alpacas[this.alpaca].shoot)
+        } else if(action === "Reload") {
+            this.alpacaSprite.setTexture(alpacas[this.alpaca].reload)
+        } else if(action === "Shield") {
+            this.alpacaSprite.setTexture(alpacas[this.alpaca].shield)
+        } else {
+            this.alpacaSprite.setTexture(alpacas[this.alpaca].standby)
+        }
     }
 
 }

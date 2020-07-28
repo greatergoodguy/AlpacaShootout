@@ -57,6 +57,8 @@ export default class GameScene extends Phaser.Scene {
         this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
         this.game.socket.on('disconnect', this.leaveGame.bind(this))
+
+        this.game.socket.on('show actions', this.showActions.bind(this))
     }
 
     update() {}
@@ -132,5 +134,20 @@ export default class GameScene extends Phaser.Scene {
         this.game.socket.emit("leave room")
         this.game.socket.removeAllListeners()
         this.scene.start('Title')
+    }
+
+    showActions(data) {
+        console.log('GameScene.showActions()')
+        console.log(data)
+
+
+        Object.entries(data.players).forEach((entry) => {
+            console.log(entry[1])
+            let playerlabel = entry[1].label
+            let player = this.players[playerlabel]
+
+            console.log(entry[1].action)
+            player.updateTexture(entry[1].action)
+        })
     }
 }
