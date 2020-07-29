@@ -46,7 +46,7 @@ export default class CharacterInfoBox extends Phaser.GameObjects.Container {
       this.scene.add.existing(this)
     }
   
-    updateUI(data) {
+    initUI(data) {
         this.maxHearts = data.heart
         this.maxAmmo = data.ammo
         this.maxShields = data.shield
@@ -75,57 +75,50 @@ export default class CharacterInfoBox extends Phaser.GameObjects.Container {
         }
     }
 
-    removeHeart() {
-        this.currentHearts = this.currentHearts - 1
-        if(this.currentHearts < 0) {
-            this.currentHearts = 0
+    updateUI(playerData) {
+        let maxStats = playerData.maxStats
+        let currentStats = playerData.currentStats
+
+        this.maxHearts = maxStats.heart
+        this.maxAmmo = maxStats.ammo
+        this.maxShields = maxStats.shield
+
+        this.currentHearts = currentStats.heart
+        this.currentAmmo = currentStats.ammo
+        this.currentShields = currentStats.shield
+
+        var i
+        for(i = 0; i < 5; i++) {
+            this.hearts[i].setVisible(false)
+            this.ammos[i].setVisible(false)
+            this.shields[i].setVisible(false)
         }
-
-        this.hearts[this.currentHearts].setTexture('heartEmpty')
-    }
-
-    gainHeart() {
-        this.hearts[this.currentHearts].setTexture('heart')
-
-        this.currentHearts = this.currentHearts + 1
-        if(this.currentHearts > this.maxHearts) {
-            this.currentHearts = this.maxHearts
+    
+        for(i = 0; i < this.maxHearts; i++) {
+            if(i < this.currentHearts) {
+                this.hearts[i].setTexture('heart')
+            } else {
+                this.hearts[i].setTexture('heartEmpty')
+            }
+            this.hearts[i].setVisible(true)
         }
-    }
-
-    removeAmmo() {
-        this.currentAmmo = this.currentAmmo - 1
-        if(this.currentAmmo < 0) {
-            this.currentAmmo = 0
+    
+        for(i = 0; i < this.maxAmmo; i++) {
+            if(i < this.currentAmmo) {
+                this.ammos[i].setTexture('ammo')
+            } else {
+                this.ammos[i].setTexture('ammoEmpty')
+            }
+            this.ammos[i].setVisible(true)
         }
-
-        this.ammos[this.currentAmmo].setTexture('ammoEmpty')
-    }
-
-    gainAmmo() {
-        this.ammos[this.currentAmmo].setTexture('ammo')
-
-        this.currentAmmo = this.currentAmmo + 1
-        if(this.currentAmmo > this.maxAmmo) {
-            this.currentAmmo = this.maxAmmo
-        }
-    }
-
-    removeShield() {
-        this.currentShields = this.currentShields - 1
-        if(this.currentShields < 0) {
-            this.currentShields = 0
-        }
-
-        this.shields[this.currentShields].setTexture('shieldEmpty')
-    }
-
-    gainShield() {
-        this.shields[this.currentShields].setTexture('shield')
-
-        this.currentShields = this.currentShields + 1
-        if(this.currentShields > this.maxShields) {
-            this.currentShields = this.maxShields
+    
+        for(i = 0; i < this.maxShields; i++) {
+            if(i < this.currentShields) {
+                this.shields[i].setTexture('shield')
+            } else {
+                this.shields[i].setTexture('shieldEmpty')
+            }
+            this.shields[i].setVisible(true)
         }
     }
 }

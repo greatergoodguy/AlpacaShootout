@@ -1,12 +1,13 @@
-export const FADE_DURATION = 250
-export const TITLE_FONT_SIZE = 110
+const FADE_DURATION = 250
+const TITLE_FONT_SIZE = 110
 
-export const alpacas = {
+const alpacas = {
     jaka: {
         standby: 'jaka_standby',
         shoot: 'suri_shoot',
         reload: 'suri_reload',
         shield: 'suri_shield',
+        hurt: 'suri_hurt',
         stats: {
             heart: 3,
             ammo: 3,
@@ -18,6 +19,7 @@ export const alpacas = {
         shoot: 'suri_shoot',
         reload: 'suri_reload',
         shield: 'suri_shield',
+        hurt: 'suri_hurt',
         stats: {
             heart: 2,
             ammo: 5,
@@ -29,6 +31,7 @@ export const alpacas = {
         shoot: 'suri_shoot',
         reload: 'suri_reload',
         shield: 'suri_shield',
+        hurt: 'suri_hurt',
         stats: {
             heart: 1,
             ammo: 1,
@@ -40,6 +43,7 @@ export const alpacas = {
         shoot: 'suri_shoot',
         reload: 'suri_reload',
         shield: 'suri_shield',
+        hurt: 'suri_hurt',
         stats: {
             heart: 2,
             ammo: 2,
@@ -47,3 +51,5 @@ export const alpacas = {
         }
     }
 }
+
+module.exports = { FADE_DURATION, TITLE_FONT_SIZE, alpacas }

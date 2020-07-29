@@ -158,12 +158,10 @@ var Lobby = {
 			}
 
 			gameLogic.updateAction(this.id, data.action)
+			gameLogic.process()
 			game.update(gameLogic)
 
 			this.broadcast.to(data.roomId).emit("update player in game", game.players[this.id])
-
-			console.log(game)
-
 			if(game.showActions) {
 				io.in(this.roomId).emit("show actions", room, game)
 			}

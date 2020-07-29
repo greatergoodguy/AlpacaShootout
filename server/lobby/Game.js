@@ -1,3 +1,5 @@
+const { alpacas } = require('../../client/src/config/const')
+
 var Game = function(id) {
     this.id = id
     this.players = {}
@@ -18,7 +20,17 @@ Game.prototype = {
                 label: entry[1].label,
                 alpacaKey: entry[1].alpacaKey,
                 isActionReady: false,
-                action: 'none'
+                texture: 'standby',
+                maxStats: {
+                    heart: alpacas[entry[1].alpacaKey].stats.heart,
+                    ammo: alpacas[entry[1].alpacaKey].stats.ammo,
+                    shield: alpacas[entry[1].alpacaKey].stats.shield
+                },
+                currentStats: {
+                    heart: alpacas[entry[1].alpacaKey].stats.heart,
+                    ammo: alpacas[entry[1].alpacaKey].stats.ammo,
+                    shield: alpacas[entry[1].alpacaKey].stats.shield
+                }
             }
         })
     },
@@ -28,8 +40,14 @@ Game.prototype = {
         Object.entries(gameLogic.players).forEach((entry) => {
             this.players[entry[0]].isActionReady = entry[1].isActionReady
             if(this.showActions) {
-                this.players[entry[0]].action = entry[1].action
+                this.players[entry[0]].texture = entry[1].texture
+            } else {
+                this.players[entry[0]].texture = 'standby'
             }
+
+            this.players[entry[0]].currentStats.heart = entry[1].currentStats.heart
+            this.players[entry[0]].currentStats.ammo = entry[1].currentStats.ammo
+            this.players[entry[0]].currentStats.shield = entry[1].currentStats.shield
         })   
     }
 
