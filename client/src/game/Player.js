@@ -22,7 +22,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.characterInfoBox.initUI(alpacas[this.alpaca].stats)
         this.add(this.characterInfoBox)
 
-        this.textBox = new TextBox(this.scene, 0, 120, 'Thinking')
+        this.textBox = new TextBox(this.scene, 0, 120, '')
         this.add(this.textBox)
 
         this.shootButton = new TextButton(this.scene, 0, 200, 'Shoot', function() {
@@ -98,9 +98,32 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     enableButtons() {
-        this.shootButton.setEnabled()
+        if(this.characterInfoBox.currentAmmo == 0) {
+            this.shootButton.setDisabled()
+        } else {
+            this.shootButton.setEnabled()
+        }
+
         this.reloadButton.setEnabled()
-        this.shieldButton.setEnabled()
+
+        if(this.characterInfoBox.currentShields == 0) {
+            this.shieldButton.setDisabled()
+        } else {
+            this.shieldButton.setEnabled()
+        }
+    }
+
+    updateTextBox(playerData) {
+        console.log('Player.updateTextBox()')
+        if(playerData.statusTextColor === 'green') {
+            this.textBox.setTextColorGreen()
+        } else if(playerData.statusTextColor === 'red') {
+            this.textBox.setTextColorRed()
+        } else if(playerData.statusTextColor === 'blue') {
+            this.textBox.setTextColorBlue()
+        }
+
+        this.textBox.setText(playerData.statusText)
     }
 
     updateTexture(playerData) {
@@ -127,10 +150,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     update(playerData) {
-        if(playerData.isActionReady) {
-            this.setTextBoxReady()
-        }
-
+        this.updateTextBox(playerData)
         this.updateTexture(playerData)
         this.updateCharacterInfoBox(playerData)
     }

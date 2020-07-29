@@ -28,6 +28,10 @@ export default class TextBox extends Phaser.GameObjects.Container {
     this.text.setColor('#c90b0b')
   }
 
+  setTextColorBlue() {
+    this.text.setColor('#1034a6')
+  }
+
   setText(text) {
     this.text.setText(text) 
   }

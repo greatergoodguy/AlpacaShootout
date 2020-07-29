@@ -59,19 +59,18 @@ export default class GameScene extends Phaser.Scene {
         this.game.socket.on('disconnect', this.leaveGame.bind(this))
 
         this.game.socket.on('show actions', this.showActions.bind(this))
+        this.game.socket.on('new round', this.newRound.bind(this))
     }
 
     update() {}
 
-    updatePlayerInGame(data) {
+    updatePlayerInGame(playerData) {
         console.log('Game.updatePlayerInGame()')
-        console.log(data)
-        let playerlabel = data.label
+        console.log(playerData)
+        let playerlabel = playerData.label
         let player = this.players[playerlabel]
-        if(data.isActionReady) {
-            player.setTextBoxReady()
-        }
-        
+
+        player.updateTextBox(playerData)
     }
 
     populateGame(roomData, gameData) {
@@ -93,10 +92,6 @@ export default class GameScene extends Phaser.Scene {
             }
 
             player.showCharacter()
-
-            if(entry[1].isActionReady) {
-                player.setTextBoxReady()
-            }
         })
 
         Object.entries(roomData.spectators).forEach((entry) => {
@@ -114,11 +109,6 @@ export default class GameScene extends Phaser.Scene {
             let playerlabel = entry[1].label
             let player = this.players[playerlabel]
             player.update(entry[1])
-            // if(entry[1].isActionReady) {
-            //     player.setTextBoxReady()
-            // }
-
-            // player.updateCharacterInfoBox(entry[1])
         })
     }
 
@@ -148,19 +138,33 @@ export default class GameScene extends Phaser.Scene {
         this.scene.start('Title')
     }
 
-    showActions(roomData, gameData) {
+    showActions(gameData) {
         console.log('GameScene.showActions()')
-        console.log(roomData)
         console.log(gameData)
-
 
         Object.entries(gameData.players).forEach((entry) => {
             console.log(entry[1])
             let playerlabel = entry[1].label
             let player = this.players[playerlabel]
 
-            player.updateTexture(entry[1])
-            player.updateCharacterInfoBox(entry[1])
+            player.update(entry[1])
+        })
+    }
+
+    newRound(gameData) {
+        console.log('GameScene.newRound()')   
+        console.log(gameData)
+
+        let userId = this.game.socket.id
+        Object.entries(gameData.players).forEach((entry) => {
+            console.log(entry[1])
+            let playerlabel = entry[1].label
+            let player = this.players[playerlabel]
+
+            player.update(entry[1])
+            if(userId == entry[0]) {
+                player.enableButtons()
+            }
         })
     }
 }

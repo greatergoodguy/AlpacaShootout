@@ -20,6 +20,8 @@ Game.prototype = {
                 label: entry[1].label,
                 alpacaKey: entry[1].alpacaKey,
                 isActionReady: false,
+                statusText: 'Thinking',
+                statusTextColor: 'red',
                 texture: 'standby',
                 maxStats: {
                     heart: alpacas[entry[1].alpacaKey].stats.heart,
@@ -41,8 +43,17 @@ Game.prototype = {
             this.players[entry[0]].isActionReady = entry[1].isActionReady
             if(this.showActions) {
                 this.players[entry[0]].texture = entry[1].texture
+                this.players[entry[0]].statusText = entry[1].action
+                this.players[entry[0]].statusTextColor = 'blue'
             } else {
                 this.players[entry[0]].texture = 'standby'
+                if(entry[1].isActionReady) {
+                    this.players[entry[0]].statusText = 'Ready'
+                    this.players[entry[0]].statusTextColor = 'green'
+                } else {
+                    this.players[entry[0]].statusText = 'Thinking'
+                    this.players[entry[0]].statusTextColor = 'red'
+                }
             }
 
             this.players[entry[0]].currentStats.heart = entry[1].currentStats.heart

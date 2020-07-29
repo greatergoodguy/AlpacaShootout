@@ -35,6 +35,14 @@ GameLogic.prototype = {
         })
     },
 
+    newRound: function() {
+        Object.entries(this.players).forEach((entry) => {
+            entry[1].isActionReady = false
+            entry[1].action = 'none'
+            entry[1].texture = 'standby'
+        })
+    },
+    
     updateAction: function(playerId, action) {
         this.players[playerId].isActionReady = true
         this.players[playerId].action = action
