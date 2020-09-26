@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server/server.js",
-    "client-dev": "webpack-dev-server --config client/webpack/base.js --open"
+    "client-dev": "webpack-dev-server --config client/webpack/base.js --open",
+    "client-prod": "webpack --config client/webpack/prod.js",
+    "postinstall": "webpack --config client/webpack/prod.js"
+
   },
   "author": "",
   "license": "ISC",

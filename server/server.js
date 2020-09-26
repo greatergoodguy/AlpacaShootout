@@ -7,6 +7,12 @@ var Lobby = require('./lobby/Lobby')
 
 let playerIds = []
 
+// var client_url = __dirname.split('/').slice(0,-1).join('/') + '/client'
+var client_url = __dirname.split('/').slice(0,-1).join('/')
+
+app.use(express.static(client_url))
+console.log(client_url)
+
 server.listen(process.env.PORT || 3000, function() {
     console.log('Server started')
 })
