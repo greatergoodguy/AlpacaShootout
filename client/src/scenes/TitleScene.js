@@ -2,6 +2,7 @@ import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import TextButton from '../helper/TextButton'
 import { getParameterByName } from '../toolbox/Toolbox'
+import FormUtil from '../util/formUtil'
 
 var firstTimeInScene = true
 
@@ -37,6 +38,27 @@ export default class TitleScene extends Phaser.Scene {
             firstTimeInScene = false
             this.navigateBasedOnQueryParams()
         }
+
+        this.formUtil = new FormUtil({
+            scene: this,
+            rows: 11,
+            cols: 11
+        });
+        //this.formUtil.showNumbers();
+        
+        this.formUtil.setVisibile("myText", true)
+        this.formUtil.scaleToGameW("myText", .95);
+        this.formUtil.placeElementAt(5, 'myText', true);
+        
+        // this.formUtil.scaleToGameW("area51", .8);
+        // this.formUtil.scaleToGameH("area51", .5);
+        // this.formUtil.placeElementAt(60, "area51", true, true);
+        // this.formUtil.addChangeCallback("area51", this.textAreaChanged, this);
+    }
+
+    textAreaChanged() {
+    	var text=this.formUtil.getTextAreaValue("area51");
+    	console.log(text);
     }
 
     update() {}
