@@ -10,6 +10,7 @@ Game.prototype = {
     reset: function() {
         this.players = {}
         this.showActions = false
+        this.isFinished = false
     },
 
     start: function(room) {
@@ -59,6 +60,10 @@ Game.prototype = {
             this.players[entry[0]].currentStats.heart = entry[1].currentStats.heart
             this.players[entry[0]].currentStats.ammo = entry[1].currentStats.ammo
             this.players[entry[0]].currentStats.shield = entry[1].currentStats.shield
+
+            if(this.players[entry[0]].currentStats.heart == 0) {
+                this.isFinished = true
+            }
         })   
     }
 

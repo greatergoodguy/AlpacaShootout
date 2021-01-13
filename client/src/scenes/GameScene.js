@@ -57,6 +57,7 @@ export default class GameScene extends Phaser.Scene {
         this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
         this.game.socket.on('disconnect', this.leaveGame.bind(this))
+        this.game.socket.on('finish', this.leaveGame.bind(this))
 
         this.game.socket.on('show actions', this.showActions.bind(this))
         this.game.socket.on('new round', this.newRound.bind(this))

@@ -164,11 +164,18 @@ var Lobby = {
 			this.broadcast.to(data.roomId).emit("update player in game", game.players[this.id])
 			if(game.showActions) {
 				io.in(data.roomId).emit("show actions", game)
-				setTimeout(function() { 
-					gameLogic.newRound()
-					game.update(gameLogic)
-					io.in(data.roomId).emit('new round', game)
-				}, 4000)
+				if(!game.isFinished) {
+					setTimeout(function() { 
+						gameLogic.newRound()
+						game.update(gameLogic)
+						io.in(data.roomId).emit('new round', game)
+					}, 4000)
+				}
+				else {
+					setTimeout(function() {
+						io.in(data.roomId).emit('finish', game)
+					}, 4000)
+				}
 			}
 		}
 	}
