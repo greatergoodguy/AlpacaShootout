@@ -24,9 +24,9 @@ Game.prototype = {
                 statusTextColor: 'red',
                 texture: 'standby',
                 maxStats: {
-                    heart: alpacas[entry[1].alpacaKey].stats.heart,
-                    ammo: alpacas[entry[1].alpacaKey].stats.ammo,
-                    shield: alpacas[entry[1].alpacaKey].stats.shield
+                    heart: alpacas[entry[1].alpacaKey].stats.heartMax,
+                    ammo: alpacas[entry[1].alpacaKey].stats.ammoMax,
+                    shield: alpacas[entry[1].alpacaKey].stats.shieldMax
                 },
                 currentStats: {
                     heart: alpacas[entry[1].alpacaKey].stats.heart,

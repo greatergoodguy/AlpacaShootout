@@ -12,6 +12,7 @@ var gameLogics = {}
 
 var Lobby = {
 	initialize: function() {
+		console.log('Lobby.initialize()')
 		for(var i = 0; i < numRooms; i++) {
 			let id = uuid.v4()
 			rooms[id] = new Room(id, i + 1);

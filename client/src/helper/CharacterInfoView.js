@@ -47,14 +47,29 @@ export default class CharacterInfoView extends Phaser.GameObjects.Container {
 
     for(i = 0; i < data.heart; i++) {
         this.hearts[i].setVisible(true)
+        this.hearts[i].setTexture('heart')
+    }
+    for(i = data.heart; i < data.heartMax; i++) {
+        this.hearts[i].setVisible(true)
+        this.hearts[i].setTexture('heartEmpty')
     }
 
     for(i = 0; i < data.ammo; i++) {
         this.ammos[i].setVisible(true)
+        this.ammos[i].setTexture('ammo')
+    }
+    for(i = data.ammo; i < data.ammoMax; i++) {
+        this.ammos[i].setVisible(true)
+        this.ammos[i].setTexture('ammoEmpty')
     }
 
     for(i = 0; i < data.shield; i++) {
         this.shields[i].setVisible(true)
+        this.shields[i].setTexture('shield')
+    }
+    for(i = data.shield; i < data.shieldMax; i++) {
+        this.shields[i].setVisible(true)
+        this.shields[i].setTexture('shieldEmpty')
     }
   }
 }
