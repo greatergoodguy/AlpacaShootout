@@ -22,17 +22,6 @@ export default class TitleScene extends Phaser.Scene {
 
     create() {
         console.log("TitleScene: create()")
-        //this.game.resizeApp();
-        console.log("hello world")
-        console.log(document.getElementsByTagName("*"))
-
-        var allElements = document.getElementsByTagName("*");
-        var allIds = [];
-        for (var i = 0, n = allElements.length; i < n; ++i) {
-            var el = allElements[i];
-            if (el.id) { allIds.push(el.id); }
-        }
-        console.log(allIds)
 
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
