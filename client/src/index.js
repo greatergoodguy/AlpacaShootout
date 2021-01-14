@@ -23,17 +23,17 @@ class AlpacaShootout extends Phaser.Game {
     div.style.width = (window.innerHeight * game_ratio) + 'px';
     div.style.height = window.innerHeight + 'px';
     
-    // Check if device DPI messes up the width-height-ratio
-    let canvas = document.getElementsByTagName('canvas')[0];
+    // // Check if device DPI messes up the width-height-ratio
+    // let canvas = document.getElementsByTagName('canvas')[0];
     
-    let dpi_w = (parseInt(div.style.width) / canvas.width);
-    let dpi_h = (parseInt(div.style.height) / canvas.height);		
+    // let dpi_w = (parseInt(div.style.width) / canvas.width);
+    // let dpi_h = (parseInt(div.style.height) / canvas.height);		
     
-    let height = window.innerHeight * (dpi_w / dpi_h);
-    let width = height * 0.6;
+    // let height = window.innerHeight * (dpi_w / dpi_h);
+    // let width = height * 0.6;
     
-    canvas.style.width = width + 'px';
-    canvas.style.height = height + 'px';
+    // canvas.style.width = width + 'px';
+    // canvas.style.height = height + 'px';
   }
 }
 
