@@ -95,8 +95,6 @@ export default class PreloaderScene extends Phaser.Scene {
         Number.prototype.mod = function(n) {
             return ((this%n)+n)%n;
         }
-
-        this.game.resizeApp();
     }
 
     create() {

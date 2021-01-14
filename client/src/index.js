@@ -5,8 +5,8 @@ class AlpacaShootout extends Phaser.Game {
   constructor () {
     super(config);
     
-    // Add to resize event
-    window.addEventListener('resize', this.resizeApp);
+    // For some reason resizeApp does not work in production
+    //window.addEventListener('resize', this.resizeApp);
 
     this.scene.start('Preloader');
   }
