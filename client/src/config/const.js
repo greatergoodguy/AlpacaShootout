@@ -4,10 +4,10 @@ const TITLE_FONT_SIZE = 110
 const alpacas = {
     jaka: {
         standby: 'jaka_standby',
-        shoot: 'suri_shoot',
-        reload: 'suri_reload',
-        shield: 'suri_shield',
-        hurt: 'suri_hurt',
+        shoot: 'jaka_shoot',
+        reload: 'jaka_reload',
+        shield: 'jaka_shield',
+        hurt: 'jaka_hurt',
         stats: {
             heartMax: 3,
             ammoMax: 3,
