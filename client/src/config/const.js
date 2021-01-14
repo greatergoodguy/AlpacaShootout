@@ -56,10 +56,10 @@ const alpacas = {
         stats: {
             heartMax: 3,
             ammoMax: 3,
-            shieldMax: 3,
-            heart: 2,
+            shieldMax: 5,
+            heart: 3,
             ammo: 2,
-            shield: 2
+            shield: 5
         }
     }
 }
