@@ -13,18 +13,31 @@ export default class PreloaderScene extends Phaser.Scene {
         console.log("PreloaderScene: init()")
         //  Inject our CSS
         var element = document.createElement('style')
+        console.log("PreloaderScene: init() 1")
         document.head.appendChild(element)
+        console.log("PreloaderScene: init() 2")
         var sheet = element.sheet
+        console.log("PreloaderScene: init() 3")
         var styles = '@font-face { font-family: "troika"; src: url("client/src/assets/fonts/ttf/troika.otf") format("opentype"); }\n'
+        console.log("PreloaderScene: init() 4")
         sheet.insertRule(styles, 0)
+        console.log("PreloaderScene: init() 5")
         styles = '@font-face { font-family: "Caroni"; src: url("client/src/assets/fonts/ttf/caroni.otf") format("opentype"); }\n'
+        console.log("PreloaderScene: init() 6")
         sheet.insertRule(styles, 0)
+        console.log("PreloaderScene: init() 7")
         styles = '@font-face { font-family: "Piedra-Regular"; src: url("client/src/assets/fonts/ttf/Piedra-Regular.ttf") format("opentype"); }\n'
+        console.log("PreloaderScene: init() 8")
         sheet.insertRule(styles, 0)
+        console.log("PreloaderScene: init() 9")
         styles = '@font-face { font-family: "Assistant-SemiBold"; src: url("client/src/assets/fonts/ttf/Assistant-SemiBold.ttf") format("opentype"); }\n'
+        console.log("PreloaderScene: init() 10")
         sheet.insertRule(styles, 0)
+        console.log("PreloaderScene: init() 11")
         styles = '@font-face { font-family: "RobotoSlab-Regular"; src: url("client/src/assets/fonts/ttf/RobotoSlab-Regular.ttf") format("opentype"); }\n'
+        console.log("PreloaderScene: init() 12")
         sheet.insertRule(styles, 0)
+        console.log("PreloaderScene: init() 13")
     }
 
     displayLoader() {
