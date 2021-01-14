@@ -11,6 +11,9 @@ export default class PreloaderScene extends Phaser.Scene {
 
     init() {
         console.log("PreloaderScene: init()")
+
+        this.game.resizeApp();
+
         //  Inject our CSS
         var element = document.createElement('style')
         document.head.appendChild(element)
