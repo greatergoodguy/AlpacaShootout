@@ -94,7 +94,14 @@ GameLogic.prototype = {
             this.reduceStat(player1, 'ammo')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
-        } else if(player1.action === 'Reload' && player2.action === 'Shoot') {
+        } else if(player1.action === 'Shoot' && player2.action === 'Rest') {
+            player1.texture = 'shoot'
+            this.reduceStat(player1, 'ammo')
+            player2.texture = 'hurt'
+            this.reduceStat(player2, 'heart')
+        } 
+        
+        else if(player1.action === 'Reload' && player2.action === 'Shoot') {
             player1.texture = 'hurt'
             this.reduceStat(player1, 'heart')
             player2.texture = 'shoot'
@@ -109,7 +116,14 @@ GameLogic.prototype = {
             this.gainStat(player1, 'ammo')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
-        } else if(player1.action === 'Shield' && player2.action === 'Shoot') {
+        } else if(player1.action === 'Reload' && player2.action === 'Rest') {
+            player1.texture = 'reload'
+            this.gainStat(player1, 'ammo')
+            player2.texture = 'rest'
+            this.maxOutStat(player2, 'shield')
+        } 
+        
+        else if(player1.action === 'Shield' && player2.action === 'Shoot') {
             player1.texture = 'shield'
             this.reduceStat(player1, 'shield')
             player2.texture = 'shoot'
@@ -124,6 +138,33 @@ GameLogic.prototype = {
             this.reduceStat(player1, 'shield')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
+        } else if(player1.action === 'Shield' && player2.action === 'Rest') {
+            player1.texture = 'shield'
+            this.reduceStat(player1, 'shield')
+            player2.texture = 'rest'
+            this.maxOutStat(player2, 'shield')
+        }
+
+        else if(player1.action === 'Rest' && player2.action === 'Shoot') {
+            player1.texture = 'hurt'
+            this.reduceStat(player1, 'heart')
+            player2.texture = 'shoot'
+            this.reduceStat(player2, 'ammo')
+        } else if(player1.action === 'Rest' && player2.action === 'Reload') {
+            player1.texture = 'rest'
+            this.maxOutStat(player1, 'shield')
+            player2.texture = 'reload'
+            this.gainStat(player2, 'ammo')
+        } else if(player1.action === 'Rest' && player2.action === 'Shield') {
+            player1.texture = 'rest'
+            this.maxOutStat(player1, 'shield')
+            player2.texture = 'shield'
+            this.reduceStat(player2, 'shield')
+        } else if(player1.action === 'Rest' && player2.action === 'Rest') {
+            player1.texture = 'rest'
+            this.maxOutStat(player1, 'shield')
+            player2.texture = 'rest'
+            this.maxOutStat(player2, 'shield')
         }
     },
 
@@ -139,6 +180,10 @@ GameLogic.prototype = {
         if(player.currentStats[key] > player.maxStats[key]) {
             player.currentStats[key] = player.maxStats[key]
         }
+    },
+
+    maxOutStat(player, key) {
+        player.currentStats[key] = player.maxStats[key]
     }
 }
 

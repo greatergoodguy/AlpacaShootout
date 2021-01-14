@@ -29,32 +29,39 @@ export default class Player extends Phaser.GameObjects.Container {
             console.log('Shoot')
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shoot'})
-            //this.alpacaSprite.setTexture('suri_shoot')
             this.disableButtons()
         }.bind(this))
-        this.shootButton.setBackgroundImageScale(0.9, 0.9)
+        this.shootButton.setBackgroundImageScale(1.2, 0.9)
         this.add(this.shootButton)
 
         this.reloadButton = new TextButton(this.scene, 0, 260, 'Reload', function() {
             console.log('Reload')
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Reload'})
-            //this.alpacaSprite.setTexture('suri_reload')
             this.disableButtons()
         }.bind(this))
-        this.reloadButton.setBackgroundImageScale(0.9, 0.9)
+        this.reloadButton.setBackgroundImageScale(1.2, 0.9)
         this.add(this.reloadButton)
 
         this.shieldButton = new TextButton(this.scene, 0, 320, 'Shield', function() {
             console.log('Shield')
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shield'})
-            //this.alpacaSprite.setTexture('suri_shield')
             this.disableButtons()
         }.bind(this))
-        this.shieldButton.setBackgroundImageScale(0.9, 0.9)
+        this.shieldButton.setBackgroundImageScale(1.2, 0.9)
         this.add(this.shieldButton)
 
+        this.refreshShieldButton = new TextButton(this.scene, 0, 380, 'Rest', function() {
+            console.log('Shield')
+            this.setTextBoxReady()
+            this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Rest'})
+            this.disableButtons()
+        }.bind(this))
+        this.refreshShieldButton.setBackgroundImageScale(1.2, 0.9)
+        this.add(this.refreshShieldButton)
+
+        this.enableButtons()
         this.scene.add.existing(this)
     }
 
@@ -83,18 +90,21 @@ export default class Player extends Phaser.GameObjects.Container {
         this.shootButton.setVisible(true)
         this.reloadButton.setVisible(true)
         this.shieldButton.setVisible(true)
+        this.refreshShieldButton.setVisible(true)
     }
 
     hideButtons() {
         this.shootButton.setVisible(false)
         this.reloadButton.setVisible(false)
         this.shieldButton.setVisible(false)
+        this.refreshShieldButton.setVisible(false)
     }
 
     disableButtons() {
         this.shootButton.setDisabled()
         this.reloadButton.setDisabled()
         this.shieldButton.setDisabled()
+        this.refreshShieldButton.setDisabled()
     }
 
     enableButtons() {
@@ -110,6 +120,12 @@ export default class Player extends Phaser.GameObjects.Container {
             this.shieldButton.setDisabled()
         } else {
             this.shieldButton.setEnabled()
+        }
+
+        if(this.characterInfoBox.currentShields != this.characterInfoBox.maxShields) {
+            this.refreshShieldButton.setEnabled()
+        } else {
+            this.refreshShieldButton.setDisabled()
         }
     }
 

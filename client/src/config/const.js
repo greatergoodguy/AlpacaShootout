@@ -8,6 +8,7 @@ const alpacas = {
         reload: 'jaka_reload',
         shield: 'jaka_shield',
         hurt: 'jaka_hurt',
+        rest: 'jaka_standby',
         stats: {
             heartMax: 3,
             ammoMax: 3,
@@ -23,6 +24,7 @@ const alpacas = {
         reload: 'suri_reload',
         shield: 'suri_shield',
         hurt: 'suri_hurt',
+        rest: 'suri_standby',
         stats: {
             heartMax: 2,
             ammoMax: 5,
@@ -38,6 +40,7 @@ const alpacas = {
         reload: 'suri_reload',
         shield: 'suri_shield',
         hurt: 'suri_hurt',
+        rest: 'suri_standby',
         stats: {
             heartMax: 1,
             ammoMax: 1,
@@ -53,6 +56,7 @@ const alpacas = {
         reload: 'suri_reload',
         shield: 'suri_shield',
         hurt: 'suri_hurt',
+        rest: 'suri_standby',
         stats: {
             heartMax: 3,
             ammoMax: 3,
