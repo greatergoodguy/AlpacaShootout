@@ -47,16 +47,16 @@ export default class TitleScene extends Phaser.Scene {
             this.navigateBasedOnQueryParams()
         }
 
-        this.formUtil = new FormUtil({
-            scene: this,
-            rows: 11,
-            cols: 11
-        });
-        //this.formUtil.showNumbers();
+        // this.formUtil = new FormUtil({
+        //     scene: this,
+        //     rows: 11,
+        //     cols: 11
+        // });
+        // this.formUtil.showNumbers();
         
-        this.formUtil.setVisibile("myText", true)
-        this.formUtil.scaleToGameW("myText", .95);
-        this.formUtil.placeElementAt(5, 'myText', true);
+        // this.formUtil.setVisibile("myText", true)
+        // this.formUtil.scaleToGameW("myText", .95);
+        // this.formUtil.placeElementAt(5, 'myText', true);
         
         // this.formUtil.scaleToGameW("area51", .8);
         // this.formUtil.scaleToGameH("area51", .5);
@@ -64,10 +64,10 @@ export default class TitleScene extends Phaser.Scene {
         // this.formUtil.addChangeCallback("area51", this.textAreaChanged, this);
     }
 
-    textAreaChanged() {
-    	var text=this.formUtil.getTextAreaValue("area51");
-    	console.log(text);
-    }
+    // textAreaChanged() {
+    // 	var text=this.formUtil.getTextAreaValue("area51");
+    // 	console.log(text);
+    // }
 
     update() {}
 
