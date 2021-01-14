@@ -12,8 +12,6 @@ export default class PreloaderScene extends Phaser.Scene {
     init() {
         console.log("PreloaderScene: init()")
 
-        this.game.resizeApp();
-
         //  Inject our CSS
         var element = document.createElement('style')
         document.head.appendChild(element)
@@ -97,6 +95,8 @@ export default class PreloaderScene extends Phaser.Scene {
         Number.prototype.mod = function(n) {
             return ((this%n)+n)%n;
         }
+
+        this.game.resizeApp();
     }
 
     create() {
