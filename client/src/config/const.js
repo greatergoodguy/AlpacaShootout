@@ -12,10 +12,10 @@ const alpacas = {
         stats: {
             heartMax: 3,
             ammoMax: 3,
-            shieldMax: 5,
+            shieldMax: 4,
             heart: 3,
             ammo: 2,
-            shield: 5
+            shield: 4
         }
     },
     punka: {
@@ -59,11 +59,11 @@ const alpacas = {
         rest: 'suri_standby',
         stats: {
             heartMax: 3,
-            ammoMax: 3,
-            shieldMax: 5,
+            ammoMax: 4,
+            shieldMax: 3,
             heart: 3,
             ammo: 2,
-            shield: 5
+            shield: 3
         }
     }
 }
