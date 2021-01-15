@@ -17,6 +17,8 @@ export default class LobbyScene extends Phaser.Scene {
     }
 
     create() {
+        var clickSound = this.sound.add('click')
+
         this.gameDatas = {}
         this.lobbyButtons = {}
         this.spectatorButtons = {}
@@ -29,6 +31,7 @@ export default class LobbyScene extends Phaser.Scene {
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.backButton = new TextButton(this, config.width/2, 600, 'Back', function() {
+            clickSound.play()
             this.scene.start('Title')
         }.bind(this))
 
@@ -43,6 +46,9 @@ export default class LobbyScene extends Phaser.Scene {
     addSlots(serverData) {
         console.log('LobbyScene.addSlots()')
         console.log(serverData)
+
+        var clickSound = this.sound.add('click')
+
         let serverDataAsList = Object.values(serverData)
         let socket = this.game.socket
         let self = this
@@ -52,6 +58,7 @@ export default class LobbyScene extends Phaser.Scene {
 
             this.gameDatas[gameData.id] = gameData
             this.lobbyButtons[gameData.id] = new TextButton(this, config.width/2, 300 + i*70, '1: Join Game (0/2)', function() {
+                clickSound.play()
                 socket.removeAllListeners()
                 self.scene.start('Room', {roomId: this.getData('id'), userType: 'player'})
             })
@@ -60,6 +67,7 @@ export default class LobbyScene extends Phaser.Scene {
 
 
             this.spectatorButtons[gameData.id] = new IconButton(this, config.width/2 + 210, 300 + i*70, function() {
+                clickSound.play()
                 socket.removeAllListeners()
                 self.scene.start('Room', {roomId: this.getData('id'), userType: 'spectator'})
             })

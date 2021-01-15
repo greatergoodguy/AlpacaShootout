@@ -12,19 +12,23 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
 
     this.alpacaKeys = ['suri', 'jaka', 'punka', 'pompaca']
 
+    this.clickSound = this.scene.sound.add('click')
+
     this.index = 0
     this.alpaca = this.scene.add.image(0, 400, 'jaka_standby')
     this.add(this.alpaca)
     this.alpaca.setScale(0.5)
     this.leftArrow = new ImageButton(this.scene, 0 - 80, 600, 'arrowBrown_left', function() {
-        this.index = (this.index - 1).mod(this.alpacaKeys.length)
-        this.updateAlpaca()
+      this.clickSound.play()
+      this.index = (this.index - 1).mod(this.alpacaKeys.length)
+      this.updateAlpaca()
     }.bind(this))
     this.add(this.leftArrow)
     this.leftArrow.setScale(1.5)
     this.rightArrow = new ImageButton(this.scene, 0 + 80, 600, 'arrowBrown_right', function() {
-        this.index = (this.index + 1).mod(this.alpacaKeys.length)
-        this.updateAlpaca()
+      this.clickSound.play()
+      this.index = (this.index + 1).mod(this.alpacaKeys.length)
+      this.updateAlpaca()
     }.bind(this))
     this.add(this.rightArrow)
     this.rightArrow.setScale(1.5)
@@ -123,6 +127,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setText('Ready')
     this.readyButton.setVisible(true)
     this.readyButton.setOnButtonClick(function() {
+      this.clickSound.play()
       this.ready()
     }.bind(this))
 
@@ -150,6 +155,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setVisible(true)
     this.readyButton.setText('Join')
     this.readyButton.setOnButtonClick(function() {
+      this.clickSound.play()
       this.scene.game.socket.emit('join player slot', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, label: this.label})
       this.scene.hideJoinAndSpectateButtons()
     }.bind(this))

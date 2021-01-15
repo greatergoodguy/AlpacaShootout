@@ -23,6 +23,8 @@ export default class TitleScene extends Phaser.Scene {
     create() {
         console.log("TitleScene: create()")
 
+        var clickSound = this.sound.add('click')
+
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
         this.background.setTint(0xF1FAEE)
@@ -34,10 +36,12 @@ export default class TitleScene extends Phaser.Scene {
         this.titleBitmapText2.setOrigin(0.5, 0)
 
         this.startButton = new TextButton(this, config.width/2, 400, 'Start Game', function() {
+            clickSound.play()
             this.scene.start('Lobby')
         }.bind(this));
 
         this.creditsButton = new TextButton(this, config.width/2, 500, 'Credits', function() {
+            clickSound.play()
             this.scene.start('Credits')
         }.bind(this));
 

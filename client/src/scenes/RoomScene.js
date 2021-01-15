@@ -24,6 +24,8 @@ export default class RoomScene extends Phaser.Scene {
     preload() {}
 
     create() {
+        this.clickSound = this.sound.add('click')
+
         this.game.socket.emit('enter room', {roomId: this.gameData.roomId, userType: this.gameData.userType})
 
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
@@ -34,16 +36,19 @@ export default class RoomScene extends Phaser.Scene {
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.spectateButton = new TextButton(this, config.width/2, 740, 'Spectate', function() {
+            this.clickSound.play()
             this.game.socket.emit('join spectators', { roomId: this.gameData.roomId, playerId: this.game.socket.id})
             this.spectateButton.setVisible(false)
         }.bind(this))
         this.spectateButton.setBackgroundImageScale(0.75, 1)
         this.spectateButton.setScale(0.8)
         this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
+            this.clickSound.play()
             this.spectatorListView.setVisible(true)
         }.bind(this))
 
         this.backButton = new TextButton(this, config.width/2, 900, 'Back', function() {
+            this.clickSound.play()
             this.game.socket.emit("leave room")
             this.game.socket.removeAllListeners()
             this.scene.start('Lobby')
