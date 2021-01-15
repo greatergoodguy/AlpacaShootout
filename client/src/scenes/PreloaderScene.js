@@ -57,6 +57,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('suri_shoot', 'client/src/assets/alpaca/suri_shoot.png')
         this.load.image('suri_reload', 'client/src/assets/alpaca/suri_reload.png')
         this.load.image('suri_hurt', 'client/src/assets/alpaca/suri_hurt.png')
+        this.load.image('suri_rest', 'client/src/assets/alpaca/suri_rest.png')
 
         this.load.image('jaka_standby', 'client/src/assets/alpaca/jaka_standby.png')
         this.load.image('jaka_shield', 'client/src/assets/alpaca/jaka_shield.png')
@@ -91,8 +92,8 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.load.audio("click", 'client/src/assets/sounds/click.ogg')
 
-        //this.game.socket = io('http://localhost:3000')
-        this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+        this.game.socket = io('http://localhost:3000')
+        // this.game.socket = io('https://alpaca-shootout.herokuapp.com')
 
         Number.prototype.mod = function(n) {
             return ((this%n)+n)%n;

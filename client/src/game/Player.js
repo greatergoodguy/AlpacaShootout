@@ -43,7 +43,7 @@ export default class Player extends Phaser.GameObjects.Container {
         this.reloadButton.setBackgroundImageScale(1.2, 0.9)
         this.add(this.reloadButton)
 
-        this.shieldButton = new TextButton(this.scene, 0, 320, 'Shield', function() {
+        this.shieldButton = new TextButton(this.scene, 0, 320, 'Dodge', function() {
             console.log('Shield')
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shield'})
@@ -155,6 +155,8 @@ export default class Player extends Phaser.GameObjects.Container {
             this.alpacaSprite.setTexture(alpacas[this.alpaca].shield)
         } else if(texture === "hurt") {
             this.alpacaSprite.setTexture(alpacas[this.alpaca].hurt)
+        } else if(texture === "rest") {
+            this.alpacaSprite.setTexture(alpacas[this.alpaca].rest)
         } else {
             this.alpacaSprite.setTexture(alpacas[this.alpaca].standby)
         }

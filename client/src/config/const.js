@@ -56,7 +56,7 @@ const alpacas = {
         reload: 'suri_reload',
         shield: 'suri_shield',
         hurt: 'suri_hurt',
-        rest: 'suri_standby',
+        rest: 'suri_rest',
         stats: {
             heartMax: 3,
             ammoMax: 4,

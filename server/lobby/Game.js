@@ -45,6 +45,9 @@ Game.prototype = {
             if(this.showActions) {
                 this.players[entry[0]].texture = entry[1].texture
                 this.players[entry[0]].statusText = entry[1].action
+                if(this.players[entry[0]].statusText == "Shield") {
+                    this.players[entry[0]].statusText = "Dodge"
+                }
                 this.players[entry[0]].statusTextColor = 'blue'
             } else {
                 this.players[entry[0]].texture = 'standby'
