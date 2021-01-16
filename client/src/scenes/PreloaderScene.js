@@ -92,7 +92,8 @@ export default class PreloaderScene extends Phaser.Scene {
 
         this.load.audio("click", 'client/src/assets/sounds/click.ogg')
         this.load.audio("gun_dodge", 'client/src/assets/sounds/gun_dodge.ogg')
-        this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.ogg')
+        this.load.audio("gun_explode", 'client/src/assets/sounds/gun_explode.ogg')
+        this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.mp3')
         this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.ogg')
 
         this.game.socket = io('http://localhost:3000')

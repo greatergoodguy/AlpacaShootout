@@ -148,6 +148,20 @@ export default class Player extends Phaser.GameObjects.Container {
         this.textBox.setText(playerData.statusText)
     }
 
+    updateTextBoxForUpdatePlayerInGame(playerData) {
+        console.log('Player.updateTextBoxForUpdatePlayerInGame()')
+        if(playerData.statusTextColor === 'green') {
+            this.textBox.setTextColorGreen()
+            this.textBox.setText("Ready")
+        } else if(playerData.statusTextColor === 'red') {
+            this.textBox.setTextColorRed()
+            this.textBox.setText(playerData.statusText)
+        } else if(playerData.statusTextColor === 'blue') {
+            this.textBox.setTextColorGreen()
+            this.textBox.setText("Ready")
+        }
+    }
+
     updateTexture(playerData) {
         console.log('Player.updateTexture()')
         let texture = playerData.texture

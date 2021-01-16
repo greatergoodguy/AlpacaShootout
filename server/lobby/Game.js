@@ -3,6 +3,7 @@ const { alpacas } = require('../../client/src/config/const')
 var Game = function(id) {
     this.id = id
     this.players = {}
+    this.soundEffect = "none"
 }
 
 Game.prototype = {
@@ -40,6 +41,7 @@ Game.prototype = {
 
     update(gameLogic) {
         this.showActions = gameLogic.areAllPlayersActionsReady()
+        this.soundEffect = gameLogic.soundEffect
         Object.entries(gameLogic.players).forEach((entry) => {
             this.players[entry[0]].isActionReady = entry[1].isActionReady
             if(this.showActions) {

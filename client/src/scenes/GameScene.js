@@ -25,6 +25,11 @@ export default class GameScene extends Phaser.Scene {
             return
         }
 
+        this.gunDodgeSound = this.sound.add('gun_dodge')
+        this.gunExplodeSound = this.sound.add('gun_explode')
+        this.gunReloadSound = this.sound.add('gun_reload')
+        this.gunShotSound = this.sound.add('gun_shot')
+
         this.game.socket.emit('enter game', {roomId: this.roomData.id})
 
         this.background = this.add.image(config.width/2, config.height/2, 'BG_pillars').setScale(0.5, 0.5)
@@ -71,7 +76,7 @@ export default class GameScene extends Phaser.Scene {
         let playerlabel = playerData.label
         let player = this.players[playerlabel]
 
-        player.updateTextBox(playerData)
+        player.updateTextBoxForUpdatePlayerInGame(playerData)
     }
 
     populateGame(roomData, gameData) {
@@ -150,6 +155,17 @@ export default class GameScene extends Phaser.Scene {
 
             player.update(entry[1])
         })
+
+        let soundEffect = gameData.soundEffect
+        if(soundEffect === 'gun_shot') {
+            this.gunShotSound.play()
+        } else if(soundEffect === 'gun_reload') {
+            this.gunReloadSound.play()
+        } else if(soundEffect === 'gun_explode') {
+            this.gunExplodeSound.play()
+        } else if(soundEffect === 'gun_dodge') {
+            this.gunDodgeSound.play()
+        }
     }
 
     newRound(gameData) {

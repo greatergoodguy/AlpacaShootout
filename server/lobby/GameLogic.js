@@ -3,6 +3,7 @@ const { alpacas } = require('../../client/src/config/const')
 var GameLogic = function(id) {
     this.id = id
     this.players = {}
+    this.soundEffect = "none"
 }
 
 GameLogic.prototype = {
@@ -51,7 +52,7 @@ GameLogic.prototype = {
     areAllPlayersActionsReady: function() {
         return Object.values(this.players).reduce((result, player) => {
 			return result && player.isActionReady
-		}, true)
+        }, true)
     },
 
     process: function() {
@@ -79,26 +80,32 @@ GameLogic.prototype = {
         console.log('Player 2')
         console.log(player2)
 
+        this.soundEffect = "none"
+
         if(player1.action === 'Shoot' && player2.action === 'Shoot') {
             player1.texture = 'shoot'
             this.reduceStat(player1, 'ammo')
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
+            this.soundEffect = "gun_explode"
         } else if(player1.action === 'Shoot' && player2.action === 'Reload') {
             player1.texture = 'shoot'
             this.reduceStat(player1, 'ammo')
             player2.texture = 'hurt'
             this.reduceStat(player2, 'heart')
+            this.soundEffect = "gun_shot"
         } else if(player1.action === 'Shoot' && player2.action === 'Shield') {
             player1.texture = 'shoot'
             this.reduceStat(player1, 'ammo')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
+            this.soundEffect = "gun_dodge"
         } else if(player1.action === 'Shoot' && player2.action === 'Rest') {
             player1.texture = 'shoot'
             this.reduceStat(player1, 'ammo')
             player2.texture = 'hurt'
             this.reduceStat(player2, 'heart')
+            this.soundEffect = "gun_shot"
         } 
         
         else if(player1.action === 'Reload' && player2.action === 'Shoot') {
@@ -106,21 +113,25 @@ GameLogic.prototype = {
             this.reduceStat(player1, 'heart')
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
+            this.soundEffect = "gun_shot"
         } else if(player1.action === 'Reload' && player2.action === 'Reload') {
             player1.texture = 'reload'
             this.gainStat(player1, 'ammo')
             player2.texture = 'reload'
             this.gainStat(player2, 'ammo')
+            this.soundEffect = "gun_reload"
         } else if(player1.action === 'Reload' && player2.action === 'Shield') {
             player1.texture = 'reload'
             this.gainStat(player1, 'ammo')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
+            this.soundEffect = "gun_reload"
         } else if(player1.action === 'Reload' && player2.action === 'Rest') {
             player1.texture = 'reload'
             this.gainStat(player1, 'ammo')
             player2.texture = 'rest'
             this.maxOutStat(player2, 'shield')
+            this.soundEffect = "gun_reload"
         } 
         
         else if(player1.action === 'Shield' && player2.action === 'Shoot') {
@@ -128,21 +139,25 @@ GameLogic.prototype = {
             this.reduceStat(player1, 'shield')
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
+            this.soundEffect = "gun_dodge"
         } else if(player1.action === 'Shield' && player2.action === 'Reload') {
             player1.texture = 'shield'
             this.reduceStat(player1, 'shield')
             player2.texture = 'reload'
             this.gainStat(player2, 'ammo')
+            this.soundEffect = "gun_reload"
         } else if(player1.action === 'Shield' && player2.action === 'Shield') {
             player1.texture = 'shield'
             this.reduceStat(player1, 'shield')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
+            this.soundEffect = "gun_dodge"
         } else if(player1.action === 'Shield' && player2.action === 'Rest') {
             player1.texture = 'shield'
             this.reduceStat(player1, 'shield')
             player2.texture = 'rest'
             this.maxOutStat(player2, 'shield')
+            this.soundEffect = "gun_dodge"
         }
 
         else if(player1.action === 'Rest' && player2.action === 'Shoot') {
@@ -150,16 +165,19 @@ GameLogic.prototype = {
             this.reduceStat(player1, 'heart')
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
+            this.soundEffect = "gun_dodge"
         } else if(player1.action === 'Rest' && player2.action === 'Reload') {
             player1.texture = 'rest'
             this.maxOutStat(player1, 'shield')
             player2.texture = 'reload'
             this.gainStat(player2, 'ammo')
+            this.soundEffect = "gun_reload"
         } else if(player1.action === 'Rest' && player2.action === 'Shield') {
             player1.texture = 'rest'
             this.maxOutStat(player1, 'shield')
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
+            this.soundEffect = "gun_dodge"
         } else if(player1.action === 'Rest' && player2.action === 'Rest') {
             player1.texture = 'rest'
             this.maxOutStat(player1, 'shield')
