@@ -14,6 +14,8 @@ export default class Player extends Phaser.GameObjects.Container {
         console.log(alpacas)
         console.log(alpacas[this.alpaca])
 
+        this.clickSound = this.scene.sound.add('click')
+
         this.alpacaSprite = this.scene.add.image(0, 0, alpacas[this.alpaca].standby)
         this.alpacaSprite.setScale(0.5, 0.5)
         this.add(this.alpacaSprite)
@@ -27,6 +29,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
         this.shootButton = new TextButton(this.scene, 0, 200, 'Shoot', function() {
             console.log('Shoot')
+            this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shoot'})
             this.disableButtons()
@@ -36,6 +39,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
         this.reloadButton = new TextButton(this.scene, 0, 260, 'Reload', function() {
             console.log('Reload')
+            this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Reload'})
             this.disableButtons()
@@ -45,6 +49,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
         this.shieldButton = new TextButton(this.scene, 0, 320, 'Dodge', function() {
             console.log('Shield')
+            this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shield'})
             this.disableButtons()
@@ -54,6 +59,7 @@ export default class Player extends Phaser.GameObjects.Container {
 
         this.refreshShieldButton = new TextButton(this.scene, 0, 380, 'Rest', function() {
             console.log('Shield')
+            this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Rest'})
             this.disableButtons()

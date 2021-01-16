@@ -91,9 +91,12 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.bitmapFont('khodijah', 'client/src/assets/fonts/khodijah.png', 'client/src/assets/fonts/khodijah.fnt')
 
         this.load.audio("click", 'client/src/assets/sounds/click.ogg')
+        this.load.audio("gun_dodge", 'client/src/assets/sounds/gun_dodge.ogg')
+        this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.ogg')
+        this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.ogg')
 
-        //this.game.socket = io('http://localhost:3000')
-        this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+        this.game.socket = io('http://localhost:3000')
+        //this.game.socket = io('https://alpaca-shootout.herokuapp.com')
 
         Number.prototype.mod = function(n) {
             return ((this%n)+n)%n;
