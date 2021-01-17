@@ -96,8 +96,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.mp3')
         this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.ogg')
 
-        this.game.socket = io('http://localhost:3000')
-        //this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+        //this.game.socket = io('http://localhost:3000')
+        this.game.socket = io('https://alpaca-shootout.herokuapp.com')
 
         Number.prototype.mod = function(n) {
             return ((this%n)+n)%n;
