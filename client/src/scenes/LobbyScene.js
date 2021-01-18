@@ -39,6 +39,25 @@ export default class LobbyScene extends Phaser.Scene {
         this.game.socket.on("add slots", this.addSlots.bind(this))
         this.game.socket.on("update slot", this.updateRoom.bind(this));
         this.game.socket.on('disconnect', this.leaveLobby.bind(this))
+
+        this.setupUsernameInputField()
+    }
+
+    setupUsernameInputField() {
+        const game = this.game
+
+        this.add.text(50, 0, 'Username', { fontSize: 32, color: '#00ff00', backgroundColor: '#00000099' })
+        const helloWorldText = this.add.text(50, 50, this.game.config.username, { fontSize: 32, color: '#00ff00', backgroundColor: '#00000099' })
+        helloWorldText.setInteractive().on('pointerdown', () => {
+            var config = {
+                onTextChanged: function(textObject, text) {
+                    game.config.username = text
+                    textObject.text = text
+                }
+    
+            };
+            this.rexUI.edit(helloWorldText, config)
+        })
     }
 
     update() {}

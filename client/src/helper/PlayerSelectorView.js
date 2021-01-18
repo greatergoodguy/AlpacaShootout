@@ -44,6 +44,12 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.isReady = false
     this.isOccupied = false
 
+    this.nameText = this.scene.add.text(0, 505, 'Tom', { fontSize: '24px', fill: '#000' })
+    this.add(this.nameText)
+    this.nameText.setFontFamily('RobotoSlab-Regular')
+    this.nameText.setColor('#252525')
+    this.nameText.setOrigin(0.5, 0.5)
+
     this.readyButton = new TextButton(this.scene, 0, 600, 'Ready', function() {
     }.bind(this))
     this.add(this.readyButton)
@@ -106,20 +112,23 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setOnButtonClick(function() {
     }.bind(this))
 
+    this.nameText.setVisible(true)
+    this.nameText.setText(playerData.username)
+
     this.characterInfoView.setVisible(true)
     this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
   }
 
-  showUserAsCurrentPlayer() {
+  showUserAsCurrentPlayer(playerData) {
     this.setVisible(true)
     this.index = 0
-    this.alpacaKey = this.alpacaKeys[this.index]
+    this.alpacaKey = playerData.alpacaKey
     this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
     this.leftArrow.setVisible(true)
     this.rightArrow.setVisible(true)
     this.readySquare.setVisible(true)
     this.readyText.setVisible(true)
-    this.isReady = false
+    this.isReady = playerData.isReady
     this.isOccupied = true
     this.readyText.setText('Not Ready')
     this.readyText.setColor('#c90b0b')
@@ -130,6 +139,9 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
       this.clickSound.play()
       this.ready()
     }.bind(this))
+
+    this.nameText.setVisible(true)
+    this.nameText.setText(playerData.username)
 
     this.characterInfoView.setVisible(true)
     this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
@@ -147,6 +159,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyText.setText('Not Ready')
     this.readyText.setColor('#c90b0b')
     this.readyButton.setVisible(false)
+    this.nameText.visible = false
     this.characterInfoView.setVisible(false)
   }
 
@@ -156,7 +169,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.readyButton.setText('Join')
     this.readyButton.setOnButtonClick(function() {
       this.clickSound.play()
-      this.scene.game.socket.emit('join player slot', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, label: this.label})
+      this.scene.game.socket.emit('join player slot', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, label: this.label, username: this.scene.game.config.username})
       this.scene.hideJoinAndSpectateButtons()
     }.bind(this))
   }

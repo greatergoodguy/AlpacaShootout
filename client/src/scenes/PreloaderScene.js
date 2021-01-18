@@ -1,6 +1,7 @@
 import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import io from 'socket.io-client'
+import rug from 'random-username-generator'
 
 export default class PreloaderScene extends Phaser.Scene {
     constructor() {
@@ -64,6 +65,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('jaka_shoot', 'client/src/assets/alpaca/jaka_shoot.png')
         this.load.image('jaka_reload', 'client/src/assets/alpaca/jaka_reload.png')
         this.load.image('jaka_hurt', 'client/src/assets/alpaca/jaka_hurt.png')
+        this.load.image('jaka_rest', 'client/src/assets/alpaca/jaka_rest.png')
 
         this.load.image('pompaca_standby', 'client/src/assets/alpaca/pompaca_standby.png')
         this.load.image('punka_standby', 'client/src/assets/alpaca/punka_standby.png')
@@ -96,8 +98,10 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.mp3')
         this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.ogg')
 
-        //this.game.socket = io('http://localhost:3000')
+        // this.game.socket = io('http://localhost:3000')
         this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+
+        this.game.config.username = rug.generate()
 
         Number.prototype.mod = function(n) {
             return ((this%n)+n)%n;

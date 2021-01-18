@@ -47,7 +47,7 @@ var Lobby = {
 			this.join(data.roomId)
 			if(data.userType == 'player' && !room.hasMaxPlayers()) {
 				data.userType = 'player'
-				room.addPlayer(this.id)
+				room.addPlayer(this.id, data.username)
 			} else {
 				data.userType = 'spectator'
 				room.addSpectator(this.id)
@@ -107,7 +107,7 @@ var Lobby = {
 		}
 
 		console.log('add player to room')
-		room.addPlayerToSlot(this.id, data.label)
+		room.addPlayerToSlot(this.id, data.label, data.username)
 		io.in(this.roomId).emit("player joined", room.players[this.id])
 		broadcastSlotStateUpdate(data.roomId, room)
 	},

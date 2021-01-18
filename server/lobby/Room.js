@@ -76,16 +76,17 @@ Room.prototype = {
 		this.state = newState
 	},
 
-	addPlayer: function(id) {
+	addPlayer: function(id, username) {
 		this.players[id] = {
 			id: id, 
 			label: this.claimFirstAvailablePlayerSlot(), 
 			alpacaKey: 'suri', 
 			isReady: false,
+			username: username,
 		}
 	},
 
-	addPlayerToSlot: function(id, label) {
+	addPlayerToSlot: function(id, label, username) {
 		if(this.playerSlots[playerLabelIndices[label]].available) {
 			this.playerSlots[playerLabelIndices[label]].available = false
 			this.players[id] = {
@@ -93,6 +94,7 @@ Room.prototype = {
 				label: label, 
 				alpacaKey: 'jaka', 
 				isReady: false,
+				username: username
 			}
 		}
 	},

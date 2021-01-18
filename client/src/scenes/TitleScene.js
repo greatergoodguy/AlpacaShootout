@@ -2,8 +2,13 @@ import { FADE_DURATION, TITLE_FONT_SIZE }  from '../config/const'
 import config from '../config/config'
 import TextButton from '../helper/TextButton'
 import { getParameterByName } from '../toolbox/Toolbox'
+import TextEdit from 'phaser3-rex-plugins/plugins/textedit'
 
 var firstTimeInScene = true
+
+const COLOR_PRIMARY = 0x4e342e;
+const COLOR_LIGHT = 0x7b5e57;
+const COLOR_DARK = 0x260e04;
 
 export default class TitleScene extends Phaser.Scene {
     constructor() {
@@ -45,10 +50,29 @@ export default class TitleScene extends Phaser.Scene {
             this.scene.start('Credits')
         }.bind(this));
 
+        this.setupUsernameInputField()
+
         if(firstTimeInScene) {
             firstTimeInScene = false
             this.navigateBasedOnQueryParams()
         }
+    }
+
+    setupUsernameInputField() {
+        const game = this.game
+
+        this.add.text(50, 0, 'Username', { fontSize: 32, color: '#00ff00', backgroundColor: '#00000099' })
+        const helloWorldText = this.add.text(50, 50, this.game.config.username, { fontSize: 32, color: '#00ff00', backgroundColor: '#00000099' })
+        helloWorldText.setInteractive().on('pointerdown', () => {
+            var config = {
+                onTextChanged: function(textObject, text) {
+                    game.config.username = text
+                    textObject.text = text
+                }
+    
+            };
+            this.rexUI.edit(helloWorldText, config)
+        })
     }
 
     update() {}

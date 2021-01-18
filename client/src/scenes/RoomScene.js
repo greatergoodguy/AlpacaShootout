@@ -26,7 +26,7 @@ export default class RoomScene extends Phaser.Scene {
     create() {
         this.clickSound = this.sound.add('click')
 
-        this.game.socket.emit('enter room', {roomId: this.gameData.roomId, userType: this.gameData.userType})
+        this.game.socket.emit('enter room', {roomId: this.gameData.roomId, userType: this.gameData.userType, username: this.game.config.username})
 
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
         this.background.setOrigin(0, 0)
@@ -99,7 +99,7 @@ export default class RoomScene extends Phaser.Scene {
             let playerlabel = entry[1].label
             let playerSelectorView = this.playerSelectorViews[playerlabel]
             if(userId == entry[0]) {
-                playerSelectorView.showUserAsCurrentPlayer()
+                playerSelectorView.showUserAsCurrentPlayer(entry[1])
             }
             else {
                 playerSelectorView.showOnlinePlayer(entry[1])
@@ -151,7 +151,7 @@ export default class RoomScene extends Phaser.Scene {
         let userId = this.game.socket.id
         if(userId == data.id) {
             this.isPlayer = true
-            playerSelectorView.showUserAsCurrentPlayer()
+            playerSelectorView.showUserAsCurrentPlayer(data)
             this.spectateButton.setVisible(true)
         }
         else {

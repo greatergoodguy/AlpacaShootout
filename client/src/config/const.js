@@ -8,13 +8,13 @@ const alpacas = {
         reload: 'jaka_reload',
         shield: 'jaka_shield',
         hurt: 'jaka_hurt',
-        rest: 'jaka_standby',
+        rest: 'jaka_rest',
         stats: {
             heartMax: 3,
             ammoMax: 3,
             shieldMax: 4,
             heart: 3,
-            ammo: 2,
+            ammo: 1,
             shield: 4
         }
     },
@@ -62,7 +62,7 @@ const alpacas = {
             ammoMax: 4,
             shieldMax: 3,
             heart: 3,
-            ammo: 2,
+            ammo: 1,
             shield: 3
         }
     }
