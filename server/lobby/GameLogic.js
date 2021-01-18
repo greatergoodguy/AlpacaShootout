@@ -165,7 +165,7 @@ GameLogic.prototype = {
             this.reduceStat(player1, 'heart')
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
-            this.soundEffect = "gun_dodge"
+            this.soundEffect = "gun_shot"
         } else if(player1.action === 'Rest' && player2.action === 'Reload') {
             player1.texture = 'rest'
             this.maxOutStat(player1, 'shield')
