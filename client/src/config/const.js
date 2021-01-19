@@ -18,38 +18,6 @@ const alpacas = {
             shield: 4
         }
     },
-    punka: {
-        standby: 'punka_standby',
-        shoot: 'suri_shoot',
-        reload: 'suri_reload',
-        shield: 'suri_shield',
-        hurt: 'suri_hurt',
-        rest: 'suri_standby',
-        stats: {
-            heartMax: 2,
-            ammoMax: 5,
-            shieldMax: 1,
-            heart: 2,
-            ammo: 5,
-            shield: 1
-        }
-    },
-    pompaca: {
-        standby: 'pompaca_standby',
-        shoot: 'suri_shoot',
-        reload: 'suri_reload',
-        shield: 'suri_shield',
-        hurt: 'suri_hurt',
-        rest: 'suri_standby',
-        stats: {
-            heartMax: 1,
-            ammoMax: 1,
-            shieldMax: 1,
-            heart: 1,
-            ammo: 1,
-            shield: 1
-        }
-    },
     suri: {
         standby: 'suri_standby',
         shoot: 'suri_shoot',

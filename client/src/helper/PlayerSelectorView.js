@@ -10,33 +10,33 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.scene = scene
     this.label = label
 
-    this.alpacaKeys = ['suri', 'jaka', 'punka', 'pompaca']
+    this.alpacaKeys = Object.keys(alpacas)
 
     this.clickSound = this.scene.sound.add('click')
 
     this.index = 0
-    this.alpaca = this.scene.add.image(0, 400, 'jaka_standby')
+    this.alpaca = this.scene.add.image(0, 450, 'jaka_standby')
     this.add(this.alpaca)
-    this.alpaca.setScale(0.5)
-    this.leftArrow = new ImageButton(this.scene, 0 - 80, 600, 'arrowBrown_left', function() {
+    this.alpaca.setScale(0.8)
+    this.leftArrow = new ImageButton(this.scene, 0 - 120, 680, 'arrowBrown_left', function() {
       this.clickSound.play()
       this.index = (this.index - 1).mod(this.alpacaKeys.length)
       this.updateAlpaca()
     }.bind(this))
     this.add(this.leftArrow)
-    this.leftArrow.setScale(1.5)
-    this.rightArrow = new ImageButton(this.scene, 0 + 80, 600, 'arrowBrown_right', function() {
+    this.leftArrow.setScale(2)
+    this.rightArrow = new ImageButton(this.scene, 0 + 120, 680, 'arrowBrown_right', function() {
       this.clickSound.play()
       this.index = (this.index + 1).mod(this.alpacaKeys.length)
       this.updateAlpaca()
     }.bind(this))
     this.add(this.rightArrow)
-    this.rightArrow.setScale(1.5)
-    this.readySquare = this.scene.add.sprite(0, 550, 'whiteSquare').setScale(2, 0.5)
+    this.rightArrow.setScale(2)
+    this.readySquare = this.scene.add.sprite(0, 620, 'whiteSquare').setScale(2, 0.5)
     this.add(this.readySquare)
     this.readySquare.setTint(0xc1bca0)
     this.readySquare.alpha = 0.5
-    this.readyText = this.scene.add.text(0, 550, 'Not Ready', { fontSize: '24px', fill: '#000' })
+    this.readyText = this.scene.add.text(0, 620, 'Not Ready', { fontSize: '24px', fill: '#000' })
     this.add(this.readyText)
     this.readyText.setFontFamily('RobotoSlab-Regular')
     this.readyText.setColor('#c90b0b')
@@ -44,16 +44,16 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.isReady = false
     this.isOccupied = false
 
-    this.nameText = this.scene.add.text(0, 505, 'Tom', { fontSize: '24px', fill: '#000' })
+    this.nameText = this.scene.add.text(0, 310, 'Tom', { fontSize: '24px', fill: '#000' })
     this.add(this.nameText)
     this.nameText.setFontFamily('RobotoSlab-Regular')
     this.nameText.setColor('#252525')
     this.nameText.setOrigin(0.5, 0.5)
 
-    this.readyButton = new TextButton(this.scene, 0, 600, 'Ready', function() {
+    this.readyButton = new TextButton(this.scene, 0, 680, 'Ready', function() {
     }.bind(this))
     this.add(this.readyButton)
-    this.readyButton.setBackgroundImageScale(0.65, 1)
+    this.readyButton.setBackgroundImageScale(1, 1.2)
     this.readyButton.setScale(0.8)
 
     this.characterInfoView = new CharacterInfoView(this.scene, 0, 200)
@@ -70,6 +70,15 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
     this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
     this.scene.game.socket.emit('update player', { roomId: this.scene.gameData.roomId, playerId: this.scene.game.socket.id, alpacaKey: this.alpacaKey})
+  }
+
+
+  faceLeft() {
+    this.alpaca.setScale(0.8, 0.8)
+  }
+
+  faceRight() {
+    this.alpaca.setScale(-0.8, 0.8)
   }
 
   ready() {
@@ -121,8 +130,8 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
 
   showUserAsCurrentPlayer(playerData) {
     this.setVisible(true)
-    this.index = 0
     this.alpacaKey = playerData.alpacaKey
+    this.index = this.alpacaKeys.indexOf(this.alpacaKey)
     this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
     this.leftArrow.setVisible(true)
     this.rightArrow.setVisible(true)

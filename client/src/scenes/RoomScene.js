@@ -37,28 +37,31 @@ export default class RoomScene extends Phaser.Scene {
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Room', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
-        this.spectateButton = new TextButton(this, config.width/2, 740, 'Spectate', function() {
+        this.spectateButton = new TextButton(this, config.width/2, 1000, 'Spectate', function() {
             this.clickSound.play()
             this.game.socket.emit('join spectators', { roomId: this.gameData.roomId, playerId: this.game.socket.id})
             this.spectateButton.setVisible(false)
         }.bind(this))
-        this.spectateButton.setBackgroundImageScale(0.75, 1)
-        this.spectateButton.setScale(0.8)
+        this.spectateButton.setBackgroundImageScale(1, 1.2)
+        this.spectateButton.setScale(1)
         this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
             this.clickSound.play()
             this.spectatorListView.setVisible(true)
         }.bind(this))
 
-        this.backButton = new TextButton(this, config.width/2, 900, 'Back', function() {
+        this.backButton = new TextButton(this, config.width/2, 1150, 'Leave', function() {
             this.clickSound.play()
             this.game.socket.emit("leave room")
             this.game.socket.removeAllListeners()
             this.scene.start('Lobby')
         }.bind(this))
+        this.backButton.setBackgroundImageScale(1, 1.2)
+        this.backButton.setScale(1)
 
         this.playerSelectorViews = {}
 
-        this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4, 0, 'P1')
+        this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4 - 50, 0, 'P1')
+        this.playerSelectorViews['P1'].faceRight()
         this.playerSelectorViews['P1'].hide()
         this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4, 0, 'P2')
         this.playerSelectorViews['P2'].hide()
