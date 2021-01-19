@@ -16,7 +16,7 @@ class AlpacaShootout extends Phaser.Game {
     console.log("resizeApp")
 
     // Width-height-ratio of game resolution
-    let game_ratio = 540 / 960
+    let game_ratio = 800 / 1280
     
     // Make div full height of browser and keep the ratio of game resolution
     let div = document.getElementById('AlpacaShootout');

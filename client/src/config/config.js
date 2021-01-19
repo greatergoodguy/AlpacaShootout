@@ -22,8 +22,8 @@ export default {
 			}
 		]
     },
-    width: 540,
-    height: 960,
+    width: 800,
+    height: 1280,
     scene: [
         PreloaderScene,
         TitleScene,

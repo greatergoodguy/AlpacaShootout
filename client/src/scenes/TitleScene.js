@@ -34,6 +34,8 @@ export default class TitleScene extends Phaser.Scene {
         this.background.setOrigin(0, 0)
         this.background.setTint(0xF1FAEE)
 
+        this.backgroundImage = this.add.image(config.width/2, config.height/2, 'BG_stage')
+
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Alpaca', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
@@ -50,7 +52,7 @@ export default class TitleScene extends Phaser.Scene {
             this.scene.start('Credits')
         }.bind(this));
 
-        this.setupUsernameInputField()
+        //this.setupUsernameInputField()
 
         if(firstTimeInScene) {
             firstTimeInScene = false
