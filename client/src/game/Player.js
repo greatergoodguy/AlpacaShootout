@@ -16,8 +16,8 @@ export default class Player extends Phaser.GameObjects.Container {
 
         this.clickSound = this.scene.sound.add('click')
 
-        this.alpacaSprite = this.scene.add.image(0, 0, alpacas[this.alpaca].standby)
-        this.alpacaSprite.setScale(0.5, 0.5)
+        this.alpacaSprite = this.scene.add.image(0, 450, alpacas[this.alpaca].standby)
+        this.alpacaSprite.setScale(0.8)
         this.add(this.alpacaSprite)
 
         this.characterInfoBox = new CharacterInfoBox(this.scene, 0, -160)
@@ -77,11 +77,11 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     faceLeft() {
-        this.alpacaSprite.setScale(0.5, 0.5)
+        this.alpacaSprite.setScale(0.8, 0.8)
     }
 
     faceRight() {
-        this.alpacaSprite.setScale(-0.5, 0.5)
+        this.alpacaSprite.setScale(-0.8, 0.8)
     }
 
     showCharacter() {

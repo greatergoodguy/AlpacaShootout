@@ -63,7 +63,7 @@ export default class RoomScene extends Phaser.Scene {
         this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4 - 50, 0, 'P1')
         this.playerSelectorViews['P1'].faceRight()
         this.playerSelectorViews['P1'].hide()
-        this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4, 0, 'P2')
+        this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4 + 50, 0, 'P2')
         this.playerSelectorViews['P2'].hide()
         this.spectatorListView = new SpectatorListView(this)
         this.spectatorListView.setVisible(false)
@@ -228,7 +228,15 @@ export default class RoomScene extends Phaser.Scene {
     hideJoinAndSpectateButtons() {
         this.playerSelectorViews['P1'].hideJoinButton()
         this.playerSelectorViews['P2'].hideJoinButton()
+        this.hideSpectateButton()
+    }
+
+    hideSpectateButton() {
         this.spectateButton.setVisible(false)
+    }
+
+    showSpectateButton() {
+        this.spectateButton.setVisible(true)
     }
 
     startGame(roomData) {
