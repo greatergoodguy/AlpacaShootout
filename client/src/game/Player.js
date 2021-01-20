@@ -4,12 +4,12 @@ import TextBox from '../helper/TextBox'
 import CharacterInfoBox from './CharacterInfoBox'
 
 const TEXT_BOX_POS_Y = 620
-const CHARACTER_INFO_BOX_POS_Y = 200
+const CHARACTER_INFO_BOX_POS_Y = 190
 
 const BUTTON_SHOOT_POS_Y = 700
 const BUTTON_RELOAD_POS_Y = 770
 const BUTTON_DODGE_POS_Y = 840
-const BUTTON_REST_POS_Y = 190
+const BUTTON_REST_POS_Y = 910
 const BUTTON_SCALE_Y  = 1.2
 
 export default class Player extends Phaser.GameObjects.Container {
