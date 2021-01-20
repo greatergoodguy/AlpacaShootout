@@ -40,13 +40,13 @@ export default class GameScene extends Phaser.Scene {
         this.players = {}
 
         let player1Data = Object.values(this.roomData.players).find(player => player.label == 'P1')
-        this.players['P1'] = new Player(this, config.width/4, 300, player1Data.alpacaKey)
+        this.players['P1'] = new Player(this, config.width/4 - 50, 0, player1Data.alpacaKey)
         this.players['P1'].faceRight()
         this.players['P1'].hideCharacter()
         this.players['P1'].hideButtons()
 
         let player2Data = Object.values(this.roomData.players).find(player => player.label == 'P2')
-        this.players['P2'] = new Player(this, 3*config.width/4, 300, player2Data.alpacaKey)
+        this.players['P2'] = new Player(this, 3*config.width/4 + 50, 0, player2Data.alpacaKey)
         this.players['P2'].hideCharacter()
         this.players['P2'].hideButtons()
 

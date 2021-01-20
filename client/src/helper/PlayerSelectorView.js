@@ -5,6 +5,8 @@ import ImageButton from './ImageButton'
 import CharacterInfoView from './CharacterInfoView'
 
 const READY_BUTTON_POS_Y = 685
+const TEXT_BOX_POS_Y = 620
+const CHARACTER_INFO_BOX_POS_Y = 190
 
 export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   constructor(scene, x, y, label) {
@@ -34,11 +36,11 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     }.bind(this))
     this.add(this.rightArrow)
     this.rightArrow.setScale(2.2)
-    this.readySquare = this.scene.add.sprite(0, 620, 'whiteSquare').setScale(2, 0.5)
+    this.readySquare = this.scene.add.sprite(0, TEXT_BOX_POS_Y, 'whiteSquare').setScale(2, 0.5)
     this.add(this.readySquare)
     this.readySquare.setTint(0xc1bca0)
     this.readySquare.alpha = 0.5
-    this.readyText = this.scene.add.text(0, 620, 'Not Ready', { fontSize: '24px', fill: '#000' })
+    this.readyText = this.scene.add.text(0, TEXT_BOX_POS_Y, 'Not Ready', { fontSize: '24px', fill: '#000' })
     this.add(this.readyText)
     this.readyText.setFontFamily('RobotoSlab-Regular')
     this.readyText.setColor('#c90b0b')
@@ -57,7 +59,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.add(this.readyButton)
     this.readyButton.setBackgroundImageScale(0.9, 1.2)
 
-    this.characterInfoView = new CharacterInfoView(this.scene, 0, 200)
+    this.characterInfoView = new CharacterInfoView(this.scene, 0, CHARACTER_INFO_BOX_POS_Y)
     this.add(this.characterInfoView)
 
     this.x = x

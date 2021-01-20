@@ -3,6 +3,15 @@ import TextButton from '../helper/TextButton'
 import TextBox from '../helper/TextBox'
 import CharacterInfoBox from './CharacterInfoBox'
 
+const TEXT_BOX_POS_Y = 620
+const CHARACTER_INFO_BOX_POS_Y = 200
+
+const BUTTON_SHOOT_POS_Y = 700
+const BUTTON_RELOAD_POS_Y = 770
+const BUTTON_DODGE_POS_Y = 840
+const BUTTON_REST_POS_Y = 190
+const BUTTON_SCALE_Y  = 1.2
+
 export default class Player extends Phaser.GameObjects.Container {
     constructor(scene, x, y, alpaca) {
         super(scene)
@@ -20,51 +29,51 @@ export default class Player extends Phaser.GameObjects.Container {
         this.alpacaSprite.setScale(0.8)
         this.add(this.alpacaSprite)
 
-        this.characterInfoBox = new CharacterInfoBox(this.scene, 0, -160)
+        this.characterInfoBox = new CharacterInfoBox(this.scene, 0, CHARACTER_INFO_BOX_POS_Y)
         this.characterInfoBox.initUI(alpacas[this.alpaca].stats)
         this.add(this.characterInfoBox)
 
-        this.textBox = new TextBox(this.scene, 0, 120, '')
+        this.textBox = new TextBox(this.scene, 0, TEXT_BOX_POS_Y, '')
         this.add(this.textBox)
 
-        this.shootButton = new TextButton(this.scene, 0, 200, 'Shoot', function() {
+        this.shootButton = new TextButton(this.scene, 0, BUTTON_SHOOT_POS_Y, 'Shoot', function() {
             console.log('Shoot')
             this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shoot'})
             this.disableButtons()
         }.bind(this))
-        this.shootButton.setBackgroundImageScale(1.2, 0.9)
+        this.shootButton.setBackgroundImageScale(1.2, BUTTON_SCALE_Y)
         this.add(this.shootButton)
 
-        this.reloadButton = new TextButton(this.scene, 0, 260, 'Reload', function() {
+        this.reloadButton = new TextButton(this.scene, 0, BUTTON_RELOAD_POS_Y, 'Reload', function() {
             console.log('Reload')
             this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Reload'})
             this.disableButtons()
         }.bind(this))
-        this.reloadButton.setBackgroundImageScale(1.2, 0.9)
+        this.reloadButton.setBackgroundImageScale(1.2, BUTTON_SCALE_Y)
         this.add(this.reloadButton)
 
-        this.shieldButton = new TextButton(this.scene, 0, 320, 'Dodge', function() {
+        this.shieldButton = new TextButton(this.scene, 0, BUTTON_DODGE_POS_Y, 'Dodge', function() {
             console.log('Shield')
             this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Shield'})
             this.disableButtons()
         }.bind(this))
-        this.shieldButton.setBackgroundImageScale(1.2, 0.9)
+        this.shieldButton.setBackgroundImageScale(1.2, BUTTON_SCALE_Y)
         this.add(this.shieldButton)
 
-        this.refreshShieldButton = new TextButton(this.scene, 0, 380, 'Rest', function() {
+        this.refreshShieldButton = new TextButton(this.scene, 0, BUTTON_REST_POS_Y, 'Rest', function() {
             console.log('Shield')
             this.clickSound.play()
             this.setTextBoxReady()
             this.scene.game.socket.emit('action played', { roomId: this.scene.roomData.id, action: 'Rest'})
             this.disableButtons()
         }.bind(this))
-        this.refreshShieldButton.setBackgroundImageScale(1.2, 0.9)
+        this.refreshShieldButton.setBackgroundImageScale(1.2, BUTTON_SCALE_Y)
         this.add(this.refreshShieldButton)
 
         this.enableButtons()
