@@ -36,6 +36,12 @@ export default class Player extends Phaser.GameObjects.Container {
         this.textBox = new TextBox(this.scene, 0, TEXT_BOX_POS_Y, '')
         this.add(this.textBox)
 
+        this.nameText = this.scene.add.text(0, 310, '', { fontSize: '28px', fill: '#000' })
+        this.add(this.nameText)
+        this.nameText.setFontFamily('RobotoSlab-Regular')
+        this.nameText.setColor('#252525')
+        this.nameText.setOrigin(0.5, 0.5)
+
         this.shootButton = new TextButton(this.scene, 0, BUTTON_SHOOT_POS_Y, 'Shoot', function() {
             console.log('Shoot')
             this.clickSound.play()
@@ -197,9 +203,13 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     update(playerData) {
+        console.log('Player.update()')
+        console.log(playerData)
         this.updateTextBox(playerData)
         this.updateTexture(playerData)
         this.updateCharacterInfoBox(playerData)
+
+        this.nameText.setText(playerData.username)
     }
 
 }

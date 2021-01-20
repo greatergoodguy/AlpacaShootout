@@ -1,6 +1,50 @@
 import 'phaser'
 import TextButton from './TextButton'
 import ImageButton from './ImageButton'
+import Spectator from '../game/Spectator'
+
+const spectatorMap = {
+  "S1": {
+      index: 0,
+      xPos: -240,
+      yPos: -30 + 100,
+  },
+  "S2": {
+      index: 2,
+      xPos: -20,
+      yPos: -50 + 100,
+  },
+  "S3": {
+      index: 3,
+      xPos: 100,
+      yPos: -10 + 100,
+  },
+  "S4": {
+      index: 1,
+      xPos: -140,
+      yPos: 30 + 100,
+  },
+  "S5": {
+      index: 4,
+      xPos: 250,
+      yPos: 40 + 100,
+  },
+  "S6": {
+      index: 5,
+      xPos: -180,
+      yPos: 80 + 100,
+  },
+  "S7": {
+      index: 6,
+      xPos: 20,
+      yPos: 100 + 100,
+  },
+  "S8": {
+      index: 7,
+      xPos: 200,
+      yPos: 90 + 100,
+  },
+}
 
 export default class SpectatorSelectorView extends Phaser.GameObjects.Container {
   constructor(scene, x, y) {
@@ -9,44 +53,35 @@ export default class SpectatorSelectorView extends Phaser.GameObjects.Container 
     this.x = x
     this.y = y
 
-    this.spectatorLabelIndices = {
-        "S1": 0,
-        "S2": 1,
-        "S3": 2,
-        "S4": 3,
-        "S5": 4,
-        "S6": 5,
-        "S7": 6,
-        "S8": 7
-    }
+    this.spectators = {}
+    Object.entries(spectatorMap).forEach((entry) => {
+        let spectator = new Spectator(this.scene, entry[1].xPos, entry[1].yPos)
+        spectator.hide()
+        this.spectators[entry[0]] = spectator
+        this.add(spectator)
+    })
 
-    this.spectatorImages = []
-    var i
-    for(i=0; i<8; i++) {
-        let image = this.scene.add.image(-200 + i*60, 0, 'spectator')
-        image.setScale(0.4)
-        this.add(image)
-        this.spectatorImages.push(image)
-        image.visible = false
-    }    
+    Object.values(this.spectators).forEach((spectator) => {
+      spectator.bringNameToTop()
+    })
 
     this.scene.add.existing(this)
   }
 
   showUserAsSpectator(spectatorData) {
-    if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
-    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = true
-    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].setTint(0x585858)
+    if(!(spectatorData.label in spectatorMap)) { return }
+    this.spectators[spectatorData.label].show(spectatorData)
+    this.spectators[spectatorData.label].setTint(0x585858)
   }
 
   showOnlineSpectator(spectatorData) {
-    if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
-    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = true
-    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].setTint()
+      if(!(spectatorData.label in spectatorMap)) { return }
+      this.spectators[spectatorData.label].show(spectatorData)
+      this.spectators[spectatorData.label].setTint()
   }
 
   removeSpectator(spectatorData) {
-    if(!(spectatorData.label in this.spectatorLabelIndices)) { return }
-    this.spectatorImages[this.spectatorLabelIndices[spectatorData.label]].visible = false
+      if(!(spectatorData.label in spectatorMap)) { return }
+      this.spectators[spectatorData.label].hide()
   }
 }

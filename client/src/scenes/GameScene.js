@@ -53,7 +53,7 @@ export default class GameScene extends Phaser.Scene {
         this.spectator = new Spectator(this, config.width/2, 700)
         this.spectator.hide()
 
-        this.audience = new Audience(this, config.width/2, config.height/2 + 250)
+        this.audience = new Audience(this, config.width/2, config.height/2 + 350)
 
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))

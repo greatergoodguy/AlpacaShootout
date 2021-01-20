@@ -50,7 +50,7 @@ var Lobby = {
 				room.addPlayer(this.id, data.username)
 			} else {
 				data.userType = 'spectator'
-				room.addSpectator(this.id)
+				room.addSpectator(this.id, data.username)
 			}
 
 			this.roomId = data.roomId
@@ -126,7 +126,7 @@ var Lobby = {
 		}
 
 		console.log('add spectator to room')
-		room.addSpectator(this.id)
+		room.addSpectator(this.id, data.username)
 		io.in(this.roomId).emit("spectator joined", room.spectators[this.id])
 		broadcastSlotStateUpdate(data.roomId, room)
 	},

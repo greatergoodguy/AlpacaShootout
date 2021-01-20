@@ -32,7 +32,7 @@ var Room = function(id, roomNumber) {
 		{label: "S5", available: true}, 
 		{label: "S6", available: true}, 
 		{label: "S7", available: true}, 
-		{label: "S8", available: true}
+		{label: "S8", available: true},
 	]
 }
 
@@ -99,12 +99,17 @@ Room.prototype = {
 		}
 	},
 
-	addSpectator: function(id) {
-		this.spectators[id] = {id: id, label: this.claimFirstAvailableSpectatorSlot()}
+	addSpectator: function(id, username) {
+		this.spectators[id] = {
+			id: id, 
+			label: this.claimFirstAvailableSpectatorSlot(),
+			username: username,
+		}
 	},
 
 	removeSpectator: function(id) {
-		if(id in this.spectators) {
+		console.log("removeSpectator: " + id + ", " + this.spectators[id].label)
+		if(id in this.spectators && this.spectators[id].label) {
 			this.spectatorSlots[spectatorLabelIndices[this.spectators[id].label]].available = true
 			delete this.spectators[id]
 		}

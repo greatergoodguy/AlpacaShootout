@@ -37,26 +37,11 @@ export default class RoomScene extends Phaser.Scene {
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Room', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
-        this.spectateButton = new TextButton(this, config.width/2, 1000, 'Spectate', function() {
-            this.clickSound.play()
-            this.game.socket.emit('join spectators', { roomId: this.gameData.roomId, playerId: this.game.socket.id})
-            this.spectateButton.setVisible(false)
-        }.bind(this))
-        this.spectateButton.setBackgroundImageScale(1, 1.2)
-        this.spectateButton.setScale(1)
         this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
             this.clickSound.play()
             this.spectatorListView.setVisible(true)
         }.bind(this))
-
-        this.backButton = new TextButton(this, config.width/2, 1150, 'Leave', function() {
-            this.clickSound.play()
-            this.game.socket.emit("leave room")
-            this.game.socket.removeAllListeners()
-            this.scene.start('Lobby')
-        }.bind(this))
-        this.backButton.setBackgroundImageScale(1, 1.2)
-        this.backButton.setScale(1)
+        this.spectatorListButton.setVisible(false)
 
         this.playerSelectorViews = {}
 
@@ -67,10 +52,26 @@ export default class RoomScene extends Phaser.Scene {
         this.playerSelectorViews['P2'].hide()
         this.spectatorListView = new SpectatorListView(this)
         this.spectatorListView.setVisible(false)
-        this.spectateButton.setVisible(false)
-        this.spectatorListButton.setVisible(false)
 
-        this.spectatorSelectorView = new SpectatorSelectorView(this, config.width/2, config.height/2 + 250)
+        this.spectatorSelectorView = new SpectatorSelectorView(this, config.width/2, config.height/2 + 350)
+
+        this.spectateButton = new TextButton(this, config.width/2, 1000, 'Spectate', function() {
+            this.clickSound.play()
+            this.game.socket.emit('join spectators', { roomId: this.gameData.roomId, playerId: this.game.socket.id, username: this.game.config.username})
+            this.spectateButton.setVisible(false)
+        }.bind(this))
+        this.spectateButton.setBackgroundImageScale(1, 1.2)
+        this.spectateButton.setScale(1)
+        this.spectateButton.setVisible(false)
+
+        this.backButton = new TextButton(this, config.width/2, 1150, 'Leave', function() {
+            this.clickSound.play()
+            this.game.socket.emit("leave room")
+            this.game.socket.removeAllListeners()
+            this.scene.start('Lobby')
+        }.bind(this))
+        this.backButton.setBackgroundImageScale(1, 1.2)
+        this.backButton.setScale(1.1)
 
         this.game.socket.on("show room", this.populateRoom.bind(this))
         this.game.socket.on("player joined", this.playerJoined.bind(this))

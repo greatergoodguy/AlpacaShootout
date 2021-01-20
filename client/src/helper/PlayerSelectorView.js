@@ -48,7 +48,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
     this.isReady = false
     this.isOccupied = false
 
-    this.nameText = this.scene.add.text(0, 310, 'Tom', { fontSize: '24px', fill: '#000' })
+    this.nameText = this.scene.add.text(0, 310, 'Tom', { fontSize: '28px', fill: '#000' })
     this.add(this.nameText)
     this.nameText.setFontFamily('RobotoSlab-Regular')
     this.nameText.setColor('#252525')

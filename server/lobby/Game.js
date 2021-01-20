@@ -21,6 +21,7 @@ Game.prototype = {
                 id: entry[0],
                 label: entry[1].label,
                 alpacaKey: entry[1].alpacaKey,
+                username: entry[1].username,
                 isActionReady: false,
                 statusText: 'Thinking',
                 statusTextColor: 'red',
