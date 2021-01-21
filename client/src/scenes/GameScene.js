@@ -34,7 +34,7 @@ export default class GameScene extends Phaser.Scene {
 
         this.background = this.add.image(config.width/2, config.height/2, 'BG_stage')
 
-        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Game', TITLE_FONT_SIZE)
+        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Game', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.players = {}

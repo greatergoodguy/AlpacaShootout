@@ -37,21 +37,20 @@ export default class RoomScene extends Phaser.Scene {
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Room', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
-        this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
-            this.clickSound.play()
-            this.spectatorListView.setVisible(true)
-        }.bind(this))
-        this.spectatorListButton.setVisible(false)
-
         this.playerSelectorViews = {}
-
         this.playerSelectorViews['P1'] = new PlayerSelectorView(this, config.width/4 - 50, 0, 'P1')
         this.playerSelectorViews['P1'].faceRight()
         this.playerSelectorViews['P1'].hide()
         this.playerSelectorViews['P2'] = new PlayerSelectorView(this, 3*config.width/4 + 50, 0, 'P2')
         this.playerSelectorViews['P2'].hide()
-        this.spectatorListView = new SpectatorListView(this)
-        this.spectatorListView.setVisible(false)
+
+        // this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
+        //     this.clickSound.play()
+        //     this.spectatorListView.setVisible(true)
+        // }.bind(this))
+        // this.spectatorListButton.setVisible(false)
+        // this.spectatorListView = new SpectatorListView(this)
+        // this.spectatorListView.setVisible(false)
 
         this.spectatorSelectorView = new SpectatorSelectorView(this, config.width/2, config.height/2 + 350)
 
