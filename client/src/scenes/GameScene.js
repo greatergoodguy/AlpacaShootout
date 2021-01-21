@@ -14,6 +14,7 @@ export default class GameScene extends Phaser.Scene {
 
     init(roomData) {
         this.roomData = roomData
+        console.log("init(roomData)")
         console.log(this.roomData)
 	}
 
@@ -66,7 +67,7 @@ export default class GameScene extends Phaser.Scene {
         this.game.socket.on("spectator joined", this.spectatorJoined.bind(this))
         this.game.socket.on("spectator left", this.spectatorLeft.bind(this))
         this.game.socket.on('disconnect', this.leaveGame.bind(this))
-        this.game.socket.on('finish', this.leaveGame.bind(this))
+        this.game.socket.on('finish', this.finishGame.bind(this))
 
         this.game.socket.on('show actions', this.showActions.bind(this))
         this.game.socket.on('new round', this.newRound.bind(this))
@@ -146,6 +147,14 @@ export default class GameScene extends Phaser.Scene {
         this.game.socket.emit("leave room")
         this.game.socket.removeAllListeners()
         this.scene.start('Title')
+    }
+
+    finishGame(gameData, roomData) {
+        console.log('GameScene.finishGame()')
+        console.log('roomData:')
+        console.log(roomData)
+        this.game.socket.removeAllListeners()
+        this.scene.start('Room', {roomId: roomData.id, roomData: roomData})
     }
 
     showActions(gameData) {

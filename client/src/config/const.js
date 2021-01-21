@@ -26,10 +26,10 @@ const alpacas = {
         hurt: 'suri_hurt',
         rest: 'suri_rest',
         stats: {
-            heartMax: 3,
+            heartMax: 1,
             ammoMax: 4,
             shieldMax: 3,
-            heart: 3,
+            heart: 1,
             ammo: 1,
             shield: 3
         }

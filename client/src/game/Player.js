@@ -20,9 +20,6 @@ export default class Player extends Phaser.GameObjects.Container {
         this.y = y
         this.alpaca = alpaca
 
-        console.log(alpacas)
-        console.log(alpacas[this.alpaca])
-
         this.clickSound = this.scene.sound.add('click')
 
         this.alpacaSprite = this.scene.add.image(0, 450, alpacas[this.alpaca].standby)
@@ -151,7 +148,6 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     updateTextBox(playerData) {
-        console.log('Player.updateTextBox()')
         if(playerData.statusTextColor === 'green') {
             this.textBox.setTextColorGreen()
         } else if(playerData.statusTextColor === 'red') {
@@ -164,7 +160,6 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     updateTextBoxForUpdatePlayerInGame(playerData) {
-        console.log('Player.updateTextBoxForUpdatePlayerInGame()')
         if(playerData.statusTextColor === 'green') {
             this.textBox.setTextColorGreen()
             this.textBox.setText("Ready")
@@ -178,9 +173,7 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     updateTexture(playerData) {
-        console.log('Player.updateTexture()')
         let texture = playerData.texture
-        console.log(texture)
 
         if(texture === "shoot") {
             this.alpacaSprite.setTexture(alpacas[this.alpaca].shoot)
@@ -198,13 +191,10 @@ export default class Player extends Phaser.GameObjects.Container {
     }
 
     updateCharacterInfoBox(playerData) {
-        console.log('Player.updateCharacterInfoBox()')
         this.characterInfoBox.updateUI(playerData)
     }
 
     update(playerData) {
-        console.log('Player.update()')
-        console.log(playerData)
         this.updateTextBox(playerData)
         this.updateTexture(playerData)
         this.updateCharacterInfoBox(playerData)

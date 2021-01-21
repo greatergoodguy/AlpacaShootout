@@ -103,7 +103,6 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
   }
 
   showOnlinePlayer(playerData) {
-    this.setVisible(true)
     this.index = 0
     this.alpacaKey = playerData.alpacaKey
     this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
@@ -131,10 +130,10 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
 
     this.characterInfoView.setVisible(true)
     this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
+    this.setVisible(true)
   }
 
   showUserAsCurrentPlayer(playerData) {
-    this.setVisible(true)
     this.alpacaKey = playerData.alpacaKey
     this.index = this.alpacaKeys.indexOf(this.alpacaKey)
     this.alpaca.setTexture(alpacas[this.alpacaKey].standby)
@@ -160,6 +159,7 @@ export default class PlayerSelectorView extends Phaser.GameObjects.Container {
 
     this.characterInfoView.setVisible(true)
     this.characterInfoView.updateUI(alpacas[this.alpacaKey].stats)
+    this.setVisible(true)
   }
 
   showEmpty() {

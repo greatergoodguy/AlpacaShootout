@@ -174,7 +174,10 @@ var Lobby = {
 					}
 					else {
 						setTimeout(function() {
-							io.in(data.roomId).emit('finish', game)
+							room.setState("joinable")
+							room.unreadyAllPlayers()
+							io.in(lobbyId).emit("update slot", {roomId: data.roomId, room: room})
+							io.in(data.roomId).emit('finish', game, room)
 						}, 4000)
 					}
 				}, 1000)

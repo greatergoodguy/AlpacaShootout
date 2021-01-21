@@ -149,7 +149,13 @@ Room.prototype = {
 				return spectatorSlot.label
 			}
 		}
-	}
+	},
+
+	unreadyAllPlayers: function() {
+		Object.values(this.players).forEach((entry) => {
+			entry.isReady = false
+		})
+	},
 };
 
 module.exports = Room
