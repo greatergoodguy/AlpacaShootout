@@ -34,7 +34,7 @@ export default class RoomScene extends Phaser.Scene {
 
         this.backgroundImage = this.add.image(config.width/2, config.height/2, 'BG_stage')
 
-        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Room', TITLE_FONT_SIZE)
+        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Room', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.spectatorListButton = new TextButton(this, config.width/2, 800, 'Spectator List', function() {
@@ -61,7 +61,7 @@ export default class RoomScene extends Phaser.Scene {
             this.spectateButton.setVisible(false)
         }.bind(this))
         this.spectateButton.setBackgroundImageScale(1, 1.2)
-        this.spectateButton.setScale(1)
+        this.spectateButton.setScale(1.1)
         this.spectateButton.setVisible(false)
 
         this.backButton = new TextButton(this, config.width/2, 1150, 'Leave', function() {
@@ -99,6 +99,8 @@ export default class RoomScene extends Phaser.Scene {
             this.startGame(data)
             return
         }
+
+        this.titleBitmapText.setText("Room " + data.roomNumber)
 
         Object.entries(data.players).forEach((entry) => {
             console.log(entry[1])

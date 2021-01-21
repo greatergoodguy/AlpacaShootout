@@ -91,6 +91,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('shieldEmpty', 'client/src/assets/ui/barrelRed_up_empty.png')
 
         this.load.bitmapFont('khodijah', 'client/src/assets/fonts/khodijah.png', 'client/src/assets/fonts/khodijah.fnt')
+        this.load.bitmapFont('ashcanbb', 'client/src/assets/fonts/ashcanbb_bold.png', 'client/src/assets/fonts/ashcanbb_bold.fnt')
 
         this.load.audio("click", 'client/src/assets/sounds/click.ogg')
         this.load.audio("gun_dodge", 'client/src/assets/sounds/gun_dodge.ogg')
@@ -98,8 +99,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.mp3')
         this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.ogg')
 
-        // this.game.socket = io('http://localhost:3000')
-        this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+        this.game.socket = io('http://localhost:3000')
+        //this.game.socket = io('https://alpaca-shootout.herokuapp.com')
 
         this.game.config.username = rug.generate()
 

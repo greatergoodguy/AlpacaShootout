@@ -29,7 +29,7 @@ export default class LobbyScene extends Phaser.Scene {
 
         this.backgroundImage = this.add.image(config.width/2, config.height/2, 'BG_stage')
 
-        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Lobby', TITLE_FONT_SIZE)
+        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Lobby', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.backButton = new TextButton(this, config.width/2, 600, 'Back', function() {

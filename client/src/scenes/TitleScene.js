@@ -36,18 +36,18 @@ export default class TitleScene extends Phaser.Scene {
 
         this.backgroundImage = this.add.image(config.width/2, config.height/2, 'BG_stage')
 
-        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'khodijah', 'Alpaca', TITLE_FONT_SIZE)
+        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Alpaca', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
-        this.titleBitmapText2 = this.add.bitmapText(config.width/2, 140, 'khodijah', 'Shootout', TITLE_FONT_SIZE)
+        this.titleBitmapText2 = this.add.bitmapText(config.width/2, 140, 'ashcanbb', 'Shootout', TITLE_FONT_SIZE)
         this.titleBitmapText2.setOrigin(0.5, 0)
 
-        this.startButton = new TextButton(this, config.width/2, 400, 'Start Game', function() {
+        this.startButton = new TextButton(this, config.width/2, 460, 'Play', function() {
             clickSound.play()
             this.scene.start('Lobby')
         }.bind(this));
 
-        this.creditsButton = new TextButton(this, config.width/2, 500, 'Credits', function() {
+        this.creditsButton = new TextButton(this, config.width/2, 560, 'Credits', function() {
             clickSound.play()
             this.scene.start('Credits')
         }.bind(this));
