@@ -20,7 +20,7 @@
     "phaser": "^3.52.0",
     "phaser3-rex-plugins": "^1.1.39",
     "random-username-generator": "^1.0.4",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
