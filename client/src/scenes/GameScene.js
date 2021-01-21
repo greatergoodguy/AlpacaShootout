@@ -55,6 +55,10 @@ export default class GameScene extends Phaser.Scene {
 
         this.audience = new Audience(this, config.width/2, config.height/2 + 350)
 
+        this.smallExplosion = this.add.image(config.width/2, 472, 'small_explosion')
+        this.smallExplosion.setScale(0.3)
+        this.smallExplosion.setVisible(false)
+
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))
         this.game.socket.on("update player in game", this.updatePlayerInGame.bind(this))
@@ -109,13 +113,13 @@ export default class GameScene extends Phaser.Scene {
             }
         })
 
-
-
         Object.entries(gameData.players).forEach((entry) => {
             let playerlabel = entry[1].label
             let player = this.players[playerlabel]
             player.update(entry[1])
         })
+
+        this.showAdditionalAssets(gameData)
     }
 
     spectatorJoined(data) {
@@ -166,6 +170,16 @@ export default class GameScene extends Phaser.Scene {
         } else if(soundEffect === 'gun_dodge') {
             this.gunDodgeSound.play()
         }
+
+        this.showAdditionalAssets(gameData)
+    }
+
+    showAdditionalAssets(gameData) {
+        gameData.additionalAssets.forEach((entry) =>  {
+            if(entry === 'smallExplosion') {
+                this.smallExplosion.setVisible(true)
+            }   
+        })
     }
 
     newRound(gameData) {
@@ -183,5 +197,7 @@ export default class GameScene extends Phaser.Scene {
                 player.enableButtons()
             }
         })
+
+        this.smallExplosion.setVisible(false)
     }
 }

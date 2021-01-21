@@ -4,6 +4,7 @@ var Game = function(id) {
     this.id = id
     this.players = {}
     this.soundEffect = "none"
+    this.additionalAssets = []
 }
 
 Game.prototype = {
@@ -43,6 +44,7 @@ Game.prototype = {
     update(gameLogic) {
         this.showActions = gameLogic.areAllPlayersActionsReady()
         this.soundEffect = gameLogic.soundEffect
+        this.additionalAssets = gameLogic.additionalAssets
         Object.entries(gameLogic.players).forEach((entry) => {
             this.players[entry[0]].isActionReady = entry[1].isActionReady
             if(this.showActions) {

@@ -34,7 +34,7 @@ export default class RoomScene extends Phaser.Scene {
 
         this.backgroundImage = this.add.image(config.width/2, config.height/2, 'BG_stage')
 
-        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Room', TITLE_FONT_SIZE)
+        this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', '', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
         this.playerSelectorViews = {}
@@ -71,6 +71,7 @@ export default class RoomScene extends Phaser.Scene {
         }.bind(this))
         this.backButton.setBackgroundImageScale(1, 1.2)
         this.backButton.setScale(1.1)
+        this.backButton.setVisible(false)
 
         this.game.socket.on("show room", this.populateRoom.bind(this))
         this.game.socket.on("player joined", this.playerJoined.bind(this))
@@ -142,6 +143,8 @@ export default class RoomScene extends Phaser.Scene {
         } else {
             this.isPlayer = false
         }
+
+        this.backButton.setVisible(true)
 
         if(firstTimeInScene) {
             firstTimeInScene = false

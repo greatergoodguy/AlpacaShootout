@@ -4,6 +4,7 @@ var GameLogic = function(id) {
     this.id = id
     this.players = {}
     this.soundEffect = "none"
+    this.additionalAssets = []
 }
 
 GameLogic.prototype = {
@@ -42,6 +43,8 @@ GameLogic.prototype = {
             entry[1].action = 'none'
             entry[1].texture = 'standby'
         })
+        this.soundEffect = "none"
+        this.additionalAssets = []
     },
     
     updateAction: function(playerId, action) {
@@ -81,6 +84,7 @@ GameLogic.prototype = {
         console.log(player2)
 
         this.soundEffect = "none"
+        this.additionalAssets = []
 
         if(player1.action === 'Shoot' && player2.action === 'Shoot') {
             player1.texture = 'shoot'
@@ -88,6 +92,7 @@ GameLogic.prototype = {
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
             this.soundEffect = "gun_explode"
+            this.additionalAssets.push('smallExplosion')
         } else if(player1.action === 'Shoot' && player2.action === 'Reload') {
             player1.texture = 'shoot'
             this.reduceStat(player1, 'ammo')
