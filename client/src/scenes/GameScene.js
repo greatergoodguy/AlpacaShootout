@@ -59,6 +59,12 @@ export default class GameScene extends Phaser.Scene {
         this.smallExplosion = this.add.image(config.width/2, 472, 'small_explosion')
         this.smallExplosion.setScale(0.3)
         this.smallExplosion.setVisible(false)
+        this.bulletOnP1Side = this.add.image(config.width/2 - 265, 470, 'bullet')
+        this.bulletOnP1Side.setScale(0.65)
+        this.bulletOnP1Side.setVisible(false)
+        this.bulletOnP2Side = this.add.image(config.width/2 + 265, 470, 'bullet')
+        this.bulletOnP2Side.setScale(-0.65)
+        this.bulletOnP2Side.setVisible(false)
 
         this.game.socket.on("show game", this.populateGame.bind(this))
         this.game.socket.on("player left", this.leaveGame.bind(this))
@@ -187,6 +193,10 @@ export default class GameScene extends Phaser.Scene {
         gameData.additionalAssets.forEach((entry) =>  {
             if(entry === 'smallExplosion') {
                 this.smallExplosion.setVisible(true)
+            } else if(entry === 'bulletOnP1Side') {
+                this.bulletOnP1Side.setVisible(true)
+            } else if(entry === 'bulletOnP2Side') {
+                this.bulletOnP2Side.setVisible(true)
             }   
         })
     }
@@ -208,5 +218,7 @@ export default class GameScene extends Phaser.Scene {
         })
 
         this.smallExplosion.setVisible(false)
+        this.bulletOnP1Side.setVisible(false)
+        this.bulletOnP2Side.setVisible(false)
     }
 }

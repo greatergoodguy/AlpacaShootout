@@ -78,11 +78,6 @@ GameLogic.prototype = {
             }
         })
 
-        console.log('Player 1')
-        console.log(player1)
-        console.log('Player 2')
-        console.log(player2)
-
         this.soundEffect = "none"
         this.additionalAssets = []
 
@@ -105,6 +100,7 @@ GameLogic.prototype = {
             player2.texture = 'shield'
             this.reduceStat(player2, 'shield')
             this.soundEffect = "gun_dodge"
+            this.additionalAssets.push('bulletOnP2Side')
         } else if(player1.action === 'Shoot' && player2.action === 'Rest') {
             player1.texture = 'shoot'
             this.reduceStat(player1, 'ammo')
@@ -145,6 +141,7 @@ GameLogic.prototype = {
             player2.texture = 'shoot'
             this.reduceStat(player2, 'ammo')
             this.soundEffect = "gun_dodge"
+            this.additionalAssets.push('bulletOnP1Side')
         } else if(player1.action === 'Shield' && player2.action === 'Reload') {
             player1.texture = 'shield'
             this.reduceStat(player1, 'shield')
