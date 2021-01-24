@@ -83,12 +83,12 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('whitePixel', 'client/src/assets/ui/whitePixel.png')
         this.load.image('whiteSquare', 'client/src/assets/ui/whiteSquare.png')
         this.load.image('eye', 'client/src/assets/ui/eye.png')
-        this.load.image('heart', 'client/src/assets/ui/heart.png')
-        this.load.image('heartEmpty', 'client/src/assets/ui/heart_empty.png')
-        this.load.image('ammo', 'client/src/assets/ui/bulletSilverSilver_outline.png')
-        this.load.image('ammoEmpty', 'client/src/assets/ui/bulletSilverSilver_outline_empty.png')
-        this.load.image('shield', 'client/src/assets/ui/barrelRed_up.png')
-        this.load.image('shieldEmpty', 'client/src/assets/ui/barrelRed_up_empty.png')
+        this.load.image('heart', 'client/src/assets/ui/icon_heart.png')
+        this.load.image('heartEmpty', 'client/src/assets/ui/icon_heart_empty.png')
+        this.load.image('ammo', 'client/src/assets/ui/icon_ammo.png')
+        this.load.image('ammoEmpty', 'client/src/assets/ui/icon_ammo_empty.png')
+        this.load.image('shield', 'client/src/assets/ui/icon_dodge.png')
+        this.load.image('shieldEmpty', 'client/src/assets/ui/icon_dodge_empty.png')
 
         this.load.image('bullet', 'client/src/assets/others/bullet.png')
         this.load.image('small_explosion', 'client/src/assets/others/small_explosion.png')
@@ -102,8 +102,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.mp3')
         this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.mp3')
 
-        // this.game.socket = io('http://localhost:3000')
-        this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+        this.game.socket = io('http://localhost:3000')
+        //this.game.socket = io('https://alpaca-shootout.herokuapp.com')
 
         this.game.config.username = rug.generate()
 
