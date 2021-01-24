@@ -56,8 +56,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.audience = new Audience(this, config.width/2, config.height/2 + 350)
 
-        this.smallExplosion = this.add.image(config.width/2, 472, 'small_explosion')
-        this.smallExplosion.setScale(0.3)
+        this.smallExplosion = this.add.image(config.width/2, 466, 'small_explosion')
+        this.smallExplosion.setScale(0.2)
         this.smallExplosion.setVisible(false)
         this.bulletOnP1Side = this.add.image(config.width/2 - 265, 470, 'bullet')
         this.bulletOnP1Side.setScale(0.65)

@@ -91,7 +91,7 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('shieldEmpty', 'client/src/assets/ui/icon_dodge_empty.png')
 
         this.load.image('bullet', 'client/src/assets/others/bullet.png')
-        this.load.image('small_explosion', 'client/src/assets/others/small_explosion.png')
+        this.load.image('small_explosion', 'client/src/assets/others/small_explosion_2.png')
 
         this.load.bitmapFont('khodijah', 'client/src/assets/fonts/khodijah.png', 'client/src/assets/fonts/khodijah.fnt')
         this.load.bitmapFont('ashcanbb', 'client/src/assets/fonts/ashcanbb_bold.png', 'client/src/assets/fonts/ashcanbb_bold.fnt')
