@@ -9,7 +9,7 @@ export default class CharacterInfoView extends Phaser.GameObjects.Container {
     this.x = x
     this.y = y
 
-    this.background = this.scene.add.sprite(0, 0, 'whiteSquare').setScale(2.3, 2)
+    this.background = this.scene.add.sprite(0, 0, 'whiteSquare').setScale(2.4, 2)
     this.background.setTint(0xc1bca0)
     this.background.alpha = 0.5
     this.add(this.background)
