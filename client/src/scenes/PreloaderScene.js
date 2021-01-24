@@ -85,8 +85,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.image('eye', 'client/src/assets/ui/eye.png')
         this.load.image('heart', 'client/src/assets/ui/icon_heart.png')
         this.load.image('heartEmpty', 'client/src/assets/ui/icon_heart_empty.png')
-        this.load.image('ammo', 'client/src/assets/ui/icon_ammo.png')
-        this.load.image('ammoEmpty', 'client/src/assets/ui/icon_ammo_empty.png')
+        this.load.image('ammo', 'client/src/assets/ui/icon_ammo_2.png')
+        this.load.image('ammoEmpty', 'client/src/assets/ui/icon_ammo_empty_2.png')
         this.load.image('shield', 'client/src/assets/ui/icon_dodge.png')
         this.load.image('shieldEmpty', 'client/src/assets/ui/icon_dodge_empty.png')
 

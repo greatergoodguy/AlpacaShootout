@@ -10,7 +10,7 @@ export default class CharacterInfoBox extends Phaser.GameObjects.Container {
       this.x = x
       this.y = y
   
-      this.background = this.scene.add.sprite(0, 0, 'whiteSquare').setScale(2.4, 2)
+      this.background = this.scene.add.sprite(0, 0, 'whiteSquare').setScale(2.4, 2.1)
       this.background.setTint(0xc1bca0)
       this.background.alpha = 0.5
       this.add(this.background)
@@ -34,12 +34,12 @@ export default class CharacterInfoBox extends Phaser.GameObjects.Container {
       }
   
       for(i = 0; i < 5; i++) {
-          this.ammos[i] = this.scene.add.sprite(-90 + i*45, 0, 'ammo').setScale(0.17, 0.17)
+          this.ammos[i] = this.scene.add.sprite(-90 + i*45, 0, 'ammo').setScale(0.2, 0.2)
           this.add(this.ammos[i])
       }
   
       for(i = 0; i < 5; i++) {
-          this.shields[i] = this.scene.add.sprite(-90 + i*45, 70, 'shield').setScale(0.17, 0.17)
+          this.shields[i] = this.scene.add.sprite(-90 + i*45, 70, 'shield').setScale(0.2, 0.2)
           this.add(this.shields[i])
       }
   
