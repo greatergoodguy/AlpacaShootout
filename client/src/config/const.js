@@ -29,7 +29,7 @@ const alpacas = {
             heartMax: 3,
             ammoMax: 4,
             shieldMax: 3,
-            heart: 3,
+            heart: 1,
             ammo: 1,
             shield: 3
         }

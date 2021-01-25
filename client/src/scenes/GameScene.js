@@ -4,6 +4,7 @@ import TextButton from '../helper/TextButton'
 import Player from '../game/Player'
 import Spectator from '../game/Spectator'
 import Audience from '../game/Audience'
+import FinaleView from '../game/FinaleView'
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
@@ -38,6 +39,12 @@ export default class GameScene extends Phaser.Scene {
         this.titleBitmapText = this.add.bitmapText(config.width/2, 30, 'ashcanbb', 'Game', TITLE_FONT_SIZE)
         this.titleBitmapText.setOrigin(0.5, 0)
 
+        // This gets initialized in populateGame()
+        // If the user is a player, it will be set to P1 or P2
+        // If the user is a spectator, it will be set to SX where
+        // X is the spectator number
+        this.userLabel = ''
+
         this.players = {}
 
         let player1Data = Object.values(this.roomData.players).find(player => player.label == 'P1')
@@ -53,6 +60,9 @@ export default class GameScene extends Phaser.Scene {
 
         this.spectator = new Spectator(this, config.width/2, 700)
         this.spectator.hide()
+
+        this.finaleView = new FinaleView(this, config.width/2, 400)
+        this.finaleView.setVisible(false)
 
         this.audience = new Audience(this, config.width/2, config.height/2 + 350)
 
@@ -106,14 +116,17 @@ export default class GameScene extends Phaser.Scene {
             let player = this.players[playerlabel]
             if(userId == entry[0]) {
                 player.showButtons()
+                this.userLabel = playerlabel
             }
 
             player.showCharacter()
         })
 
         Object.entries(roomData.spectators).forEach((entry) => {
+            let spectatorlabel = entry[1].label
             if(userId == entry[0]) {
                 this.audience.showUserAsSpectator(entry[1])
+                this.userLabel = spectatorlabel
             }
             else {
                 this.audience.showOnlineSpectator(entry[1])
@@ -159,8 +172,9 @@ export default class GameScene extends Phaser.Scene {
         console.log('GameScene.finishGame()')
         console.log('roomData:')
         console.log(roomData)
-        this.game.socket.removeAllListeners()
-        this.scene.start('Room', {roomId: roomData.id, roomData: roomData})
+        console.log('gameData:')
+        console.log(gameData)
+        this.finaleView.show(gameData, roomData)
     }
 
     showActions(gameData) {

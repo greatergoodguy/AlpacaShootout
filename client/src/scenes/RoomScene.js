@@ -56,7 +56,7 @@ export default class RoomScene extends Phaser.Scene {
 
         this.spectatorSelectorView = new SpectatorSelectorView(this, config.width/2, config.height/2 + 350)
 
-        this.spectateButton = new TextButton(this, config.width/2, 1000, 'Spectate', function() {
+        this.spectateButton = new TextButton(this, config.width/2, 860, 'Spectate', function() {
             this.clickSound.play()
             this.game.socket.emit('join spectators', { roomId: this.gameData.roomId, playerId: this.game.socket.id, username: this.game.config.username})
             this.spectateButton.setVisible(false)
