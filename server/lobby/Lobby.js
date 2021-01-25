@@ -66,6 +66,14 @@ var Lobby = {
 			broadcastSlotStateUpdate(data.roomId, room)
 		}
 	},
+	onReEnterRoom: function(data) {
+		console.log('Lobby.onReEnterRoom()')
+		console.log(data)
+		var room = rooms[data.roomId]
+		if(room) {
+			this.emit("show room", room)
+		}
+	},
 	onLeaveRoom: function(data) {
 		leaveRoom.call(this)
 	},

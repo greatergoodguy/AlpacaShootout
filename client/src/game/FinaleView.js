@@ -69,7 +69,7 @@ export default class FinaleView extends Phaser.GameObjects.Container {
 
         this.finishButton.setOnButtonClick(function() {
             this.clickSound.play()
-            this.scene.scene.start('Room', {roomId: roomData.id, roomData: roomData})
+            this.scene.scene.start('Room', {roomId: roomData.id, reenterRoom: true})
         }.bind(this))
     }
 }

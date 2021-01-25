@@ -26,8 +26,10 @@ export default class RoomScene extends Phaser.Scene {
     create() {
         this.clickSound = this.sound.add('click')
 
-        if(!this.gameData.roomData) {
+        if(!this.gameData.reenterRoom) {
             this.game.socket.emit('enter room', {roomId: this.gameData.roomId, userType: this.gameData.userType, username: this.game.config.username})
+        } else {
+            this.game.socket.emit('reenter room', {roomId: this.gameData.roomId})
         }
 
         this.background = this.add.image(0, 0, 'whitePixel').setScale(config.width, config.height)
@@ -74,10 +76,6 @@ export default class RoomScene extends Phaser.Scene {
         this.backButton.setBackgroundImageScale(1, 1.2)
         this.backButton.setScale(1.1)
         this.backButton.setVisible(false)
-
-        if(this.gameData.roomData) {
-            this.populateRoom(this.gameData.roomData)
-        }
 
         this.game.socket.on("show room", this.populateRoom.bind(this))
         this.game.socket.on("player joined", this.playerJoined.bind(this))
