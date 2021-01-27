@@ -47,13 +47,15 @@ export default class CharacterInfoBox extends Phaser.GameObjects.Container {
     }
   
     initUI(data) {
-        this.maxHearts = data.heart
-        this.maxAmmo = data.ammo
-        this.maxShields = data.shield
+        console.log("initUI:")
+        console.log(data)
+        this.maxHearts = data.heartMax
+        this.maxAmmo = data.ammoMax
+        this.maxShields = data.shieldMax
 
-        this.currentHearts = this.maxHearts
-        this.currentAmmo = this.maxAmmo
-        this.currentShields = this.maxShields
+        this.currentHearts = data.heart
+        this.currentAmmo = data.ammo
+        this.currentShields = data.shield
 
         var i
         for(i = 0; i < 5; i++) {

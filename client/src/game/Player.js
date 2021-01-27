@@ -132,7 +132,15 @@ export default class Player extends Phaser.GameObjects.Container {
             this.shootButton.setEnabled()
         }
 
-        this.reloadButton.setEnabled()
+        console.log("this.characterInfoBox")
+        console.log(this.characterInfoBox)
+        console.log(this.characterInfoBox.currentAmmo)
+        console.log(this.characterInfoBox.maxAmmo)
+        if(this.characterInfoBox.currentAmmo >= this.characterInfoBox.maxAmmo) {
+            this.reloadButton.setDisabled()
+        } else {
+            this.reloadButton.setEnabled()
+        }
 
         if(this.characterInfoBox.currentShields == 0) {
             this.shieldButton.setDisabled()

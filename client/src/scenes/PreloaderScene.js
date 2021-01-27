@@ -102,8 +102,8 @@ export default class PreloaderScene extends Phaser.Scene {
         this.load.audio("gun_reload", 'client/src/assets/sounds/gun_reload.mp3')
         this.load.audio("gun_shot", 'client/src/assets/sounds/gun_shot.mp3')
 
-        //this.game.socket = io('http://localhost:3000')
-        this.game.socket = io('https://alpaca-shootout.herokuapp.com')
+        this.game.socket = io('http://localhost:3000')
+        //this.game.socket = io('https://alpaca-shootout.herokuapp.com')
 
         this.game.config.username = rug.generate()
 
