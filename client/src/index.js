@@ -30,7 +30,7 @@ class AlpacaShootout extends Phaser.Game {
     let dpi_h = (parseInt(div.style.height) / canvas.height);		
     
     let height = window.innerHeight * (dpi_w / dpi_h);
-    let width = height * 0.6;
+    let width = height * game_ratio;
     
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
